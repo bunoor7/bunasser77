@@ -39,14 +39,15 @@ TYPES = {".html": "text/html; charset=utf-8", ".json": "application/json; charse
 
 def ensure_previews(moves_dir):
     """ملف البلقن (رفع تطبيق كلود، حد 200 ملف) يحمل المعاينات zip واحد — نفكّه أول مرة."""
-    import zipfile
-    d, z = moves_dir / "previews", moves_dir / "previews.zip"
-    if z.exists():                                        # يفك الناقص بس (تحديث البنك يضيف معاينات جديدة لمجلد مفكوك من قبل)
+    import tarfile   # bunasser77: tar.gz بدل zip، لأن رفع التطبيق يرفض zip داخل zip
+    d, z = moves_dir / "previews", moves_dir / "previews.tar.gz"
+    if z.exists():                                        # يفك الناقص بس
         d.mkdir(parents=True, exist_ok=True)
-        with zipfile.ZipFile(z) as f:
-            for n in f.namelist():
-                if n.endswith(".mp4") and "/" not in n.strip("/").replace("previews/", "", 1) and not (d / Path(n).name).exists():
-                    (d / Path(n).name).write_bytes(f.read(n))
+        with tarfile.open(z) as f:
+            for m in f.getmembers():
+                n = m.name
+                if m.isfile() and n.endswith(".mp4") and "/" not in n.strip("/").replace("previews/", "", 1) and not (d / Path(n).name).exists():
+                    (d / Path(n).name).write_bytes(f.extractfile(m).read())
 
 
 def log(*a):
