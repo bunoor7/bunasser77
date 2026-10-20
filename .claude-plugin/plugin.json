@@ -1,0 +1,9 @@
+{
+  "name": "bunasser77",
+  "version": "1.0.0",
+  "description": "بلقن بو ناصر للفيديو والريلز والعرض الحي: ريلات الكلام بكابشن عربي، الموشن، البودكاست، المونتاج، الكفرات، دافنشي، الشاشة فوق الراس، إيجنت ريلز حبر أبيض، وشاشة العرض الحي.",
+  "author": { "name": "Bu Nasser" },
+  "license": "MIT",
+  "keywords": ["arabic", "video", "reels", "davinci-resolve", "presentation"],
+  "skills": ["./"]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "bunasser77",
+  "owner": { "name": "Bu Nasser" },
+  "plugins": [
+    {
+      "name": "bunasser77",
+      "source": "./",
+      "description": "بلقن بو ناصر للفيديو والريلز والعرض الحي"
+    }
+  ]
+}
