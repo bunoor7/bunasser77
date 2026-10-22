@@ -10,6 +10,7 @@
 إضافات بو ناصر (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/references/overhead-screen.md وسطره في جدول 7.x، وعبارات التشغيل في وصف video-ad-editor
 - المهارة الرئيسية bunasser77/SKILL.md
+- video-ad-editor/references/hyperframes.md وسطره في video-ad-editor و motion-video (مشاهد HyperFrames الجاهزة والرندر بالسحابة)
 
 تعديلات الدمج
 - davinci-video/find_engine.sh يبحث عن المحرّك جنبه أولاً
