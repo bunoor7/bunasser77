@@ -6,6 +6,10 @@
 - video-ad-editor/motion/moves/catalog.json ثلاثة مدخلات جديدة، و previews/101.mp4 و102.mp4 و103.mp4، و CREDITS.md ثلاثة أسطر
 - video-ad-editor/references/remotion-toolbox.md ملف جديد، وسطره في جدول 7.x بـSKILL.md، وسطر بـremotion.md، وقسم 3و بـmoves.md
 
+إضافات بو ناصر من قوقل فونتس (14 عائلة عربية، SIL OFL 1.1)
+- video-ad-editor/motion/fonts/ تسعة عشر ملف خط جديد، ونصوص رخصها بـLICENSES.txt، وسطورها بـFONT_FILES في motion/engine.js (آخر المصفوفة)
+- video-ad-editor/references/fonts.md ورقة العينات fonts-specimen.jpg وسطرها في جدول 7.x
+
 إضافات بو ناصر من ShortGPT (رخصة MIT، فكرتين بس)
 - video-ad-editor/references/dubbing.md ملف جديد (دبلجة بكتل كلام تنضغط لوقتها)، وسطره في جدول 7.x
 - video-ad-editor/references/find-shots.md قسم «خطة لقطات كاملة من كلامه»، وسطر الجدول صار يذكره

@@ -136,6 +136,26 @@ const FONT_FILES = [
   ['Tajawal', 'Tajawal-Black.ttf', '900'],
   ['Inter', 'Inter-VF.ttf', '100 900'],
   ['Amiri Quran', 'AmiriQuran-Regular.ttf', '400'],     // عثماني للقرآن بس (FX.ayahCalm 74) — SIL OFL 1.1
+  // ── خطوط قوقل فونتس العربية المضافة 23 أكتوبر 2026 (كلها SIL OFL 1.1 — النصوص بـLICENSES.txt، والدليل references/fonts.md)
+  ['Changa', 'Changa-VF.ttf', '200 800'],
+  ['El Messiri', 'ElMessiri-VF.ttf', '400 700'],
+  ['Alexandria', 'Alexandria-VF.ttf', '100 900'],
+  ['Almarai', 'Almarai-Regular.ttf', '400'],
+  ['Almarai', 'Almarai-Bold.ttf', '700'],
+  ['Almarai', 'Almarai-ExtraBold.ttf', '800'],
+  ['Rakkas', 'Rakkas-Regular.ttf', '400'],
+  ['Reem Kufi', 'ReemKufi-VF.ttf', '400 700'],
+  ['Jomhuria', 'Jomhuria-Regular.ttf', '400'],
+  ['Markazi Text', 'MarkaziText-VF.ttf', '400 700'],
+  ['Amiri', 'Amiri-Regular.ttf', '400'],
+  ['Amiri', 'Amiri-Bold.ttf', '700'],
+  ['Zain', 'Zain-Regular.ttf', '400'],
+  ['Zain', 'Zain-Bold.ttf', '700'],
+  ['Zain', 'Zain-Black.ttf', '900'],
+  ['Baloo Bhaijaan 2', 'BalooBhaijaan2-VF.ttf', '400 800'],
+  ['Playpen Sans Arabic', 'PlaypenSansArabic-VF.ttf', '100 800'],
+  ['Kufam', 'Kufam-VF.ttf', '400 900'],
+  ['Lemonada', 'Lemonada-VF.ttf', '300 700'],
 ];
 async function loadFonts(extra = []) {
   const list = FONT_FILES.map(([fam, file, weight]) => ({ fam, url: './fonts/' + file, weight })).concat(extra);
