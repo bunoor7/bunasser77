@@ -2241,5 +2241,73 @@
     if (useP) o.person(X);
   };
 
+  /* ═══ 101–103: توسعة من ريموشن (23 أكتوبر 2026) — أفكار مكتوبة من جديد بالكانفس (ما فيها كود منسوخ)، نفس العقد ═══ */
+
+  /* 101 أعمدة الصوت — مقياس صوتي متناظر: الباص بالنص والحدّة للأطراف (نفس شكل خرج visualizeAudio بريموشن). يتحرك مع الكلام لو مرّرت o.line (من توقيت الكلمات)، وإلا مع النبض.
+     للصوت الحقيقي مرّر o.levels(t) ترجّع مصفوفة 0..1 بطول n (مثلاً من FFT تحسبه برّا).
+     o: {s, e=s+6, line, y=1500, n=28, w=760, h=300, color=P.acc, gap=.35, levels} — حطها تحت الكابشن مو فوقه */
+  FX.audioBars = (ctx, t, o) => {
+    const { X, P, at } = ctx, n = o.n || 28, W = o.w || 760, H = o.h || 300, y = pick(o, 'y', 1500), e = o.e == null ? o.s + 6 : o.e;
+    const vis = at(t, o.s, o.s + 0.35, 'backOut') * (1 - at(t, e - 0.3, e, 'cubicIn')); if (vis <= ON) return;
+    let env = 0.18, lv = null;
+    if (typeof o.levels === 'function') lv = o.levels(t);
+    else if (o.line != null) {
+      const words = ctx.lineSpan(o.line).text.split(/\s+/).filter(Boolean);
+      words.forEach((_, i) => { const w = ctx.wordTime(o.line, i), a = t < w.s - 0.04 ? 0 : t <= w.e ? 1 : Math.max(0, 1 - (t - w.e) / 0.2); env = Math.max(env, a * (0.85 + 0.15 * ctx.noise1(i * 3.1, 1))); });
+    } else env = 0.25 + 0.75 * (ctx.beatPulse ? ctx.beatPulse(t, 7) : 0.5);
+    const slot = W / n, bw = slot * (1 - pick(o, 'gap', 0.35)), mid = (n - 1) / 2;
+    X.save(); X.translate(540, y); X.scale(1, vis); X.fillStyle = o.color || P.acc;
+    for (let j = 0; j < n; j++) {
+      const d = Math.abs(j - mid) / mid, k = Math.round(d * (n / 2));
+      const v = lv ? cl(+lv[Math.min(lv.length - 1, Math.round(d * (lv.length - 1)))] || 0) : cl(env * (1 - 0.55 * d) * (0.45 + 0.55 * (0.5 + 0.5 * ctx.noise1(k * 0.9 + t * 7, 5))));
+      const h = Math.max(14, v * H);
+      X.beginPath(); X.roundRect((j - mid) * slot - bw / 2, -h / 2, bw, h, bw / 2); X.fill();
+    }
+    X.restore();
+  };
+
+  /* 102 مكعّب يلف — المشهد الحالي وجه، والجديد يجي من الجنب على وجه ثاني، والمكعب كله يدور بمنظور (وجهين، ظل على الجانب الغاطس). o: {s, dur=.9, A, B, bg (الأغمق من ink/bg), depth=2200} */
+  FX.cubeTurn = (ctx, t, o) => {
+    const { X, P, E } = ctx, k = E.cubicInOut(pr(t, o.s, o.s + (o.dur || 0.9)));
+    if (k <= 0.001) { o.A(X); return; } if (k >= 0.999) { o.B(X); return; }
+    const th = Math.PI / 2 * k, c = Math.cos(th), s = Math.sin(th), D = o.depth || 2200, push = 1 - 0.16 * Math.sin(2 * th), dk = darker(P.ink, P.bg);
+    const SA = snap(X, 'cbA', o.A), SB = snap(X, 'cbB', o.B);
+    X.fillStyle = o.bg || dk; X.fillRect(0, 0, 1080, 1920);
+    const N = 64, W2 = 540;
+    // الوجه الأمامي: نقاطه (u·540، عمق -540) · الوجه اليمين: (540، u·540) — بعد الدوران حول محور طولي بنص المكعب
+    const faceA = u => { const lx = u * W2, lz = -W2, xr = lx * c + lz * s, zr = -lx * s + lz * c; return [xr, zr + W2]; };
+    const faceB = u => { const lx = W2, lz = u * W2, xr = lx * c + lz * s, zr = -lx * s + lz * c; return [xr, zr + W2]; };
+    const strips = (face, src, shade) => {
+      for (let i = 0; i < N; i++) {
+        const u0 = -1 + 2 * i / N, u1 = u0 + 2 / N, [xa, za] = face(u0), [xb, zb] = face(u1), fa = D / (D + za) * push, fb = D / (D + zb) * push, f = (fa + fb) / 2;
+        const x0 = 540 + xa * fa, x1 = 540 + xb * fb, w = x1 - x0, h = 1920 * f; if (Math.abs(w) < 0.1) continue;
+        blit(X, src, (u0 + 1) * 540, 0, 1080 / N, 1920, Math.min(x0, x1), 960 - h / 2, Math.abs(w) + 0.6, h);
+      }
+      if (shade > 0.01) { const [xa] = face(-1), [xb] = face(1), [, za] = face(-1), [, zb] = face(1), fa = D / (D + za) * push, fb = D / (D + zb) * push;
+        X.save(); X.globalAlpha = shade; X.fillStyle = '#000'; X.beginPath(); X.moveTo(540 + xa * fa, 960 - 960 * fa); X.lineTo(540 + xb * fb, 960 - 960 * fb); X.lineTo(540 + xb * fb, 960 + 960 * fb); X.lineTo(540 + xa * fa, 960 + 960 * fa); X.closePath(); X.fill(); X.restore(); }
+    };
+    // الأبعد أول: الوجه اللي يغطس (A) أخف عتمة بالبداية ويغمق، والجديد (B) يضيء
+    strips(faceA, SA, 0.45 * (1 - c)); strips(faceB, SB, 0.45 * (1 - s));
+  };
+
+  /* 103 ختم نجمة — شارة نجمية (12 رأس) تنط بنابض وتلف لين تستقر، ولمعة تعبر مرة وحدة. لكلمة مثل «جديد» أو «-50%». o: {s, out, text='جديد', sub, x=540, y=560, r=230, points=12, inner=.84, size=120, color=P.acc, textColor=P.onAcc} */
+  FX.starBadge = (ctx, t, o) => {
+    const { X, P, E, at } = ctx, x = pick(o, 'x', 540), y = pick(o, 'y', 560), r = o.r || 230, pts = o.points || 12, inn = pick(o, 'inner', 0.84), dt = t - o.s;
+    if (dt < 0) return;
+    const sp = E.spring({ stiffness: 170, damping: 11, mass: 1 })(dt), ko = o.out == null ? 0 : at(t, o.out, o.out + 0.3, 'cubicIn'), sc = Math.max(0, sp) * (1 - ko); if (sc <= ON) return;
+    const rot = -(1 - Math.min(1, sp)) * 1.1 + 0.05 * Math.sin(dt * 5) * Math.exp(-1.6 * dt), fill = o.color || P.acc, fg = o.textColor || P.onAcc || '#FFFFFF';
+    const path = () => { X.beginPath(); for (let i = 0; i < pts * 2; i++) { const a = Math.PI * i / pts - Math.PI / 2, rr = i % 2 ? r * inn : r; X[i ? 'lineTo' : 'moveTo'](Math.cos(a) * rr, Math.sin(a) * rr); } X.closePath(); };
+    X.save(); X.translate(x, y); X.scale(sc, sc); X.rotate(rot); X.lineJoin = 'round';
+    shd(X, 36, 14, 0.28); X.fillStyle = fill; X.strokeStyle = fill; X.lineWidth = 16; path(); X.fill(); X.stroke(); noShd(X);
+    X.save(); path(); X.clip(); const sh = at(t, o.s + 0.45, o.s + 1.1, 'cubicInOut');
+    if (sh > 0 && sh < 1) { X.rotate(0.5); const gx = lerp(-r * 1.6, r * 1.6, sh), gr = X.createLinearGradient(gx - 70, 0, gx + 70, 0); gr.addColorStop(0, 'rgba(255,255,255,0)'); gr.addColorStop(0.5, 'rgba(255,255,255,.4)'); gr.addColorStop(1, 'rgba(255,255,255,0)'); X.fillStyle = gr; X.fillRect(gx - 70, -r * 1.6, 140, r * 3.2); }
+    X.restore();
+    X.strokeStyle = fg; X.globalAlpha = 0.4; X.lineWidth = 5; X.beginPath(); X.arc(0, 0, r * 0.74, 0, 6.2832); X.stroke(); X.globalAlpha = 1; X.rotate(-rot);
+    const size = o.size || 120, hasSub = !!o.sub;
+    ctx.text(X, o.text || 'جديد', 0, size * (hasSub ? 0.18 : 0.33), { family: 'display', size, color: fg, maxWidth: r * 1.35 });
+    if (hasSub) ctx.text(X, o.sub, 0, size * 0.18 + 62, { family: 'body', weight: 700, size: 44, color: fg, maxWidth: r * 1.3, alpha: 0.9 });
+    X.restore();
+  };
+
   G.FX = FX;
 })();

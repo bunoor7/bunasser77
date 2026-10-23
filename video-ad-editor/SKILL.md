@@ -292,7 +292,9 @@ bash scripts/07_contact_sheet.sh <work> <work>/sheet.jpg 1.2 4.6 12.3 27.6 31.0 
 | خلفية باهتة | `references/backdrop.md` |
 | كولاج (الشاشة ورقة وهو قصاصة) | `references/collage.md` |
 | عنصر يلحق إيده — شعار يطلع من كفه (ماك) | تحت ↓ |
-| دوّر لقطة بالمعنى داخل البي-رول | `references/find-shots.md` |
+| دوّر لقطة بالمعنى داخل البي-رول، أو خطة لقطات كاملة من كلامه (مقاطع 4 إلى 5 ث بثلاثة بدائل) | `references/find-shots.md` |
+| دبلجة الريل للإنقليزي (كتل كلام بتوقيتها، تضغط لتتسع، نسخة ثانية بجنب الأصلية، ⛔ بطلبه فقط) | `references/dubbing.md` |
+| أدوات ريموشن: تصدير شفاف لدافنشي، ستيل للكفر، دفعة ريلات من JSON، نوابض جاهزة، مقياس الصوت | `references/remotion-toolbox.md` |
 | مشاهد مولّدة بالذكاء الاصطناعي (تحتاج `FAL_KEY`) | `references/gen-scenes.md` |
 | أنت بمكان ثاني وتتكلم بصوتك (أفاتار) | `references/talking-avatar.md` — ⛔ اقرأ «جُرّب وفشل» قبل أي صرف |
 | الاستوديو — يعدّل التايملاين بيده | `references/studio.md` |

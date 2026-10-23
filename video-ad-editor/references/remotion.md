@@ -23,3 +23,4 @@ bash scripts/04b_remotion.sh <work> render <work>/ad-final.mp4   # MP4 مباش�
 - مستطيلات عرض الفيديو بـ`<work>/stage.json` ونصوص الختام بـ`<work>/outro.json`.
 - المنطقة الآمنة: `"guides": true` بـ`safe.json` ثم `studio` — تشوف المناطق الحمراء حيّة.
 - ما يعرف `R_OFF` بعد.
+- تصدير شفاف (ProRes 4444 لدافنشي)، ستيل للكفر، دفعة ريلات من JSON، ونوابض جاهزة: `references/remotion-toolbox.md`.

@@ -1,5 +1,15 @@
 # سجل bunasser77
 
+## 1.1.0 (23 أكتوبر 2026)
+إضافات بو ناصر من ريموشن (احفظها عند دمج أي تحديث من المصدر، لأنها داخل ملفات المصدر)
+- video-ad-editor/motion/moves.js الحركات 101 audioBars و102 cubeTurn و103 starBadge (آخر الملف قبل G.FX)
+- video-ad-editor/motion/moves/catalog.json ثلاثة مدخلات جديدة، و previews/101.mp4 و102.mp4 و103.mp4، و CREDITS.md ثلاثة أسطر
+- video-ad-editor/references/remotion-toolbox.md ملف جديد، وسطره في جدول 7.x بـSKILL.md، وسطر بـremotion.md، وقسم 3و بـmoves.md
+
+إضافات بو ناصر من ShortGPT (رخصة MIT، فكرتين بس)
+- video-ad-editor/references/dubbing.md ملف جديد (دبلجة بكتل كلام تنضغط لوقتها)، وسطره في جدول 7.x
+- video-ad-editor/references/find-shots.md قسم «خطة لقطات كاملة من كلامه»، وسطر الجدول صار يذكره
+
 ## 1.0.0 (21 أكتوبر 2026)
 المصادر المدموجة
 - majed-video 6.0.1 (video-ad-editor, motion-video, podcast-video, montage-video, thumbnail-video) رخصة MIT

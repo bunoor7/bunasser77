@@ -2308,6 +2308,73 @@
    "bonus": false,
    "mask": "optional",
    "fallback": "الصدى على الفيديو كامل (بلا قصّ)"
+  },
+  {
+   "n": 101,
+   "id": "audioBars",
+   "name": "أعمدة الصوت",
+   "sub": "مقياس صوتي يتحرك",
+   "cat": "card",
+   "role": "card",
+   "energy": 2,
+   "families": [
+    "punch",
+    "editorial"
+   ],
+   "cues": [],
+   "desc": "مقياس أعمدة متناظر، الباص بالنص والحدّة بالأطراف، يتحرك مع الكلام (من توقيت الكلمات) أو مع النبض. للصوت الحقيقي مرّر o.levels(t).",
+   "preview": "previews/101.mp4",
+   "source": {
+    "label": "Remotion — visualizeAudio() (فكرة المقياس، مكتوبة من جديد بالكانفس)",
+    "url": "https://www.remotion.dev/docs/visualize-audio"
+   },
+   "bonus": false
+  },
+  {
+   "n": 102,
+   "id": "cubeTurn",
+   "name": "مكعّب يلف",
+   "sub": "انتقال وجه لوجه",
+   "cat": "transition",
+   "role": "transition",
+   "energy": 3,
+   "families": [
+    "punch",
+    "editorial"
+   ],
+   "cues": [
+    "reveal"
+   ],
+   "desc": "المشهد الحالي وجه مكعب والجديد على الوجه الجنب، والمكعب يدور بمنظور مع ظل على الوجه الغاطس.",
+   "preview": "previews/102.mp4",
+   "source": {
+    "label": "Remotion — transitions (مفهوم presentation + timing، والمكعب مكتوب من جديد)",
+    "url": "https://www.remotion.dev/docs/transitions/presentations"
+   },
+   "bonus": false
+  },
+  {
+   "n": 103,
+   "id": "starBadge",
+   "name": "ختم نجمة",
+   "sub": "شارة جديد أو خصم",
+   "cat": "card",
+   "role": "card",
+   "energy": 2,
+   "families": [
+    "punch"
+   ],
+   "cues": [
+    "price",
+    "cta"
+   ],
+   "desc": "شارة نجمية بـ12 رأس تنط بنابض وتلف لين تستقر، ولمعة تعبر مرة وحدة. لكلمة مثل «جديد» أو «-50%».",
+   "preview": "previews/103.mp4",
+   "source": {
+    "label": "Remotion — @remotion/shapes (فكرة النجمة، مكتوبة من جديد بالكانفس)",
+    "url": "https://remotion.dev/docs/shapes/star"
+   },
+   "bonus": false
   }
  ],
  "families": {

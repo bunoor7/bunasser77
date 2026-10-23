@@ -92,3 +92,6 @@
 | 98 | مؤشر ينقر | [Magic UI — components (Smooth Cursor, Pointer, Ripple)](https://magicui.design/docs/components) | MIT |
 | 99 | ذوبان الضوء | [gl-transitions — luma / luminance_melt](https://github.com/gl-transitions/gl-transitions/tree/master/transitions) | MIT |
 | 100 | صدى الحركة | [CapCut — Editing trends 2026](https://www.capcut.com/help/latest-capcut-editing-trends) (velocity edits) | — (ترند) |
+| 101 | أعمدة الصوت | [Remotion — visualizeAudio()](https://www.remotion.dev/docs/visualize-audio) (شكل الخرج: باص يسار وحدّة يمين، الفكرة بس، مكتوبة من جديد بالكانفس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
+| 102 | مكعّب يلف | [Remotion — transitions presentations](https://www.remotion.dev/docs/transitions/presentations) (مفهوم presentation + timing، والمكعب من عندنا بشرائح كانفس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
+| 103 | ختم نجمة | [Remotion — Star shape](https://remotion.dev/docs/shapes/star) (نجمة بعدد رؤوس ونصفين قطر، الفكرة بس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
