@@ -226,7 +226,7 @@ function pupp(){ for(const p of [process.env.PUPPETEER_PATH,'puppeteer-core','pu
 function chrome(){ if(process.env.CHROME_PATH) return process.env.CHROME_PATH; const LA=process.env.LOCALAPPDATA||'', PF=process.env.ProgramFiles||'C:/Program Files', P86=process.env['ProgramFiles(x86)']||'C:/Program Files (x86)';
   for(const c of ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',PF+'/Google/Chrome/Application/chrome.exe',P86+'/Google/Chrome/Application/chrome.exe',LA+'/Google/Chrome/Application/chrome.exe',PF+'/Microsoft/Edge/Application/msedge.exe','/usr/bin/google-chrome','/usr/bin/chromium']) if(fs.existsSync(c)) return c; throw new Error('ما لقيت كروم — حدّد CHROME_PATH'); }
 (async()=>{ const b=await pupp().launch({executablePath:chrome(),headless:'new',args:['--no-sandbox','--allow-file-access-from-files','--font-render-hinting=none','--force-color-profile=srgb']});
-  const p=await b.newPage(); p.on('pageerror',e=>console.log('PAGEERR',e.message)); p.on('console',m=>{ if(m.type()==='error') console.log(m.text()); });
+  const p=await b.newPage(); await require(path.join(SC,'local-fonts.js')).attach(p); p.on('pageerror',e=>console.log('PAGEERR',e.message)); p.on('console',m=>{ if(m.type()==='error') console.log(m.text()); });
   await p.setViewport({width:1080,height:1920,deviceScaleFactor:1});
   const th=C.theme, font=th.font||'Cairo';
   let ff=''; if(th.fontFiles) ff='<style>'+th.fontFiles.map(f=>"@font-face{font-family:'"+font+"';src:url('"+pathToFileURL(f.src).href+"');font-weight:"+(f.weight||400)+"}").join('')+'</style>';

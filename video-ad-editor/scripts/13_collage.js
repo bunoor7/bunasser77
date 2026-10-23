@@ -31,7 +31,7 @@ fs.writeFileSync(W+'collage.html',tpl.replace('<script>','<script>window.CFG='+J
 (async()=>{
   const puppeteer=resolvePuppeteer();const OUT=W+'cout/';fs.mkdirSync(OUT,{recursive:true});
   const b=await puppeteer.launch({executablePath:CHROME,headless:'new',args:['--no-sandbox','--allow-file-access-from-files']});
-  const p=await b.newPage();await p.setViewport({width:1080,height:1920});p.on('pageerror',e=>console.log('⚠️ صفحة:',String(e).slice(0,140)));
+  const p=await b.newPage(); await require('./local-fonts').attach(p);await p.setViewport({width:1080,height:1920});p.on('pageerror',e=>console.log('⚠️ صفحة:',String(e).slice(0,140)));
   await p.goto('file://'+W+'collage.html',{waitUntil:'networkidle0'});await p.evaluate(()=>window.ready);
   const plan=await p.evaluate(()=>({beats:PLAN.BEATS.map(b=>({t0:+b.t0.toFixed(2),t1:+b.t1.toFixed(2),p:b.main.p,h:b.main.h,page:!!b.page})),person:PLAN.PERSON.map(x=>[+x.a.toFixed(1),+x.b.toFixed(1)])}));
   fs.writeFileSync(W+'collage_plan.json',JSON.stringify(plan,null,1));fs.writeFileSync(W+'collage_sfx.json',JSON.stringify(await p.evaluate(()=>window.SFX)));

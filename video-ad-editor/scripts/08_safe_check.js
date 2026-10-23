@@ -92,7 +92,7 @@ const FLAT_B='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2
   const puppeteer=resolvePuppeteer();
   const b=await puppeteer.launch({executablePath:CHROME,headless:'new',
     args:['--no-sandbox','--allow-file-access-from-files','--font-render-hinting=none','--force-color-profile=srgb']});
-  const p=await b.newPage();
+  const p=await b.newPage(); await require('./local-fonts').attach(p);
   const _seen=new Set(), perr=m=>{ if(_seen.has(m)) return; _seen.add(m); process.stderr.write('[compose] '+m+'\n'); };
   p.on('pageerror',e=>perr('PAGEERR '+e.message));
   p.on('console',m=>{ if(m.type()==='error') perr(m.text()); });

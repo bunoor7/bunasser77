@@ -146,7 +146,7 @@ function titleAt(t) { for (const q of D.title || []) if (t >= q.s && t <= q.e) {
 
 (async () => {
   const b = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox', '--allow-file-access-from-files', '--force-device-scale-factor=1'] });
-  const p = await b.newPage(); await p.setViewport({ width: OW, height: OH });
+  const p = await b.newPage(); await require('./local-fonts').attach(p); await p.setViewport({ width: OW, height: OH });
   await p.goto('file://' + path.join(WORK, 'page.html'), { waitUntil: 'networkidle0' }); await p.evaluate(() => document.fonts.ready);
   const step = async t => { await p.evaluate(s => window.setFrame(s), 'file://' + frameAt(t)); await p.evaluate((c, tp, ti) => window.pose(c, tp, ti), cam(t), tapAt(t), titleAt(t)); };
   if (mode === 'preview') {

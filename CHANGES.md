@@ -9,6 +9,8 @@
 إضافات بو ناصر من قوقل فونتس (14 عائلة عربية، SIL OFL 1.1)
 - video-ad-editor/motion/fonts/ تسعة عشر ملف خط جديد، ونصوص رخصها بـLICENSES.txt، وسطورها بـFONT_FILES في motion/engine.js (آخر المصفوفة)
 - video-ad-editor/references/fonts.md ورقة العينات fonts-specimen.jpg وسطرها في جدول 7.x
+- video-ad-editor/scripts/local-fonts.js ملف جديد، وسطر attach بعد newPage في 04_render_frames.js و08_safe_check.js و16_render_pod.js و23_beatfx_render.js و30_demo.js و13_collage.js و22_hook.py (يخدم الخطوط محلياً بدل قوقل)
+- video-ad-editor/motion/fonts/manifest.json (يتولّد من FONT_FILES، عدّل الاثنين مع بعض)
 
 إضافات بو ناصر من ShortGPT (رخصة MIT، فكرتين بس)
 - video-ad-editor/references/dubbing.md ملف جديد (دبلجة بكتل كلام تنضغط لوقتها)، وسطره في جدول 7.x

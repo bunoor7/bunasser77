@@ -19,7 +19,7 @@ function pupp(){ for(const p of [process.env.PUPPETEER_PATH,'puppeteer-core','pu
 (async()=>{
   const puppeteer=pupp(); const mode=process.argv[3]||'all';
   const b=await puppeteer.launch({executablePath:findChrome(),headless:'new',args:['--no-sandbox','--allow-file-access-from-files','--font-render-hinting=none','--force-color-profile=srgb']});
-  const p=await b.newPage(); p.on('pageerror',e=>console.log('PAGEERR',e.message));
+  const p=await b.newPage(); await require('./local-fonts').attach(p); p.on('pageerror',e=>console.log('PAGEERR',e.message));
   await p.setViewport({width:1080,height:1920,deviceScaleFactor:1}); await p.setCacheEnabled(false);
   await p.goto(url(SC+'compose.PODCAST.html'),{waitUntil:'networkidle0'});
   if(theme.hook) await p.addScriptTag({path:SC+'hook-card.js'});   /* 🪝 v3.8: الهوك المكتوب أول الريل (theme.json ← hook — يكتبه 22_hook.py) */

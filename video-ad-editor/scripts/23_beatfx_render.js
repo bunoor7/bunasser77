@@ -115,7 +115,7 @@ const probe = f => { try { return JSON.parse(execFileSync('ffprobe', ['-v', 'err
   /* 4) المتصفح */
   const puppeteer = resolvePuppeteer();
   const b = await puppeteer.launch({ executablePath: findChrome(), headless: 'new', args: ['--no-sandbox', '--allow-file-access-from-files', '--force-color-profile=srgb', '--font-render-hinting=none'] });
-  const p = await b.newPage();
+  const p = await b.newPage(); await require('./local-fonts').attach(p);
   p.on('pageerror', e => process.stderr.write('[beatfx] ' + e.message + '\n'));
   p.on('console', m => { if (m.type() === 'error') process.stderr.write('[beatfx] ' + m.text() + '\n'); });
   await p.setViewport({ width: VW, height: VH, deviceScaleFactor: 1 });

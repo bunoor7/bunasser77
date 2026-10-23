@@ -60,7 +60,7 @@ async function movesInject(p){ if(await p.evaluate(()=>!!(window.FX&&window.MV))
     process.exit(1); }
   const b=await puppeteer.launch({executablePath:CHROME,headless:'new',
     args:['--no-sandbox','--allow-file-access-from-files','--font-render-hinting=none','--force-color-profile=srgb']});
-  const p=await b.newPage();
+  const p=await b.newPage(); await require('./local-fonts').attach(p);
   /* أخطاء الصفحة تطلع بالطرفية (stderr) — بدونها المشهد اللي يسقط يتخطّى بصمت وما تدري ليش ما طلع */
   const _seen=new Set(), perr=m=>{ if(_seen.has(m)) return; _seen.add(m); process.stderr.write('[compose] '+m+'\n'); };
   p.on('pageerror',e=>perr('PAGEERR '+e.message));
