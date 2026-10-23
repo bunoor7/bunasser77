@@ -1,5 +1,10 @@
 # سجل bunasser77
 
+## 1.2.0 (24 أكتوبر 2026)
+إضافات بو ناصر من مراجعة بلقن ثاني وسكل كودي انيميشن (احفظها عند دمج أي تحديث من المصدر)
+- video-ad-editor/references/teaser-structure.md ملف جديد (هيكل التيزر التشويقي وقواعده)، وسطره في جدول 7.x بـSKILL.md، وسطر بـmontage-video وسطر بـmotion-video
+- video-ad-editor/references/timing-qa.md ملف جديد (مدة المشهد على الصوت الفعلي، والفحص الصادق قبل التسليم)، وسطره في جدول 7.x، وسطر بـmontage-video وسطر بـmotion-video
+
 ## 1.1.0 (23 أكتوبر 2026)
 إضافات بو ناصر من ريموشن (احفظها عند دمج أي تحديث من المصدر، لأنها داخل ملفات المصدر)
 - video-ad-editor/motion/moves.js الحركات 101 audioBars و102 cubeTurn و103 starBadge (آخر الملف قبل G.FX)

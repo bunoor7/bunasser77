@@ -287,6 +287,8 @@ bash scripts/07_contact_sheet.sh <work> <work>/sheet.jpg 1.2 4.6 12.3 27.6 31.0 
 | أنماط القصّ: الكلام ورا الشخص، قدام اللوحة، راسك برّا المستطيل (ماك) | `references/cut-styles.md` |
 | «طبقات» للهوك: كلمة فوق الراس، ثنتين ورا الراس، الباقي قدّامه (ماك) | `references/cut-styles.md` |
 | مؤثرات على الإيقاع (قطع وزوم ورجّة على النبضة) | `references/beat-fx.md` |
+| تيزر أو إعلان تشويقي بموسيقى: إنترو ثم ترقّب ثم دروب ثم ختام | `references/teaser-structure.md` |
+| ضبط مدة المشهد على الصوت الفعلي، والفحص الصادق قبل التسليم (تقني، تصيير، مراجعة، اعتماده) | `references/timing-qa.md` |
 | حركات الكلمة، ستايلات الكابشن، الكشيدة | `references/word-fx.md` |
 | شرح كامل بلا وجه + إيقاع هادي | `references/explainer-and-pace.md` |
 | خلفية باهتة | `references/backdrop.md` |
