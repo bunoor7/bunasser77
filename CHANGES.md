@@ -1,5 +1,10 @@
 # سجل bunasser77
 
+## 1.3.0 (24 أكتوبر 2026)
+مهارات بو ناصر المستقلة (احفظها عند دمج أي تحديث من المصدر)
+- reel-review-loop و reel-style-broll-rules و hyperframes-blocks و reel-performance-review و social-hook-performance-lab مجلدات مهارات جديدة بأصلها
+- video-ad-editor/references/katana-higgsfield.md ملف جديد (كاتانا على هيغزفيلد كمسار بديل ومقارنة)، وسطره (11) بـmotion-video
+
 ## 1.2.0 (24 أكتوبر 2026)
 إضافات بو ناصر من مراجعة بلقن ثاني وسكل كودي انيميشن (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/references/teaser-structure.md ملف جديد (هيكل التيزر التشويقي وقواعده)، وسطره في جدول 7.x بـSKILL.md، وسطر بـmontage-video وسطر بـmotion-video

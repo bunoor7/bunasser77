@@ -21,6 +21,11 @@ description: المدخل الرئيسي لبلقن بو ناصر للفيديو
 | كفر ريل أو ثمبنيل يوتيوب | `bunasser77:thumbnail-video` |
 | ريل حبر أبيض من الصفر (رصد القضية، السكربت، ثم المونتاج) | `bunasser77:instagram-reels-agent` |
 | عرض تقديمي يمشي بالصوت (شاشة العرض الحي) | `bunasser77:live-stage-deck` |
+| مراجعة ريل قبل التسليم (خطة قص، معاينات، اعتماد) | `bunasser77:reel-review-loop` |
+| اختيار ستايل الريل أو ضوابط B-roll | `bunasser77:reel-style-broll-rules` |
+| بلوكات موشن جاهزة من هايبرفريمز | `bunasser77:hyperframes-blocks` |
+| أرقام أداء ريل (مشاهدات، احتفاظ، حفظ، مشاركة) | `bunasser77:reel-performance-review` |
+| تقييم هوك وكابشن وأداء حساب السوشل | `bunasser77:social-hook-performance-lab` |
 
 إذا الطلب يحتمل أكثر من مسار، اسأل سؤالاً واحداً قصيراً ثم حمّل المهارة. إذا واضح، حمّلها مباشرة بدون شرح للتوجيه.
 
