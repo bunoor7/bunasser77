@@ -17,6 +17,7 @@ description: مونتاج مقاطع بلا كلام على الإيقاع — �
 4. **دوّر لقطة بالمعنى** («قهوة تنصب»، «لقطة قريبة للمنتج») ← `references/find-shots.md`
 5. **تيزر أو إعلان تشويقي** (ترقّب ثم دروب على الإيقاع) ← `references/teaser-structure.md`
 6. **قبل التسليم** ← `references/timing-qa.md`
+7. **عجبه أسلوب مونتاج عند غيره** ← `references/style-fingerprint.md`
 
 ## ⛔ أسلوبك مع المستخدم
 
