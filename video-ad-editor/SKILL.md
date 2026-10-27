@@ -289,6 +289,8 @@ bash scripts/07_contact_sheet.sh <work> <work>/sheet.jpg 1.2 4.6 12.3 27.6 31.0 
 | مؤثرات على الإيقاع (قطع وزوم ورجّة على النبضة) | `references/beat-fx.md` |
 | تيزر أو إعلان تشويقي بموسيقى: إنترو ثم ترقّب ثم دروب ثم ختام | `references/teaser-structure.md` |
 | ضبط مدة المشهد على الصوت الفعلي، والفحص الصادق قبل التسليم (تقني، تصيير، مراجعة، اعتماده) | `references/timing-qa.md` |
+| أعجبه أسلوب فيديو أو ريل عند غيره ويبي نفس الإحساس على محتواه (بصمة إيقاع وحركة وكابشن وشكل يراجعها قبل التطبيق) | `references/style-fingerprint.md` |
+| ستايل موشن جديد أو إلهام حركة، البدء من برومت جاهز في مكتبة prompt-motion.com | `references/motion-prompt-library.md` |
 | حركات الكلمة، ستايلات الكابشن، الكشيدة | `references/word-fx.md` |
 | شرح كامل بلا وجه + إيقاع هادي | `references/explainer-and-pace.md` |
 | خلفية باهتة | `references/backdrop.md` |

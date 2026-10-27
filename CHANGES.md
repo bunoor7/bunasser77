@@ -1,5 +1,10 @@
 # سجل bunasser77
 
+## 1.3.0 (27 أكتوبر 2026)
+إضافات بو ناصر من دليل prompt-motion ومشروع Reel Studio (فكرتين بس، رخصة MIT، بلا نقل كود)
+- video-ad-editor/references/style-fingerprint.md ملف جديد (بصمة ستايل من فيديو مرجعي، يراجعها بو ناصر قبل التطبيق، وعينة قصيرة قبل البناء)، وسطره في جدول 7.x، وسطر بـmotion-video وسطر بـmontage-video
+- video-ad-editor/references/motion-prompt-library.md ملف جديد (البدء من برومت جاهز بمكتبة prompt-motion.com مع تعريب إلزامي ومراجعة الترخيص)، وسطره في جدول 7.x، وسطر بـmotion-video
+
 ## 1.2.0 (24 أكتوبر 2026)
 إضافات بو ناصر من مراجعة بلقن ثاني وسكل كودي انيميشن (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/references/teaser-structure.md ملف جديد (هيكل التيزر التشويقي وقواعده)، وسطره في جدول 7.x بـSKILL.md، وسطر بـmontage-video وسطر بـmotion-video
