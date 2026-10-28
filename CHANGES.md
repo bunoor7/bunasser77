@@ -1,5 +1,12 @@
 # سجل bunasser77
 
+## 1.3.0 (28 أكتوبر 2026)
+دمج majed-video 6.1.0 في video-ad-editor (من v6.0.1، دمج ثلاثي بلا تعارض، وكل إضافات بو ناصر باقية)
+- بنك الستايلات، 17 شكل للفيديو كله: motion/styles.js وmotion/styles/catalog.json وreferences/styles.md، وسطره في SKILL.md
+- 35_moves.py plan يختار الستايل (--style auto|none|<id>|<a>+<b>)، ويحفظه بسجل الحركات
+- engine.js وengine.html و04_render_frames.js و08_safe_check.js وmoves-compose.js وcompose.REFERENCE.html يدعمون project.style (سطر local-fonts باقي)
+- UPSTREAM_VERSION صار 6.1.0
+
 ## 1.2.0 (24 أكتوبر 2026)
 إضافات بو ناصر من مراجعة بلقن ثاني وسكل كودي انيميشن (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/references/teaser-structure.md ملف جديد (هيكل التيزر التشويقي وقواعده)، وسطره في جدول 7.x بـSKILL.md، وسطر بـmontage-video وسطر بـmotion-video
