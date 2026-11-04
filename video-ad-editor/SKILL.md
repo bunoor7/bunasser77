@@ -300,6 +300,7 @@ bash scripts/07_contact_sheet.sh <work> <work>/sheet.jpg 1.2 4.6 12.3 27.6 31.0 
 | اختيار خط عربي (22 خط محلي من قوقل فونتس، مع ورقة عينات `fonts-specimen.jpg`) | `references/fonts.md` |
 | أدوات ريموشن: تصدير شفاف لدافنشي، ستيل للكفر، دفعة ريلات من JSON، نوابض جاهزة، مقياس الصوت | `references/remotion-toolbox.md` |
 | مشاهد مولّدة بالذكاء الاصطناعي (تحتاج `FAL_KEY`) | `references/gen-scenes.md` |
+| مفردات الكاميرا والعدسة والفتحة لبرومت المشاهد المولّدة (B-roll) | `references/camera-vocab.md` |
 | أنت بمكان ثاني وتتكلم بصوتك (أفاتار) | `references/talking-avatar.md` — ⛔ اقرأ «جُرّب وفشل» قبل أي صرف |
 | الاستوديو — يعدّل التايملاين بيده | `references/studio.md` |
 
