@@ -1,5 +1,12 @@
 # سجل bunasser77
 
+## 1.5.0 (4 نوفمبر 2026)
+ربط الأدوات الخارجية المراجَعة بخط الإنتاج (احفظها عند دمج أي تحديث من المصدر)
+- video-ad-editor/scripts/42_ingest_recording.py ملف جديد (استلام تسجيل Cap أو أي مسجّل وتجهيزه، جُرّب بتسجيل تجريبي)
+- video-ad-editor/scripts/43_tools_check.py ملف جديد (فحص جاهزية الأدوات والمفاتيح قبل الإنتاج)
+- video-ad-editor/scripts/17_gen_scenes.py مزوّد موباي الاختياري (provider وendpoint وMUAPI_KEY)، غير مُجرَّب بمفتاح حقيقي، والمزوّد الافتراضي fal.ai كما هو
+- video-ad-editor/references/external-tools.md قسم «ربطها بالمحرّك»، وسطر جدول 7.x بـSKILL.md محدَّث
+
 ## 1.4.0 (4 نوفمبر 2026)
 إضافة بو ناصر من مراجعة Open-Higgsfield-AI (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/references/camera-vocab.md ملف جديد (مفردات الكاميرا والعدسة والبعد البؤري والفتحة لبرومت المشاهد المولّدة)، وسطره في جدول 7.x بـSKILL.md

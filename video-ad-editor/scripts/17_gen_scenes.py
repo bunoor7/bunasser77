@@ -17,6 +17,7 @@
   "scenes": [ {"s":"w:منو","e":"w:الجواب+","k":"paper","mode":"card","draw":[{"op":"vs","at":"w:ولا","l":"ورقة","r":"الجوال"}]} ]
 }
 المزوّد: fal.ai — المفتاح من FAL_KEY بالبيئة أو بملف .env (بمجلد الشغل أو المشروع أو البيت).
+مزوّد بديل (غير مُجرَّب بعد): Muapi.ai (خلف Open Higgsfield) — ضع "provider":"muapi" بأعلى gen.json، وبكل أصل "endpoint":"<اسم الموديل عند موباي>"، والمفتاح MUAPI_KEY. التكلفة تُقدَّر بـ0 لأنها غير معروفة، فراجع رصيدك بموقعهم.
 الموديلات: صورة = fal-ai/nano-banana (≈0.04$) · مقطع = fal-ai/wan-25-preview/text-to-video 720p (≈0.05$/ث).
 ⛔ يولّد فقط اللي ما هو موجود بمجلد gen/ (ما يعيد ولا يدفع مرتين). لو فشل طلب مرة، يوقف ويقول السبب — ما يكرّر.
 """
@@ -49,6 +50,42 @@ def _get(url, key, timeout=60):
 def _dl(url, path):
     urllib.request.urlretrieve(url, path)
 
+def _env_val(name, work):
+    v = os.environ.get(name)
+    for d in (work, os.getcwd(), os.path.expanduser("~")):
+        if v: break
+        p = os.path.join(d, ".env")
+        if os.path.exists(p):
+            for line in open(p, encoding="utf-8"):
+                if line.startswith(name + "="):
+                    v = line.split("=", 1)[1].strip().strip('"').strip("'"); break
+    return v
+
+def _muapi(key, endpoint, body, timeout=120):
+    """مزوّد Muapi: إرسال ثم استطلاع (x-api-key). الصيغة من README مشروع Open-Higgsfield-AI — لم تُجرَّب بمفتاح حقيقي."""
+    base = "https://api.muapi.ai/api/v1/"
+    hdr = {"x-api-key": key, "Content-Type": "application/json"}
+    r = urllib.request.Request(base + endpoint, data=json.dumps(body).encode(), headers=hdr)
+    q = json.load(urllib.request.urlopen(r, timeout=timeout))
+    rid = q.get("request_id") or q.get("id")
+    if not rid: raise RuntimeError("موباي ما رجّع request_id: " + json.dumps(q)[:200])
+    for _ in range(120):
+        r = urllib.request.Request(base + "predictions/%s/result" % rid, headers=hdr)
+        res = json.load(urllib.request.urlopen(r, timeout=60))
+        st = str(res.get("status", "")).lower()
+        if st == "completed": return res
+        if st in ("failed", "error"): raise RuntimeError("فشل توليد موباي: " + json.dumps(res)[:200])
+        time.sleep(5)
+    raise RuntimeError("انتهت مهلة موباي")
+
+def _muapi_url(res):
+    for k in ("outputs", "output", "url", "video", "image"):
+        v = res.get(k)
+        if isinstance(v, list) and v: v = v[0]
+        if isinstance(v, dict): v = v.get("url")
+        if isinstance(v, str) and v.startswith("http"): return v
+    raise RuntimeError("ما لقيت رابط الناتج بجواب موباي: " + json.dumps(res)[:200])
+
 def load(work):
     p = os.path.join(work, "gen.json")
     if not os.path.exists(p):
@@ -61,7 +98,8 @@ def have(work, a):
         return os.path.exists(os.path.join(g, a["k"] + "_0001.jpg"))
     return os.path.exists(os.path.join(g, a["k"] + ".jpg"))
 
-def cost(assets):
+def cost(assets, provider="fal"):
+    if provider == "muapi": return 0.0
     return sum((VID_COST_PER_S * float(a.get("dur", 5))) if a.get("kind") == "video" else IMG_COST for a in assets)
 
 def frames_of(work, k):
@@ -82,23 +120,37 @@ def main():
     if len(sys.argv) < 3: sys.exit(__doc__)
     work, cmd = sys.argv[1], sys.argv[2]
     cfg = load(work); assets = cfg.get("assets", [])
+    provider = cfg.get("provider", "fal")
     missing = [a for a in assets if not have(work, a)]
     if cmd == "cost":
-        print("الأصول: %d (ناقص %d) — التكلفة التقديرية للناقص ≈ %.2f دولار" % (len(assets), len(missing), cost(missing)))
-        for a in missing: print("  •", a["k"], a.get("kind", "image"), ("%ss" % a.get("dur", 5)) if a.get("kind") == "video" else "", "≈ %.2f$" % (VID_COST_PER_S * float(a.get("dur", 5)) if a.get("kind") == "video" else IMG_COST))
+        print("الأصول: %d (ناقص %d) — التكلفة التقديرية للناقص ≈ %.2f دولار%s" % (len(assets), len(missing), cost(missing, provider), " (موباي: غير معروفة)" if provider == "muapi" else ""))
+        for a in missing: print("  •", a["k"], a.get("kind", "image"), ("%ss" % a.get("dur", 5)) if a.get("kind") == "video" else "", ("≈ %.2f$" % (VID_COST_PER_S * float(a.get("dur", 5)) if a.get("kind") == "video" else IMG_COST)) if provider != "muapi" else "")
         return
     if cmd == "status":
         for a in assets: print(("✅" if have(work, a) else "⏳"), a["k"], a.get("kind", "image"), (("%d فريم" % frames_of(work, a["k"])) if a.get("kind") == "video" and have(work, a) else ""))
         write_studio(work, cfg); print("studio.json ← gen:", len(cfg.get("scenes", [])), "مشهد"); return
     if cmd != "fetch": sys.exit(__doc__)
-    key = _key(work)
-    if not key: sys.exit("❌ ما فيه مفتاح فال — حط FAL_KEY بالبيئة أو بملف .env")
+    key = _env_val("MUAPI_KEY", work) if provider == "muapi" else _key(work)
+    if not key: sys.exit("❌ ما فيه مفتاح — حط %s بالبيئة أو بملف .env" % ("MUAPI_KEY" if provider == "muapi" else "FAL_KEY"))
     g = os.path.join(work, "gen"); os.makedirs(g, exist_ok=True)
-    print("🎨 أولّد %d أصل (≈ %.2f دولار)" % (len(missing), cost(missing)))
+    print("🎨 أولّد %d أصل (≈ %.2f دولار) عبر %s" % (len(missing), cost(missing, provider), provider))
     for a in missing:
         k, kind, prompt = a["k"], a.get("kind", "image"), a["prompt"].strip() + ", " + NEG
         t0 = time.time()
         try:
+            if provider == "muapi":
+                ep = a.get("endpoint")
+                if not ep: sys.exit("❌ أصل «%s» بلا endpoint — موباي يحتاج اسم الموديل بكل أصل" % k)
+                body = {"prompt": prompt, "aspect_ratio": a.get("ar", "9:16" if kind == "video" else "3:4")}
+                if kind == "video": body["duration"] = int(float(a.get("dur", 5)))
+                url = _muapi_url(_muapi(key, ep, body))
+                if kind == "video":
+                    mp4 = os.path.join(g, k + ".mp4"); _dl(url, mp4)
+                    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", mp4, "-vf", "fps=30", "-q:v", "3", os.path.join(g, k + "_%04d.jpg")], check=True)
+                    print("  ✅ %s مقطع → %d فريم (%.0f ث)" % (k, frames_of(work, k), time.time() - t0))
+                else:
+                    _dl(url, os.path.join(g, k + ".jpg")); print("  ✅ %s صورة (%.0f ث)" % (k, time.time() - t0))
+                continue
             if kind == "video":
                 dur = str(int(float(a.get("dur", 5))))
                 q = _post("https://queue.fal.run/" + VID_MODEL, key, {"prompt": prompt, "aspect_ratio": a.get("ar", "9:16"), "duration": dur, "resolution": a.get("res", "720p"), "enable_prompt_expansion": False}, 60)

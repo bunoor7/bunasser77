@@ -301,7 +301,7 @@ bash scripts/07_contact_sheet.sh <work> <work>/sheet.jpg 1.2 4.6 12.3 27.6 31.0 
 | أدوات ريموشن: تصدير شفاف لدافنشي، ستيل للكفر، دفعة ريلات من JSON، نوابض جاهزة، مقياس الصوت | `references/remotion-toolbox.md` |
 | مشاهد مولّدة بالذكاء الاصطناعي (تحتاج `FAL_KEY`) | `references/gen-scenes.md` |
 | مفردات الكاميرا والعدسة والفتحة لبرومت المشاهد المولّدة (B-roll) | `references/camera-vocab.md` |
-| أدوات خارجية مجانية راجعها بو ناصر (Cap وOpen Higgsfield وOpenWhispr) ومتى تفيد الريل | `references/external-tools.md` |
+| أدوات خارجية مجانية (Cap وOpen Higgsfield وOpenWhispr): فحص جاهزيتها `43_tools_check.py` قبل الإنتاج، واستلام تسجيل Cap بـ`42_ingest_recording.py`، ومزوّد موباي للمشاهد المولّدة | `references/external-tools.md` |
 | أنت بمكان ثاني وتتكلم بصوتك (أفاتار) | `references/talking-avatar.md` — ⛔ اقرأ «جُرّب وفشل» قبل أي صرف |
 | الاستوديو — يعدّل التايملاين بيده | `references/studio.md` |
 
