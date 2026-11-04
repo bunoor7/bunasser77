@@ -4,6 +4,7 @@
 إضافة بو ناصر من مراجعة Open-Higgsfield-AI (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/references/camera-vocab.md ملف جديد (مفردات الكاميرا والعدسة والبعد البؤري والفتحة لبرومت المشاهد المولّدة)، وسطره في جدول 7.x بـSKILL.md
 - video-ad-editor/references/gen-scenes.md القاعدة 8 (وصف الكاميرا من camera-vocab.md)
+- video-ad-editor/references/external-tools.md ملف جديد (أدوات مراجَعة وما يدخل المحرّك منها)، وسطره في جدول 7.x بـSKILL.md
 
 ## 1.3.0 (28 أكتوبر 2026)
 دمج majed-video 6.1.0 في video-ad-editor (من v6.0.1، دمج ثلاثي بلا تعارض، وكل إضافات بو ناصر باقية)
