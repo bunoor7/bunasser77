@@ -1,5 +1,13 @@
 # سجل bunasser77
 
+## 1.6.0 (5 نوفمبر 2026)
+إضافة بو ناصر من مراجعة خمسة مستودعات فيديو وبي دي إف أدوات المؤثرات (احفظها عند دمج أي تحديث من المصدر)
+- video-ad-editor/references/review-tools.md ملف جديد (مراجعة الريل بـclaude-video وffmpeg-skill، مع قواعد العربي والخصوصية)، وسطره في جدول 7.x بـSKILL.md
+- video-ad-editor/references/sound-tools.md ملف جديد (تركيب Openverse وReal SFX وEarshot وجدول الاختيار)، وسطره في جدول 7.x بـSKILL.md
+- video-ad-editor/scripts/43_tools_check.py صفّان اختياريان (ffmpeg-skill وreal-sfx)
+- الأوامر لم تُجرَّب بعد على جهاز بو ناصر، والمصادر مراجَعة من الصفحات المنشورة فقط
+- مراجَعة وغير مدمجة: HyperFrames (موجود أصلاً بـhyperframes.md)، OpenMontage (AGPL ويحتاج مفاتيح مدفوعة)، Remotion (بديل HyperFrames)
+
 ## 1.5.0 (4 نوفمبر 2026)
 ربط الأدوات الخارجية المراجَعة بخط الإنتاج (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/scripts/42_ingest_recording.py ملف جديد (استلام تسجيل Cap أو أي مسجّل وتجهيزه، جُرّب بتسجيل تجريبي)

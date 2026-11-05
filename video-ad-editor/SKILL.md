@@ -302,6 +302,8 @@ bash scripts/07_contact_sheet.sh <work> <work>/sheet.jpg 1.2 4.6 12.3 27.6 31.0 
 | مشاهد مولّدة بالذكاء الاصطناعي (تحتاج `FAL_KEY`) | `references/gen-scenes.md` |
 | مفردات الكاميرا والعدسة والفتحة لبرومت المشاهد المولّدة (B-roll) | `references/camera-vocab.md` |
 | أدوات خارجية مجانية (Cap وOpen Higgsfield وOpenWhispr): فحص جاهزيتها `43_tools_check.py` قبل الإنتاج، واستلام تسجيل Cap بـ`42_ingest_recording.py`، ومزوّد موباي للمشاهد المولّدة | `references/external-tools.md` |
+| مراجعة الريل قبل التسليم بأداتي claude-video (يشوف الفيديو) وffmpeg-skill (فحص مواصفات وصوت ومناطق أمان)، أو تحليل ريل منافس (كلود كود فقط) | `references/review-tools.md` |
+| مؤثرات صوتية مجانية: Openverse وReal SFX وEarshot (تركيبها واختيار الأنسب، والرخص والمستويات بمهارة `reel-sound-layer`) | `references/sound-tools.md` |
 | أنت بمكان ثاني وتتكلم بصوتك (أفاتار) | `references/talking-avatar.md` — ⛔ اقرأ «جُرّب وفشل» قبل أي صرف |
 | الاستوديو — يعدّل التايملاين بيده | `references/studio.md` |
 

@@ -31,6 +31,12 @@ def main():
     }
     for n, pats in apps.items():
         rows.append((n + " (تطبيق مكتب)", app_found(pats), "اختياري"))
+    skills = {
+        "ffmpeg-skill (فحص الريل)": ["~/.claude/skills/ffmpeg-skill"],
+        "real-sfx (مؤثرات على الفريم)": ["~/.claude/skills/real-sfx"],
+    }
+    for n, pats in skills.items():
+        rows.append((n, app_found(pats), "اختياري"))
     for n, ok, why in rows:
         print(("✅" if ok else ("⛔" if why == "ضروري" else "➖")), n, "" if ok else ("— ناقص (%s)" % why if why == "ضروري" else "— غير موجود هنا (%s)" % why))
     miss = [n for n, ok, why in rows if not ok and why == "ضروري"]
