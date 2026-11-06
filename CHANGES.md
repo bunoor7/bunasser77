@@ -1,5 +1,9 @@
 # سجل bunasser77
 
+## 1.16.1 (7 نوفمبر 2026)
+- watch/SKILL.md شيل سطر `allowed-tools: Bash, Read, AskUserQuestion` من المصدر الأصلي (كان يخلي Claude يشغّل أوامر بلا استئذان، وتطبيق Claude يعرض البلقن «Can run code without asking»). الأداة نفسها ما تغيّرت، بس تستأذن مثل الباقي. أمر بو ناصر
+- .github/scripts/validate_plugin.py يرفض أي مهارة فيها allowed-tools عشان ما يرجع مع تحديث أداة
+
 ## 1.16.0 (7 نوفمبر 2026)
 مكتبة أصوات بو ناصر المحلية (أمره: فهرسة الأصوات اللي حطها في studio\sound وجعلها أول مصدر)
 - reel-sound-layer/scripts/sound_library.py جديد: يفهرس المجلد (النوع، الاستخدام، المدة، زمن الذروة، المقام للبادات، والمفضّل من Most used) في library.json وlibrary.md داخل مجلد الأصوات، ويبحث بـ--find. يحتاج ffmpeg فقط، ويحفظ أي تعديل يدوي "manual": true

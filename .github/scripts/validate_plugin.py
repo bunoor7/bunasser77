@@ -46,6 +46,9 @@ def main() -> int:
             errors.append(f"{path}: name {name!r} does not match folder {d!r}")
         if not re.search(r"^description:\s*\S", fm, re.M):
             errors.append(f"{path}: missing description")
+        # Bu Nasser's rule (1.16.1): no skill pre-approves tools, so Claude always asks first
+        if re.search(r"^allowed-tools:", fm, re.M):
+            errors.append(f"{path}: allowed-tools is not allowed (Claude must ask before running code)")
 
     # Claude's uploader rejects an archive with more than one plugin.json
     for dirpath, dirnames, filenames in os.walk("."):

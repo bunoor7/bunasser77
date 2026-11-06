@@ -2,7 +2,6 @@
 name: watch
 description: Watch a video (URL or local path). Downloads with yt-dlp, extracts auto-scaled frames with ffmpeg, pulls the transcript from captions (or local WhisperX / cloud Whisper fallback), and hands the result to the agent so it can answer questions about what's in the video. With a Gemini API key, Google's agentic video model watches the full video instead.
 license: MIT
-allowed-tools: Bash, Read, AskUserQuestion
 metadata:
   version: "0.3.2"
 ---
