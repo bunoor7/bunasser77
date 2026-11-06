@@ -5,7 +5,7 @@
    python3 24_podcast_wide.py render <work> [--preview 90] [--from 0]          ← الحلقة episode-wide.mp4 (أو مقطع معاينة)
    - الكاميرا اللي فيها شخصين أو أكثر = «الواسعة» (افتتاحية، سكتات، تداخل كلام، وكل --wide-every ثانية).
    - الباقي «قريبة»: تنتقل لكاميرا اللي يتكلم إذا استمر كلامه ثانية أو أكثر، وأقصر لقطة --min ثانية.
-   - الصوت من المايك الأعلى (أو ملف صوت مستقل اسمه فيه audio/mic/zoom/rode)، ومعايَر ‎-14 LUFS.
+   - الصوت من المايك الأعلى (أو ملف صوت مستقل اسمه فيه audio/mic/zoom/rode)، ومعايَر ‎-16 LUFS (حلقة يوتيوب طويلة، قرار بو ناصر 7 نوفمبر 2026).
    - ما فيه كابشن ولا قص سكتات افتراضاً — حلقة كاملة كما انقالت. ماك فقط (Vision للوجوه)."""
 import sys, os, json, glob, subprocess, importlib.util, shutil
 import numpy as np
@@ -172,7 +172,7 @@ def render(W):
     open(lst, "w").write("".join(f"file '{os.path.join(sd, f'{i:05d}.mp4')}'\n" for i in range(len(segs))))
     m = C["master"]; name = "episode-wide-preview.mp4" if prev else "episode-wide.mp4"; out = os.path.join(W, name)
     P.sh(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-ss", f"{t0+start-m['offset']:.3f}", "-t", f"{t1-t0:.3f}", "-i", m["file"],
-          "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
+          "-map", "0:v", "-map", "1:a", "-c:v", "copy", "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "192k", "-ar", "48000",
           "-shortest", "-movflags", "+faststart", out], quiet=False)
     d = P.probe(out)["dur"]
     print(f"→ {out} · {d/60:.1f} د · {len(segs)} لقطة · {os.path.getsize(out)/1e6:.0f} ميقا")

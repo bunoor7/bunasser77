@@ -55,7 +55,7 @@ python3 scripts/22_hook.py preview <work>                       # hook_sheet.jpg
 python3 scripts/24_podcast_wide.py prep   <work> <مجلد_الكاميرات>     # مزامنة بالصوت + الصوت الرئيسي + وجوه وفم (ساعة ≈ دقايق)
 python3 scripts/24_podcast_wide.py plan   <work>                      # edl.json + سطر ملخص (عدد اللقطات، نسبة كل كاميرا)
 python3 scripts/24_podcast_wide.py render <work> --preview 90         # معاينة أول دقيقة ونص — وريه قبل الكامل
-python3 scripts/24_podcast_wide.py render <work>                      # episode-wide.mp4 بصوت ‎-14 LUFS
+python3 scripts/24_podcast_wide.py render <work>                      # episode-wide.mp4 بصوت ‎-16 LUFS (يوتيوب طويل)
 ```
 - **الكاميرات:** اللي فيها شخصين أو أكثر = «واسعة» (الافتتاحية، السكتات وتداخل الكلام، ولقطة 4 ث كل 45 ث داخل الكلام الطويل). الباقي «قريبة» وتنتقل لمين يتكلم بعد ما يستمر كلامه ثانية (ما تنط على «إي» و«صح»)، وأقصر لقطة 2 ث (`--min`، `--wide-every`).
 - **كاميرا جوال طولية؟** تنعرض بنص الكادر على خلفية مغبّشة منها — بدون مغط.
