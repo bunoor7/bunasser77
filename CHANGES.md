@@ -7,6 +7,7 @@
 - bunasser77/SKILL.md سطر أن المهارات المساندة صارت داخل البلقن، وREADME جدول «المهارات المساندة»
 - فُحصت الواجهات: 42 مهارة، كل اسم يطابق مجلده، وكل اسم مهارة مذكور بالمدخل موجود داخل البلقن
 - ⚠️ النسخ المستقلة القديمة باقية بحساب بو ناصر، فبعد تثبيت هذه النسخة تطلع كل مهارة مرتين. تُحذف المستقلة من إعدادات المهارات بتطبيق Claude بيده
+- .github/workflows/release-plugin.yml بدل npm-publish.yml (كان قالب npm بلا package.json فيفشل مع أي إصدار): يفحص البلقن مع كل push، ومع نشر إصدار وسمه v<النسخة> يبني bunasser77.plugin ويرفقه بالإصدار. الفحص بـ.github/scripts/validate_plugin.py ويرفض وسماً لا يطابق plugin.json
 - مكررات لم تُدمج بعد (مهارة ومرجع بنفس الموضوع): reel-pause-policy مع video-ad-editor/references/pause-policy.md، reel-review-tools مع review-tools.md، overhead-screen-zoomout مع overhead-screen.md، reel-teaser-structure مع teaser-structure.md، cinematic-camera-prompt-vocab مع camera-vocab.md
 
 ## 1.13.0 (7 نوفمبر 2026)
