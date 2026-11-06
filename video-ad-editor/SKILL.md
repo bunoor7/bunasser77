@@ -321,6 +321,7 @@ bash scripts/07_contact_sheet.sh <work> <work>/sheet.jpg 1.2 4.6 12.3 27.6 31.0 
 | مراجعة الريل قبل التسليم بأداتي claude-video (يشوف الفيديو) وffmpeg-skill (فحص مواصفات وصوت ومناطق أمان)، أو تحليل ريل منافس (كلود كود فقط) | `references/review-tools.md` |
 | توليد لقطات وصور B-roll عبر موصّل هيغزفيلد (reframe وupscale وإزالة الخلفية، مع قواعد الصرف والرصيد) | `references/higgsfield.md` |
 | مؤثرات صوتية مجانية: Openverse وReal SFX وEarshot (تركيبها واختيار الأنسب، والرخص والمستويات بمهارة `reel-sound-layer`) | `references/sound-tools.md` |
+| سياسة السكتات حسب نوع الفيديو (شرح تُقص، حكاية ورأي تبقى ويُسأل مرة)، وفكرة ستايل الكارتون للتنويع | `references/pause-policy.md` |
 | أنت بمكان ثاني وتتكلم بصوتك (أفاتار) | `references/talking-avatar.md` — ⛔ اقرأ «جُرّب وفشل» قبل أي صرف |
 | الاستوديو — يعدّل التايملاين بيده | `references/studio.md` |
 

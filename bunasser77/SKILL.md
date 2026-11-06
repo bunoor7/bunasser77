@@ -48,6 +48,7 @@ description: المدخل الرئيسي لبلقن بو ناصر للفيديو
 - ريل تعليمي بسبورة: `reel-word-synced-board`
 - ستايل ورق مقصوص أو شرح تاريخي: `reel-cutpaper-vox-style` أو `reel-explainer-styles-archive`
 - ريل أعجبه أسلوبه: `reel-style-fingerprint`
+- قص السكتات حسب نوع الفيديو: `video-ad-editor/references/pause-policy.md`
 - لقطات B-roll: `cinematic-camera-prompt-vocab`، وإذا طلب توليد لقطات فموصّل Higgsfield بمرجع `references/higgsfield.md` وبعد إخباره بالتكلفة
 - أصول مجانية: `reel-free-assets-sources`
 - فويس بصوته المستنسخ أو دبلجة محلية: `voicestudio-local-voice`، أو ElevenLabs
