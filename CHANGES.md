@@ -1,5 +1,14 @@
 # سجل bunasser77
 
+## 1.14.0 (7 نوفمبر 2026)
+البلقن صار مصدراً واحداً كاملاً (أمر بو ناصر: نقل المهارات المستقلة داخل المستودع)
+- 32 مهارة كانت مرفوعة مستقلة بحساب بو ناصر صارت مجلدات داخل البلقن، بنصها كما هو بلا تعديل: المجموعة الأساسية (reel-style-broll-rules وأخواتها)، مهارات الموشن، الستايلات والبنى، الصوت والأصول، المراجعة، وما بعد النشر. القائمة كاملة في README
+- لم تُنقل: history-writer وmy-writing-style وrashid-content-creator (مب شغل فيديو بو ناصر)، ومهارات Anthropic العامة
+- bunasser77/SKILL.md سطر أن المهارات المساندة صارت داخل البلقن، وREADME جدول «المهارات المساندة»
+- فُحصت الواجهات: 42 مهارة، كل اسم يطابق مجلده، وكل اسم مهارة مذكور بالمدخل موجود داخل البلقن
+- ⚠️ النسخ المستقلة القديمة باقية بحساب بو ناصر، فبعد تثبيت هذه النسخة تطلع كل مهارة مرتين. تُحذف المستقلة من إعدادات المهارات بتطبيق Claude بيده
+- مكررات لم تُدمج بعد (مهارة ومرجع بنفس الموضوع): reel-pause-policy مع video-ad-editor/references/pause-policy.md، reel-review-tools مع review-tools.md، overhead-screen-zoomout مع overhead-screen.md، reel-teaser-structure مع teaser-structure.md، cinematic-camera-prompt-vocab مع camera-vocab.md
+
 ## 1.13.0 (7 نوفمبر 2026)
 طبقة أدوات الاستوديو (أمر بو ناصر: البلقن هو الأساس، ومنه نبني ونجمع أدوات استوديو إنتاج الفيديو والريلز)
 - bunasser77/references/studio-tools.md ملف جديد: من يستخدم ماذا (ffmpeg-skill وwatch وHyperFrames وRemotion)، أسماؤها على الجهاز، الخصوصية والرخص
