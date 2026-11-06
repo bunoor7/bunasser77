@@ -32,12 +32,15 @@ def main():
     }
     for n, pats in apps.items():
         rows.append((n + " (تطبيق مكتب)", app_found(pats), "اختياري"))
+    # من 1.15.0 أدوات الاستوديو مجلدات داخل البلقن نفسه، جنب video-ad-editor
+    plugin = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    inside = lambda name: os.path.join(plugin, name, "SKILL.md")
     skills = {
-        "ffmpeg-skill (فحص الريل)": ["~/.claude/skills/ffmpeg-skill"],
+        "ffmpeg-skill (فحص الريل)": [inside("ffmpeg-skill"), "~/.claude/skills/ffmpeg-skill"],
         "real-sfx (مؤثرات على الفريم)": ["~/.claude/skills/real-sfx"],
-        "watch (Claude يشوف الفيديو)": ["~/.claude/skills/watch", "~/.claude/plugins/**/claude-video*"],
-        "hyperframes (مشاهد جاهزة)": ["~/.claude/skills/hyperframes", "~/.agents/skills/hyperframes"],
-        "remotion (شاشة التعديل)": ["~/.claude/skills/remotion-best-practices", "~/.agents/skills/remotion-best-practices"],
+        "watch (Claude يشوف الفيديو)": [inside("watch"), "~/.claude/skills/watch", "~/.claude/plugins/**/claude-video*"],
+        "hyperframes (مشاهد جاهزة)": [inside("hyperframes"), "~/.claude/skills/hyperframes", "~/.agents/skills/hyperframes"],
+        "remotion (شاشة التعديل)": [inside("remotion-best-practices"), "~/.claude/skills/remotion-best-practices", "~/.agents/skills/remotion-best-practices"],
     }
     for n, pats in skills.items():
         rows.append((n, app_found(pats), "اختياري"))

@@ -36,7 +36,7 @@
 npx ffmpeg-skill
 npx ffmpeg-skill doctor
 ```
-الأدوات بـ`~/.claude/skills/ffmpeg-skill/scripts` (على ويندوز `python` بدل `python3`).
+من 1.15.0 المهارة داخل البلقن (`bunasser77:ffmpeg-skill`)، فالأدوات بمجلد `ffmpeg-skill/scripts` جنب `video-ad-editor` في البلقن، ولو ما لقيتها هناك فبـ`~/.claude/skills/ffmpeg-skill/scripts` (على ويندوز `python` بدل `python3`).
 
 | الحاجة | الأمر |
 |---|---|

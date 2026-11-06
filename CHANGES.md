@@ -1,5 +1,16 @@
 # سجل bunasser77
 
+## 1.15.0 (7 نوفمبر 2026)
+أدوات الاستوديو صارت داخل البلقن (أمر بو ناصر: كل المهارات والأدوات في بلقن واحد مرتب، ومتاحة من أي جهاز)
+- 24 مهارة أداة منسوخة كما هي من مصادرها إلى مجلدات بالبلقن: ffmpeg-skill، watch، تسع مهارات HyperFrames (hyperframes وhyperframes-cli وhyperframes-registry وmedia-use وreverse-any-video وstyle-sampling وslideshow وfigma وremotion-to-hyperframes)، وثلاث عشرة مهارة Remotion. ffmpeg-skill بلا site وdemos وevals وassets وCHANGELOG (صور وديمو فقط، 23.5 إلى 2.8 ميغا)
+- THIRD_PARTY.md وlicenses/ جديدة: المصدر والكومت والرخصة لكل أداة
+- bunasser77/SKILL.md فقرة «أدوات الاستوديو» صارت جدول توجيه بالبادئة bunasser77:، وسطر الوصف يذكر الأدوات
+- bunasser77/references/studio-tools.md وvideo-ad-editor/references/review-tools.md المسارات داخل البلقن بدل ~/.claude/skills
+- bunasser77/scripts/studio_setup.ps1 يثبّت المتطلبات فقط، ونسخ المهارات محلياً صار بخيار -LocalSkills
+- video-ad-editor/scripts/43_tools_check.py يلقى الأدوات داخل البلقن أولاً
+- 66 مهارة، والفحص بلا أخطاء. ⚠️ النسخ المحلية بـ~/.claude/skills على جهاز بو ناصر تتكرر مع البلقن بكلود كود بعد التثبيت، فتُنقل لنسخة احتياطية
+- لم تُدمج: مهاراته الشخصية العشر (مب فيديو)، وبلقنات Anthropic (Productivity وCrypto Spot Futures Analyzer) لأنها مب ملكه وتتحدث من مصدرها
+
 ## 1.14.0 (7 نوفمبر 2026)
 البلقن صار مصدراً واحداً كاملاً (أمر بو ناصر: نقل المهارات المستقلة داخل المستودع)
 - 32 مهارة كانت مرفوعة مستقلة بحساب بو ناصر صارت مجلدات داخل البلقن، بنصها كما هو بلا تعديل: المجموعة الأساسية (reel-style-broll-rules وأخواتها)، مهارات الموشن، الستايلات والبنى، الصوت والأصول، المراجعة، وما بعد النشر. القائمة كاملة في README

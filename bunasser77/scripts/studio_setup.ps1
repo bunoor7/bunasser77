@@ -1,16 +1,19 @@
 # studio_setup.ps1 - set up the bunasser77 studio tool layer on Windows (Claude Code).
-# Installs missing prerequisites with winget, then copies the skills of four open-source
-# tools into ~/.claude/skills. Never overwrites an existing skill unless -Update is given.
+# Installs missing prerequisites with winget. Since 1.15.0 the tool skills ship inside the
+# plugin, so they are NOT copied anywhere unless -LocalSkills is given (that copies them into
+# ~/.claude/skills and duplicates them if the plugin is installed too).
 #
 #   powershell -ExecutionPolicy Bypass -File studio_setup.ps1 -CheckOnly   # report only
-#   powershell -ExecutionPolicy Bypass -File studio_setup.ps1              # install what is missing
-#   powershell -ExecutionPolicy Bypass -File studio_setup.ps1 -Update      # git pull tools, refresh skills
+#   powershell -ExecutionPolicy Bypass -File studio_setup.ps1              # install missing prerequisites
+#   powershell -ExecutionPolicy Bypass -File studio_setup.ps1 -LocalSkills # also copy tool skills locally
+#   powershell -ExecutionPolicy Bypass -File studio_setup.ps1 -LocalSkills -Update  # git pull, refresh
 #
 # ASCII only on purpose: Windows PowerShell 5.1 misreads UTF-8 files without a BOM.
 
 param(
     [switch]$CheckOnly,
     [switch]$Update,
+    [switch]$LocalSkills,
     [string]$VendorDir = (Join-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) '..\vendor'),
     [string]$SkillsDir = (Join-Path $env:USERPROFILE '.claude\skills')
 )
@@ -64,8 +67,13 @@ if ($missing -and -not $CheckOnly) {
     Refresh-Path
 }
 
-Write-Host "== Tool skills -> $SkillsDir"
-if (-not $CheckOnly) { New-Item -ItemType Directory -Force $VendorDir, $SkillsDir | Out-Null }
+if (-not $LocalSkills) {
+    Write-Host "== Tool skills: bundled in the bunasser77 plugin (use -LocalSkills to copy them into $SkillsDir)"
+    $tools = [ordered]@{}
+} else {
+    Write-Host "== Tool skills -> $SkillsDir"
+    if (-not $CheckOnly) { New-Item -ItemType Directory -Force $VendorDir, $SkillsDir | Out-Null }
+}
 
 foreach ($repo in $tools.Keys) {
     $t = $tools[$repo]
@@ -98,6 +106,6 @@ foreach ($repo in $tools.Keys) {
 if ($CheckOnly) {
     if ($missing) { Write-Host "`nMissing prerequisites: $($missing -join ', ')" } else { Write-Host "`nPrerequisites ready." }
 } else {
-    Write-Host "`nDone. Start a new Claude Code session so the new skills load."
-    Write-Host "First run of watch asks local vs Gemini; ffmpeg-skill self-check: python $SkillsDir\ffmpeg-skill\scripts\_contract.py doctor"
+    Write-Host "`nDone. Start a new Claude Code session so new tools are picked up."
+    Write-Host "First run of watch asks local vs Gemini; ffmpeg-skill self-check: python <plugin>\ffmpeg-skill\scripts\_contract.py doctor"
 }

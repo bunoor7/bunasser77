@@ -26,7 +26,15 @@
 | المراجعة والجهاز | reel-review-tools، reel-windows-mcp-tools |
 | بعد النشر | reel-performance-review، social-hook-performance-lab |
 
-وأدوات الاستوديو المفتوحة (ffmpeg-skill وwatch وHyperFrames وRemotion) تُثبَّت جنب البلقن بـ`bunasser77/scripts/studio_setup.ps1`، والتفاصيل في `bunasser77/references/studio-tools.md`.
+### أدوات الاستوديو المفتوحة المصدر (داخل البلقن من 1.15.0)
+| الأداة | المهارات |
+| --- | --- |
+| فحص وقص وتسليم بـFFmpeg | ffmpeg-skill |
+| Claude يشوف الفيديو | watch |
+| HyperFrames (فيديو من HTML) | hyperframes، hyperframes-cli، hyperframes-registry، media-use، reverse-any-video، style-sampling، slideshow، figma، remotion-to-hyperframes |
+| Remotion (فيديو بـReact) | remotion-best-practices، remotion-create، remotion-render، remotion-studio، remotion-captions، remotion-maps، remotion-markup، remotion-multimedia، remotion-interactivity، remotion-docs، remotion-saas، remotion-upgrade، remotion-license |
+
+تحتاج FFmpeg وNode وPython على الجهاز، وتجهيزها بـ`bunasser77/scripts/studio_setup.ps1`. التفاصيل في `bunasser77/references/studio-tools.md`، والرخص في `THIRD_PARTY.md`.
 
 ## التنصيب
 في Claude Code
@@ -37,4 +45,4 @@
 وفي تطبيق Claude ارفع ملف `bunasser77.plugin` من صفحة الإصدارات.
 
 ## المصادر والرخصة
-محرّك الفيديو والدافنشي والعرض الحي مبنية على بلقنات ماجد الزعابي (majed-video و majed-davinci و majed-live-stage) برخصة MIT. نص الرخصة في `LICENSE`، وسجل الدمج والإضافات في `CHANGES.md`.
+محرّك الفيديو والدافنشي والعرض الحي مبنية على بلقنات ماجد الزعابي (majed-video و majed-davinci و majed-live-stage) برخصة MIT. نص الرخصة في `LICENSE`، وسجل الدمج والإضافات في `CHANGES.md`. أدوات الاستوديو لأصحابها برخصها، ومصادرها في `THIRD_PARTY.md`.

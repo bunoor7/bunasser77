@@ -2,7 +2,7 @@
 
 # أدوات الاستوديو حول البلقن (7 نوفمبر 2026)
 
-البلقن هو الأساس: المهارات داخله تقرر الشغل، والأدوات تحت تنفّذ أجزاء منه. ولا أداة تحل محل محرّك البلقن ولا قواعد بو ناصر. كلها مفتوحة المصدر ومثبّتة كمهارات بكلود كود في `~/.claude/skills`، ونسخها الأصلية في `studio/vendor` على جهازه.
+البلقن هو الأساس: المهارات داخله تقرر الشغل، والأدوات تحت تنفّذ أجزاء منه. ولا أداة تحل محل محرّك البلقن ولا قواعد بو ناصر. كلها مفتوحة المصدر، ومن النسخة 1.15.0 صارت مجلدات داخل البلقن نفسه (24 مهارة)، فتنحمل باسمها مع البادئة `bunasser77:` وتكون معه في أي جهاز. نسخها الأصلية في `studio/vendor` على جهازه، والرخص في `THIRD_PARTY.md`.
 
 ## من يستخدم ماذا
 
@@ -20,8 +20,9 @@
 
 ## الأسماء على هذا الجهاز
 
-- `watch` مثبّتة كمهارة مستقلة، فتُنادى `/watch` (مب `/watch:watch`).
-- سكربتات ffmpeg-skill بـ`~/.claude/skills/ffmpeg-skill/scripts`، وعلى ويندوز `python` بدل `python3`.
+- كل الأدوات تُنادى بالبادئة: `bunasser77:watch` و`bunasser77:ffmpeg-skill` و`bunasser77:hyperframes` وهكذا.
+- سكربتات ffmpeg-skill بمجلد `ffmpeg-skill/scripts` داخل البلقن (مسار المهارة اللي يعطيه Claude عند تحميلها)، وعلى ويندوز `python` بدل `python3`.
+- ffmpeg-skill داخل البلقن بلا صور العرض ولقطات الديمو وسجل التغييرات (للحجم فقط)، وأدواته كاملة.
 - HyperFrames: المهارات `hyperframes` و`hyperframes-cli` و`hyperframes-registry` و`media-use` و`reverse-any-video` و`slideshow` و`style-sampling`. والأداة نفسها `npx hyperframes`.
 - Remotion: `remotion-best-practices` هي المدخل، وتحتها create وrender وcaptions وmaps والباقي.
 
@@ -31,7 +32,7 @@
 powershell -ExecutionPolicy Bypass -File bunasser77/scripts/studio_setup.ps1 -CheckOnly   # يفحص بس
 powershell -ExecutionPolicy Bypass -File bunasser77/scripts/studio_setup.ps1              # يثبّت الناقص
 ```
-السكربت يثبّت بـwinget: Git وNode LTS وFFmpeg وPython 3.12 وyt-dlp وGitHub CLI، ثم ينسخ مهارات الأدوات الأربع من GitHub إلى `~/.claude/skills`، وما يلمس مهارة موجودة. بعده شغّل `python video-ad-editor/scripts/43_tools_check.py` للتأكد. التثبيت بإذن بو ناصر فقط.
+السكربت يثبّت بـwinget: Git وNode LTS وFFmpeg وPython 3.12 وyt-dlp وGitHub CLI. المهارات نفسها ما تحتاج تثبيت لأنها داخل البلقن، وخيار `-LocalSkills` (القديم) ينسخها إلى `~/.claude/skills` بس لو احتاجها بلا البلقن، وهذا يكرّرها لو البلقن مركّب. بعده شغّل `python video-ad-editor/scripts/43_tools_check.py` للتأكد. التثبيت بإذن بو ناصر فقط.
 
 ## قواعد إلزامية
 
@@ -43,4 +44,4 @@ powershell -ExecutionPolicy Bypass -File bunasser77/scripts/studio_setup.ps1    
 
 ## التحديث
 
-النسخ تحت `~/.claude/skills` ما تتحدّث لحالها. للتحديث: `git pull` في `studio/vendor/<الأداة>` ثم أعد تشغيل `studio_setup.ps1 -Update`. وبعد تحديث HyperFrames شغّل `npx hyperframes skills update`.
+النسخ داخل البلقن ما تتحدّث لحالها. للتحديث: `git pull` في `studio/vendor/<الأداة>`، ثم انسخ مجلد المهارة فوق مجلدها بالبلقن (ffmpeg-skill بلا site وdemos وevals وassets)، وارفع رقم النسخة وابنِ ملف `.plugin` جديد. وأي أداة تتحدّث تنذكر في `CHANGES.md`.
