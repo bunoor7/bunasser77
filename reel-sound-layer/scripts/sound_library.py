@@ -105,7 +105,25 @@ def build(root):
     with open(jpath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=1)
     write_md(root, sounds)
+    write_catalog_csv(root, sounds)
     print(f"\n{len(sounds)} صوت. الفهرس: {jpath}")
+
+
+# نوع الفهرس -> نوع الباقة اللي تفهمه أداة real-sfx (catalog.csv)
+REAL_SFX_TYPE = {"whoosh": "whoosh", "whoosh-hit": "whoosh", "impact": "impact", "riser": "riser",
+                 "ui-click": "click", "typing": "typing", "alert": "chime", "glitch": "glitch",
+                 "camera": "camera", "texture": "paper", "money": "foley", "mechanical": "foley",
+                 "countdown": "ui", "pad": "other", "misc": "other"}
+
+
+def write_catalog_csv(root, sounds):
+    """catalog.csv بجذر المكتبة: real-sfx تقرأ منه نوع كل صوت بدل التخمين من الاسم."""
+    import csv
+    with open(os.path.join(root, "catalog.csv"), "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["file", "type", "source", "hit", "hits_in_source"])
+        for s in sounds:
+            w.writerow([s["file"], REAL_SFX_TYPE.get(s["kind"], "other"), s["file"], 1, 1])
 
 
 def write_md(root, sounds):

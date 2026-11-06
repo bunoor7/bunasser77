@@ -1,5 +1,13 @@
 # سجل bunasser77
 
+## 1.17.0 (7 نوفمبر 2026)
+Real SFX وEarshot (أوامر التركيب اللي لصقها بو ناصر)
+- real-sfx من Clipwing صارت داخل البلقن مع أصوات uisfx الـ78 (CC0)، وconfig.json يشير لمكتبته studio\sound، وفهرسها بـstudio\sound\real-sfx-index.json. فُحصت: 102 صوت مقروءة بأنواعها
+- earshot وreal-sound (مهارتا مستودع Earshot) صارت داخل البلقن. أداة Earshot نفسها (venv وtorch وMCP) ما تركّبت: نظام الأذونات أوقف تشغيل كود خارجي، وتنتظر إذن بو ناصر
+- reel-sound-layer/scripts/sound_library.py يكتب catalog.csv بصيغة real-sfx (نوع كل صوت) جنب library.json
+- reel-sound-layer وreel-sound-tools-install: Real SFX مدمجة بدل التركيب اليدوي، وأمر Earshot بمسار ويندوز
+- THIRD_PARTY.md وlicenses/earshot-LICENSE.txt
+
 ## 1.16.1 (7 نوفمبر 2026)
 - watch/SKILL.md شيل سطر `allowed-tools: Bash, Read, AskUserQuestion` من المصدر الأصلي (كان يخلي Claude يشغّل أوامر بلا استئذان، وتطبيق Claude يعرض البلقن «Can run code without asking»). الأداة نفسها ما تغيّرت، بس تستأذن مثل الباقي. أمر بو ناصر
 - .github/scripts/validate_plugin.py يرفض أي مهارة فيها allowed-tools عشان ما يرجع مع تحديث أداة

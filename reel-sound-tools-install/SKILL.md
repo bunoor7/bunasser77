@@ -19,7 +19,12 @@ Claude لا يسمع. يضع الصوت بالتخمين فيقع على فري�
 لا تركيب. الصق الطلب في Claude Code. أبقِ فلتر الرخصة على cc0,pdm كما في reel-sound-layer، ولا تستخدم cc0,by إلا بعد إخبار المستخدم وتسجيل اسم صاحب الصوت في attribution.txt.
 
 ## Real SFX من Clipwing
-يحتاج بايثون وffmpeg.
+**من 1.17.0 صارت داخل البلقن** (`bunasser77:real-sfx`) ومعها أصوات uisfx الـ78، ومضبوطة على مكتبة بو ناصر (`studio\sound`) بملف `real-sfx/config.json`، وفهرسها بـ`studio\sound\real-sfx-index.json`. ما تحتاج تركيب، تحتاج بايثون وffmpeg بس.
+- فحص: `python real-sfx/scripts/setup.py check`
+- إذا ضاف بو ناصر أصواتاً: شغّل `python reel-sound-layer/scripts/sound_library.py` (يحدّث catalog.csv) ثم `python real-sfx/scripts/build_index.py`
+- على جهاز ثاني مساره مختلف: `REAL_SFX_CONFIG` يشير لملف config خاص بذاك الجهاز.
+
+طريقة التركيب القديمة (لو احتاجها بلا البلقن):
 ```
 git clone https://github.com/Clipwing/skills
 cp -R skills/skills/real-sfx ~/.claude/skills/
@@ -27,7 +32,7 @@ cd ~/.claude/skills/real-sfx
 python3 scripts/setup.py init --uisfx
 python3 scripts/setup.py check
 ```
-الخيار uisfx يضيف 78 صوت واجهة مجانية، مفيدة لأصوات ظهور النص والنقرات. بعد التركيب أضف مجلد أصوات المستخدم. طلب جاهز لـ Claude Code
+طلب جاهز لـ Claude Code
 ```
 Add sound design to out/promo.mp4 with real-sfx
 ```
@@ -42,11 +47,12 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -e ".[mcp,llm,dev]"
 claude mcp add earshot --scope user -- $PWD/.venv/bin/python -m earshot mcp
 ```
-على ويندوز يكون مسار بايثون داخل البيئة .venv\Scripts\python بدل .venv/bin/python.
-في المستودع مهارتان إضافيتان، تُنسخان إلى مجلد skills في Claude. طلب جاهز
+على ويندوز يكون مسار بايثون داخل البيئة .venv\Scripts\python بدل .venv/bin/python، وأمر المهارة يصير:
+`claude mcp add earshot --scope user -- C:\Users\bunoo\Videos\Reels\studio\vendor\earshot\.venv\Scripts\python.exe -m earshot mcp`
+مهارتا المستودع (`earshot` و`real-sound`) **صارت داخل البلقن من 1.17.0**، بس الأداة نفسها (بايثون وtorch وMCP) لازم تتركّب على الجهاز، والتركيب بإذن بو ناصر. طلب جاهز
 ```
 Use earshot to make a soft whoosh, 0.8 s long
 ```
 
 ## ترتيب الاستخدام
-نفس ترتيب reel-sound-layer. Openverse وسونيس أولًا، ثم Real SFX للتوزيع على الفريم مع محاذاة الذروة، ثم Earshot أو إيليفن لابز لما ينقص.
+نفس ترتيب reel-sound-layer. مكتبة بو ناصر المحلية ثم سونيس وOpenverse، ثم Real SFX للتوزيع على الفريم مع محاذاة الذروة، ثم Earshot أو إيليفن لابز لما ينقص.
