@@ -1,5 +1,13 @@
 # سجل bunasser77
 
+## 1.16.0 (7 نوفمبر 2026)
+مكتبة أصوات بو ناصر المحلية (أمره: فهرسة الأصوات اللي حطها في studio\sound وجعلها أول مصدر)
+- reel-sound-layer/scripts/sound_library.py جديد: يفهرس المجلد (النوع، الاستخدام، المدة، زمن الذروة، المقام للبادات، والمفضّل من Most used) في library.json وlibrary.md داخل مجلد الأصوات، ويبحث بـ--find. يحتاج ffmpeg فقط، ويحفظ أي تعديل يدوي "manual": true
+- reel-sound-layer/references/bunasser-library.md نسخة من الفهرس (102 صوت، 14 نوعاً) عشان Claude يعرف المكتبة حتى بالجلسة السحابية
+- reel-sound-layer/SKILL.md المكتبة المحلية صارت المصدر الأول (قبل سونيس)، مع قواعد المفضّل والبادات حسب المقام، وتحذير أن أغلبها من مكتبات مدفوعة فلا تدخل البلقن ولا تُرسل
+- bunasser77/SKILL.md ترتيب المصادر في قاعدة المؤثرات التلقائية
+- الأصوات نفسها (555 ميغا) باقية على جهازه وما دخلت البلقن
+
 ## 1.15.0 (7 نوفمبر 2026)
 أدوات الاستوديو صارت داخل البلقن (أمر بو ناصر: كل المهارات والأدوات في بلقن واحد مرتب، ومتاحة من أي جهاز)
 - 24 مهارة أداة منسوخة كما هي من مصادرها إلى مجلدات بالبلقن: ffmpeg-skill، watch، تسع مهارات HyperFrames (hyperframes وhyperframes-cli وhyperframes-registry وmedia-use وreverse-any-video وstyle-sampling وslideshow وfigma وremotion-to-hyperframes)، وثلاث عشرة مهارة Remotion. ffmpeg-skill بلا site وdemos وevals وassets وCHANGELOG (صور وديمو فقط، 23.5 إلى 2.8 ميغا)
