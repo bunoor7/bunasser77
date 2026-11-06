@@ -47,6 +47,12 @@ def main() -> int:
         if not re.search(r"^description:\s*\S", fm, re.M):
             errors.append(f"{path}: missing description")
 
+    # Claude's uploader rejects an archive with more than one plugin.json
+    for dirpath, dirnames, filenames in os.walk("."):
+        dirnames[:] = [d for d in dirnames if d not in (".git", "dist", "node_modules")]
+        if "plugin.json" in filenames and os.path.normpath(dirpath) != ".claude-plugin":
+            errors.append(f"{os.path.join(dirpath, 'plugin.json')}: extra plugin manifest (only .claude-plugin/plugin.json allowed)")
+
     if "--tag" in sys.argv:
         tag = sys.argv[sys.argv.index("--tag") + 1]
         version = manifests.get("plugin.json", {}).get("version")
