@@ -13,7 +13,7 @@ def env_key(name, dirs):
     return False
 
 def app_found(patterns):
-    return any(glob.glob(os.path.expandvars(os.path.expanduser(p))) for p in patterns)
+    return any(glob.glob(os.path.expandvars(os.path.expanduser(p)), recursive=True) for p in patterns)
 
 def main():
     work = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.getcwd()
@@ -22,6 +22,7 @@ def main():
     rows = []
     for b in ("ffmpeg", "ffprobe", "node", "python3" if not win else "python"):
         rows.append((b, bool(shutil.which(b)), "ضروري"))
+    rows.append(("yt-dlp (لأداة watch)", bool(shutil.which("yt-dlp")), "اختياري"))
     rows.append(("FAL_KEY (توليد المشاهد الافتراضي)", env_key("FAL_KEY", dirs), "للمشاهد المولّدة"))
     rows.append(("MUAPI_KEY (بديل Open Higgsfield)", env_key("MUAPI_KEY", dirs), "اختياري"))
     apps = {
@@ -34,6 +35,9 @@ def main():
     skills = {
         "ffmpeg-skill (فحص الريل)": ["~/.claude/skills/ffmpeg-skill"],
         "real-sfx (مؤثرات على الفريم)": ["~/.claude/skills/real-sfx"],
+        "watch (Claude يشوف الفيديو)": ["~/.claude/skills/watch", "~/.claude/plugins/**/claude-video*"],
+        "hyperframes (مشاهد جاهزة)": ["~/.claude/skills/hyperframes", "~/.agents/skills/hyperframes"],
+        "remotion (شاشة التعديل)": ["~/.claude/skills/remotion-best-practices", "~/.agents/skills/remotion-best-practices"],
     }
     for n, pats in skills.items():
         rows.append((n, app_found(pats), "اختياري"))

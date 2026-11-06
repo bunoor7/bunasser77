@@ -1,5 +1,14 @@
 # سجل bunasser77
 
+## 1.13.0 (7 نوفمبر 2026)
+طبقة أدوات الاستوديو (أمر بو ناصر: البلقن هو الأساس، ومنه نبني ونجمع أدوات استوديو إنتاج الفيديو والريلز)
+- bunasser77/references/studio-tools.md ملف جديد: من يستخدم ماذا (ffmpeg-skill وwatch وHyperFrames وRemotion)، أسماؤها على الجهاز، الخصوصية والرخص
+- bunasser77/scripts/studio_setup.ps1 ملف جديد: يفحص ويثبّت المتطلبات بـwinget وينسخ مهارات الأدوات الأربع إلى ~/.claude/skills بلا مسح الموجود (-CheckOnly و-Update)
+- bunasser77/SKILL.md فقرة «أدوات الاستوديو» ضمن المهارات والأدوات
+- video-ad-editor/scripts/43_tools_check.py صفوف yt-dlp وwatch وhyperframes وremotion
+- video-ad-editor/references/review-tools.md اسم الأمر `/watch` عند التثبيت كمهارة مستقلة
+- مثبّتة على جهاز بو ناصر ونجحت فحوصها الذاتية (watch وffmpeg-skill doctor وhyperframes 0.9.19)، لكن لم تُجرَّب على ريل كامل. OpenMontage باقٍ غير مدمج
+
 ## 1.12.0 (6 نوفمبر 2026)
 إضافة بو ناصر من مراجعة Reel Studio 3.0 (احفظها عند دمج أي تحديث من المصدر)
 - video-ad-editor/references/pause-policy.md ملف جديد (سياسة السكتات حسب نوع الفيديو، وفكرة ستايل الكارتون، وسطره في جدول 7.x بـSKILL.md)

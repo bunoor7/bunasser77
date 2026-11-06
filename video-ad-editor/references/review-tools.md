@@ -12,7 +12,7 @@
 /plugin marketplace add bradautomates/claude-video
 /plugin install watch@claude-video
 ```
-المتطلبات: بايثون 3.10 فأعلى وffmpeg وyt-dlp. على ويندوز: `winget install --id Gyan.FFmpeg --exact` و`winget install --id yt-dlp.yt-dlp --exact`. يُنادى بـ`/watch:watch` أو «استخدم مهارة watch».
+المتطلبات: بايثون 3.10 فأعلى وffmpeg وyt-dlp. على ويندوز: `winget install --id Gyan.FFmpeg --exact` و`winget install --id yt-dlp.yt-dlp --exact`. يُنادى بـ`/watch:watch` لو مثبّت كبلقن، أو `/watch` لو مثبّت كمهارة مستقلة (هذا اللي على جهاز بو ناصر عبر `bunasser77/scripts/studio_setup.ps1`، والتفاصيل بـ`bunasser77/references/studio-tools.md`).
 
 **متى:**
 - مراجعة النسخة النهائية قبل التسليم، وطلب ملاحظات بالثواني على الهوك والإيقاع والكابشن.
