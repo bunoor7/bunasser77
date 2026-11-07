@@ -746,6 +746,9 @@ function makeCtx(sc) {
     particles3D, particles2D, drawPath, pathInfo,
     // images
     images: S.images, img: name => S.images[name],
+    // 🎞 لقطات فيديو كتسلسل صور (project.seqs) — ctx.seq('v01', ثانية, {mode:'clamp'|'loop'|'pingpong', rate}) ترجع الصورة أو null
+    seq: (name, time, o) => seqGet(name, time, o), seqInfo: name => (S.proj.seqs || {})[name],
+    cover: (X, im, o) => drawCover(X, im, o),
     // motion-kit (2D) — globals X/BG/INK/ACC/FONT are set before every draw
     get MK() { return G.MK; },
     // moves.js — مكتبة حركات المعرض المرقّم: ctx.FX.<اسم>(ctx, t, o) (references/moves.md)
@@ -888,20 +891,53 @@ function renderFrame(t) {
   M.lastT = t;
 }
 M.renderFrame = renderFrame;
+/* ─── 🎞 seqs: لقطات الفيديو (B-roll) كفريمات JPG — project.seqs {name:{dir,fps,count,ext?}}
+   الرسم متزامن، فـ M.prepare(t) يسوي تمريرة جمع (يرسم الفريم ويسجّل الفريمات المطلوبة) ثم يحمّلها وينتظر — render.js يناديه قبل كل فريم */
+const SEQC = new Map(); let SEQNEED = null;
+function seqIndex(info, time, o = {}) {
+  const n = info.count, fr = Math.floor(Math.max(0, time) * (o.rate || 1) * info.fps + 1e-6);
+  const m = o.mode || 'clamp';
+  if (m === 'loop') return ((fr % n) + n) % n;
+  if (m === 'pingpong') { const q = fr % (2 * n - 2); return q < n ? q : 2 * n - 2 - q; }
+  return Math.min(n - 1, Math.max(0, fr));
+}
+function seqGet(name, time, o) {
+  const info = (S.proj.seqs || {})[name]; if (!info) throw new Error('seq غير معرّف: ' + name);
+  const i = seqIndex(info, time, o), key = name + ':' + i;
+  if (SEQNEED) SEQNEED.add(key);
+  const im = SEQC.get(key); if (im) { SEQC.delete(key); SEQC.set(key, im); }
+  return im || null;
+}
+function seqURL(key) { const [name, i] = key.split(':'), info = S.proj.seqs[name]; return PROJ + info.dir + '/f_' + String(+i + 1).padStart(5, '0') + '.' + (info.ext || 'jpg'); }
+M.prepare = async t => {
+  if (!S.proj.seqs) return;
+  SEQNEED = new Set();
+  try { renderFrame(t); } finally { var need = [...SEQNEED]; SEQNEED = null; }
+  await Promise.all(need.filter(k => !SEQC.has(k)).map(async k => { const im = await loadImage(seqURL(k)); try { await im.decode(); } catch (e) {} SEQC.set(k, im); }));
+  while (SEQC.size > 120) SEQC.delete(SEQC.keys().next().value);
+};
+/* drawCover(X, img, {x,y,w,h, zoom=1, ox=0, oy=0, alpha}) — يملأ المستطيل (cover) مع زوم وإزاحة (ox/oy من -1 إلى 1) */
+function drawCover(X, im, o = {}) {
+  if (!im) return;
+  const x = o.x ?? 0, y = o.y ?? 0, w = o.w ?? S.W, h = o.h ?? S.H, z = o.zoom ?? 1;
+  const iw = im.naturalWidth || im.width, ih = im.naturalHeight || im.height, sc = Math.max(w / iw, h / ih) * z;
+  const dw = iw * sc, dh = ih * sc, dx = x + (w - dw) / 2 + (o.ox || 0) * (dw - w) / 2, dy = y + (h - dh) / 2 + (o.oy || 0) * (dh - h) / 2;
+  X.save(); if (o.alpha != null) X.globalAlpha *= o.alpha; X.beginPath(); X.rect(x, y, w, h); X.clip(); X.drawImage(im, dx, dy, dw, dh); X.restore();
+}
 M.frameData = (t, type = 'image/jpeg', q = 0.95) => { renderFrame(t); return OUT.toDataURL(type, q); };
 M.frameJPEG = (t, q = 0.95) => M.frameData(t, 'image/jpeg', q);
 M.framePNG = t => M.frameData(t, 'image/png');
 /* contact sheet of times → PNG dataURL */
-M.contactSheet = (times, cols = 4, thumbW = 270) => {
+M.contactSheet = async (times, cols = 4, thumbW = 270) => {
   const th = Math.round(thumbW * S.H / S.W), rows = Math.ceil(times.length / cols), pad = 14, lab = 34;
   const c = makeCanvas(cols * (thumbW + pad) + pad, rows * (th + pad + lab) + pad), X = c.getContext('2d');
   X.fillStyle = '#161616'; X.fillRect(0, 0, c.width, c.height);
-  times.forEach((t, i) => {
-    renderFrame(t); const x = pad + (i % cols) * (thumbW + pad), y = pad + Math.floor(i / cols) * (th + pad + lab);
+  for (const [i, t] of times.entries()) {
+    await M.prepare(t); renderFrame(t); const x = pad + (i % cols) * (thumbW + pad), y = pad + Math.floor(i / cols) * (th + pad + lab);
     X.drawImage(OUT, x, y, thumbW, th);
     X.fillStyle = '#eee'; X.font = '600 22px Inter'; X.textAlign = 'left'; X.direction = 'ltr';
     const f = Math.round(t * S.fps); X.fillText(`t=${t.toFixed(2)}s  f${f}`, x + 4, y + th + 26);
-  });
+  }
   return c.toDataURL('image/png');
 };
 M.state = S;                                           // debug/inspection only

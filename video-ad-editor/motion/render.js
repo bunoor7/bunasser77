@@ -13,7 +13,23 @@ const fs = require('fs'), path = require('path'), http = require('http'), { spaw
 require('./vendor.js')();
 const ROOT = path.resolve(__dirname, '..');                        // video-ad-editor (serves /motion, /scripts)
 const LOGOS = path.resolve(__dirname, '../../hook-assets/logos');
-const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const CHROME = process.env.CHROME || (process.platform === 'win32'
+  ? ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', 'C:/Program Files/Microsoft/Edge/Application/msedge.exe'].find(f => fs.existsSync(f))
+  : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome');
+/* ويندوز: puppeteer.launch مع إيدج يطلع «Code: 0» (المشغّل يسلّم لعملية ثانية) — نشغّله بأنفسنا ونتصل بمنفذ الديبَغ */
+async function launchWin(args) {
+  const os = require('os'), { spawn } = require('child_process');
+  const ud = fs.mkdtempSync(path.join(os.tmpdir(), 'motion-'));
+  const ch = spawn(CHROME, ['--headless=new', '--remote-debugging-port=0', '--user-data-dir=' + ud, '--no-first-run', '--no-default-browser-check', ...args, 'about:blank'], { stdio: 'ignore' });
+  const f = path.join(ud, 'DevToolsActivePort');
+  for (let i = 0; i < 150 && !fs.existsSync(f); i++) await new Promise(r => setTimeout(r, 200));
+  if (!fs.existsSync(f)) throw new Error('ما اشتغل المتصفح: ' + CHROME);
+  const [port, wsp] = fs.readFileSync(f, 'utf8').split(/\r?\n/);
+  const b = await puppeteer.connect({ browserWSEndpoint: `ws://127.0.0.1:${port.trim()}${wsp.trim()}`, defaultViewport: null, protocolTimeout: 600000 });
+  const close = b.close.bind(b);
+  b.close = async () => { try { await close(); } catch (e) {} try { ch.kill(); } catch (e) {} setTimeout(() => { try { fs.rmSync(ud, { recursive: true, force: true }); } catch (e) {} }, 1500); };
+  return b;
+}
 let puppeteer; try { puppeteer = require('puppeteer-core'); } catch (e) { puppeteer = require(path.resolve(__dirname, '../../node_modules/puppeteer-core')); }
 
 const argv = process.argv.slice(2);
@@ -74,10 +90,8 @@ function encode(frameDir, fps, out, startNumber = 0, count = null) {
 (async () => {
   const srv = await serve(), port = srv.address().port;
   if (mode === 'serve') { console.log(`▶ افتح: http://127.0.0.1:${port}/motion/engine.html?proj=/proj/${SAFE ? '&safe=1' : ''}\n  (Ctrl+C للإيقاف)`); return; }
-  const browser = await puppeteer.launch({
-    executablePath: CHROME, headless: true,
-    args: [...require('../scripts/_chrome_flags.js')(), '--enable-unsafe-webgpu', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows', '--force-color-profile=srgb', '--hide-scrollbars', '--mute-audio', '--disable-features=CalculateNativeWinOcclusion'],
-  });
+  const BARGS = [...require('../scripts/_chrome_flags.js')(), '--enable-unsafe-webgpu', '--disable-background-timer-throttling', '--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows', '--force-color-profile=srgb', '--hide-scrollbars', '--mute-audio', '--disable-features=CalculateNativeWinOcclusion'];
+  const browser = process.platform === 'win32' ? await launchWin(BARGS) : await puppeteer.launch({ executablePath: CHROME, headless: true, args: BARGS });
   const R = path.join(PROJ, 'renders');
   try {
     const page = await openPage(browser, port, SAFE && mode === 'preview');
@@ -88,11 +102,11 @@ function encode(frameDir, fps, out, startNumber = 0, count = null) {
       const times = rest.length ? rest.map(Number) : [0, info.duration * .25, info.duration * .5, info.duration * .75, info.duration - 1 / fps];
       const dir = path.join(R, 'preview'); fs.mkdirSync(dir, { recursive: true });
       for (const t of times) {
-        const t0 = Date.now(); const d = await page.evaluate(t => MOTION.framePNG(t), t);
+        const t0 = Date.now(); const d = await page.evaluate(async t => { if (MOTION.prepare) await MOTION.prepare(t); return MOTION.framePNG(t); }, t);
         const f = path.join(dir, `t${t.toFixed(3).padStart(8, '0')}.png`); fs.writeFileSync(f, b64(d)); console.log(`  ✓ ${path.relative(PROJ, f)}  (${Date.now() - t0} ms)`);
       }
       const gpu = await page.evaluate('MOTION.gpu'); if (gpu) console.log('  GPU: ' + gpu);
-      const sheet = await page.evaluate((ts) => MOTION.contactSheet(ts, Math.min(ts.length, 5)), times);
+      const sheet = await page.evaluate(async (ts) => await MOTION.contactSheet(ts, Math.min(ts.length, 5)), times);
       fs.writeFileSync(path.join(dir, 'contact.png'), b64(sheet)); console.log('  ✓ renders/preview/contact.png');
       return;
     }
@@ -114,7 +128,7 @@ function encode(frameDir, fps, out, startNumber = 0, count = null) {
     await Promise.all(pages.map(async pg => {
       while (next < todo.length) {
         const f = todo[next++], t = f / fps, s = Date.now();
-        const d = await pg.evaluate((t, q) => { const a = performance.now(); const u = MOTION.frameJPEG(t, q); return [u, performance.now() - a]; }, t, Q);
+        const d = await pg.evaluate(async (t, q) => { const a = performance.now(); if (MOTION.prepare) await MOTION.prepare(t); const u = MOTION.frameJPEG(t, q); return [u, performance.now() - a]; }, t, Q);
         const p = path.join(frameDir, `f_${String(f).padStart(6, '0')}.jpg`); fs.writeFileSync(p + '.tmp', b64(d[0])); fs.renameSync(p + '.tmp', p);
         renderMs += d[1]; done++;
         if (done % 30 === 0 || done === todo.length) {

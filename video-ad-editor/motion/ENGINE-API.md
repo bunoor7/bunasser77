@@ -21,7 +21,7 @@ motion/
 myproj/
   project.json   settings (you write it)
   script.json    [{id, text, rate?, pitch?, voice?, gap_after?}]   (you write it; Kuwaiti dialect)
-  sfx.json       [{type, at, gain?, dur?, pitch?, pan?}]            (optional)
+  sfx.json       [{file|type, at, gain?, anchor?, dur?, pitch?, pan?}] (optional; file first: '@sound/…' = the user's library, type = code-made fallback)
   scenes/*.js    one file per scene
   assets/        images (declared in project.images)
   vo/  timeline.json  renders/   (generated)
@@ -33,6 +33,7 @@ myproj/
   "palette": { "bg": "#F0EBE0", "ink": "#1B1A17", "acc": "#D97757", "clay": "#C15F3C", "hi": "#E8A283", "mut": "#8A847A" },
   "fonts": { "display": "Lalezar", "body": "IBM Plex Sans Arabic", "num": "Inter" },
   "images": { "mark": "@logos/claude_mark.png", "shot": "assets/shot.png" },
+  "seqs": { "v01": { "dir": "seq/01", "fps": 24, "count": 120 } },
   "post": { "grain": 0.04, "vignette": 0.25 },
   "voice": { "name": "<the voice the user picked>", "rate": "+20%", "pitch": "-6Hz" },
   "timing": { "snap": "half", "snapTarget": "line", "snapLines": "all", "leadIn": 0.25, "gap": 0.15, "startPad": 0.2, "tail": 0.6 },
@@ -91,6 +92,7 @@ For a custom transition, set `type: (X, A, B, k, opts) => {…}`. A and B are th
 | Group | Members |
 |---|---|
 | canvas | `X` (current 2D context), `OUT` (final composite), `W`, `H`, `fps`, `P`/`palette`, `resetTransform(X?)`, `img(name)`, `images` |
+| video b-roll | `seq(name, time, {mode:'clamp'/'loop'/'pingpong', rate})` returns the frame image of a JPG sequence declared in `project.seqs` (frames `dir/f_00001.jpg`; extract with `ffmpeg -i clip.mp4 -vf fps=24,scale=1080:1920:flags=lanczos -q:v 2 seq/01/f_%05d.jpg`), `seqInfo(name)`, `cover(X, im, {x,y,w,h,zoom,ox,oy,alpha})` draws any image cover-fit. Frames load before each frame via `MOTION.prepare(t)` (LRU of 120) |
 | scene | `scene` (`{id,start,end,dur,lines,transition}`), `project`, `timeline` |
 | random | `rng(salt)` returns r() in [0,1) seeded by scene id+salt, with `r.range(a,b)`, `r.int`, `r.pick`, `r.sign`, `r.gauss`. `seeded(seed)`, `noise1(x,seed)`, `noise2(x,y,seed)`, `fbm(x,y,oct,seed)`, `hash01(...)` |
 | easing | `E.linear`, `E.{quad,cubic,quart,quint,sine,expo,circ}{In,Out,InOut}`, `E.backIn/backOut/backInOut`, `E.back(s)`, `E.elasticOut/elasticIn`, `E.elastic(amp,per)`, `E.bounceIn/Out`, `E.spring({stiffness,damping,mass,velocity})(seconds)`, `E.springK(k)`, `E.bezier(x1,y1,x2,y2)(k)`, `E.snappy`, `E.smooth`, `E.anticipate` |
@@ -170,6 +172,7 @@ node render.js <proj> serve                  # live scrub/play player in your br
 node render.js <proj> all --scale 0.5        # fast draft → renders/video_s0.5.mp4
 node render.js <proj> all                    # final frames (resume) → renders/video.mp4 (H.264 crf16 60fps bt709 faststart)
 node render.js <proj> all --fresh            # after editing scenes (resume would keep stale frames)
+# Windows: render.js starts Edge (or Chrome) itself. Set GL=gpu to draw on the real GPU through ANGLE D3D11 (about 4x faster than SwiftShader) and use --workers 3
 node render.js <proj> range 4 6              # re-render seconds 4..6 only (delete those frames first, or use --fresh)
 node render.js <proj> bench                  # cost split: CPU submit vs GPU+readback+JPEG
 python3 audio.py <proj> [--no-bed]           # bed + sfx + VO → -14 LUFS / TP ≤ -1.5 → renders/final.mp4
@@ -183,7 +186,7 @@ python3 audio.py <proj> --audition           # every sfx as its own wav in rende
 - Determinism: repeated renders are bit-identical except for rare ±1/255 GPU rounding on a pixel or so.
 
 ## 8. Audio notes
-- ⛔ **The person's own voice is never cut inside speech** (8 Oct 2026: whisper-edge cuts clipped first words and sentence ends). `voice.py --own` keeps every sample: the line wavs concatenated equal `vo/_own_clean_full.wav` exactly. Don't trim own-voice lines by word times anywhere else, and don't add a limiter. `audio.py` auto-picks ‎-20 LUFS for own voice (‎-14 for TTS); louder than ‎-20 needs a limiter that changes the voice — ask the user first.
+- ⛔ **The person's own voice is never cut inside speech** (8 Oct 2026: whisper-edge cuts clipped first words and sentence ends). `voice.py --own` keeps every sample: the line wavs concatenated equal `vo/_own_clean_full.wav` exactly. Don't trim own-voice lines by word times anywhere else, and don't add a limiter. `audio.py` targets ‎-14 LUFS for every reel, own voice included (user decision 8 Nov 2026: a ‎-20 reel played 6 dB under the feed). With own voice, first pull down the outro hit and extra hits so the limiter works lightly (≤3 dB), then A/B a speech stretch with `earshot ab` and tell the user if the voice changed. Run `earshot critique` on the final file before delivery.
 - `sfx.json` `at` accepts seconds, `scene:id`, `scene-end:id`, `line:id`, `line-end:id`, `word:line:i` (-1 is the last word), `beat:n` or `bar:n`, each with an optional offset such as `scene:s2-0.1`. Anchors: `riser` and `reverse-whoosh` end at `at`, `whoosh` and `swoosh-pass` peak at `at`, and everything else starts there.
 - The bed follows `sections`. `intro` gives pad, hats and downbeat kick. `build` adds a filter sweep, 8th bass and a snare roll into the next section. `drop` is full: 4-on-floor kick, claps, bass, 16th arp and a crash at its start. `break` keeps the energy at roughly drop loudness with a different texture: brighter pad, softer arp, a half-bar sub pulse on the root, the 4-on-floor kick (under a low-pass that opens across the break), off-beat hats and a quiet 16th shaker. It drops the claps and the drop bass. A break never mutes the pulse; only `stop` goes silent. `stop` is a true hard silence of the whole bed that restarts hard at the next section; use at most one per film and keep it to 1 bar or less. `outro` is pad, kick and bass. The bed is sidechain-pumped by the kick and ducked under the VO with 40 ms look-ahead.
 - `music.top` is the phone layer: 93% of the kick/bass/pad energy sits below 150 Hz and a phone speaker drops it, so without `top` the bed plays as silence on a phone. `top` adds hats/snap at 5-10 kHz and a pluck at 0.4-3 kHz. Pass one dB trim for both, or `{hat, pluck}`. Keep the pluck lower, because it shares its band with speech. Check the result with a 200 Hz high-pass: in speech the bed should sit 10-12 dB under the VO. The VO enters the mix through `st(vo)`, which puts it 3 dB lower per channel, so the real bed-to-VO gap is about 3 dB smaller than `level` says. Reference: opus55-motion with level -7, duck -4 and top {hat 17, pluck 4} measured 12.7 dB for the whole film and 10.2 dB in the densest drop.

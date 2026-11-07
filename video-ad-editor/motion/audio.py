@@ -4,7 +4,7 @@
 
   python3 audio.py <proj>            → renders/final.mp4        (صوت + خلفية + مؤثرات)
   python3 audio.py <proj> --no-bed   → renders/final-nobed.mp4  (صوت + مؤثرات بس)
-  خيارات: --video <mp4> (افتراضي renders/video.mp4) · --lufs (افتراضي ‎-14، وصوتك الحقيقي ‎-20) · --tp -1.5 · --seed 7 · --audition (يطلع كل مؤثر بملف لحاله)
+  خيارات: --video <mp4> (افتراضي renders/video.mp4) · --lufs (افتراضي ‎-14 للكل) · --tp -1.5 · --seed 7 · --audition (يطلع كل مؤثر بملف لحاله)
 
 كل شي مركّب رياضياً (numpy/scipy) — بلا عينات خارجية = بلا حقوق.
 project.json → music: { key:'A', scale:'minor'|'major'|'dorian', progression:[0,5,2,6], level:-10 (dB تحت الصوت),
@@ -13,7 +13,10 @@ project.json → music: { key:'A', scale:'minor'|'major'|'dorian', progression:[
                          ملاحظة: الصوت يدخل st(vo) = ‎-3 dB لكل قناة، فالفرق الفعلي بالمكس أقل من level بـ3 dB
               sections (من timeline.json): intro · build · drop · break · outro · stop
                 (break = باد + آرب + ساب + كيك وهاي هات وشيكر بمستوى الدروب تقريباً (بلا كلاب ولا باص الدروب، كيك مفلتر ينفتح) — ما ينكتم أبداً · stop = سكتة حقيقية وترجع بقوة، خلّها ≤ بار وحدة)
-<proj>/sfx.json → [{ type, at, gain, dur, pan, pitch }]
+<proj>/sfx.json → [{ file, at, gain, anchor, dur, pan, pitch }]  أو  [{ type, at, gain, dur, pan, pitch }]
+   file (الأول دايماً، قاعدة 8 نوفمبر 2026): ملف صوت حقيقي. '@sound/…' = مكتبة بو ناصر (BUNASSER_SOUNDS، افتراضي studio/sound)، أو مسار نسبي للمشروع
+         anchor: 'peak' (افتراضي: الذروة على at) · 'start' · 'end' · ثواني. pitch بأنصاف الدرجات. الملف يتطبّع لذروة 1 مثل المولّد
+   type (احتياط بس لو ما في ملف مناسب): مؤثر مولّد بالكود
    type: whoosh · reverse-whoosh · riser · impact · boom · sub-drop · glitch · tick · typing · shimmer · pop · swoosh-pass · scratch · slide
    at:   ثواني | 'scene:s2' | 'line:l2' | 'line-end:l2' | 'word:l2:3' (‎-1 = آخر كلمة) | 'beat:8' | 'bar:2'  (+/-إزاحة: 'scene:s2-0.1')
    المرساة: riser و reverse-whoosh ينتهون عند at · whoosh و swoosh-pass ذروتهم عند at · الباقي يبدأ عند at
@@ -245,6 +248,34 @@ class SFX:
         if not fn: raise SystemExit(f'❌ نوع مؤثر مو معروف: {kind}')
         kk = {a: b for a, b in k.items() if a in ('dur', 'pitch', 'pan', 'cps') and b is not None}
         return fn(**kk)
+
+
+# ───────────────────────── real sound files (library first) ─────────────────────────
+SOUND_ROOT = os.environ.get('BUNASSER_SOUNDS') or os.environ.get('BUNASSER_SOUND', r'C:\Users\bunoo\Videos\Reels\studio\sound')
+
+def sfx_path(f, proj_dir):
+    if f.startswith('@sound/'): return os.path.join(SOUND_ROOT, f[7:])
+    return f if os.path.isabs(f) else os.path.join(proj_dir, f)
+
+def load_sfx_file(path, anchor='peak', pitch=None, pan=None, dur=None):
+    # any audio file -> stereo float at SR, peak 1 (same scale as the generated SFX); returns (signal, anchor seconds)
+    if not os.path.exists(path): raise SystemExit(f'❌ ملف المؤثر مو موجود: {path}')
+    af = []
+    if pitch: af.append(f'asetrate={SR}*{2 ** (float(pitch) / 12):.6f},aresample={SR}')
+    cmd = ['ffmpeg', '-hide_banner', '-v', 'error', '-i', path] + (['-af', ','.join(af)] if af else []) + ['-ac', '2', '-ar', str(SR), '-f', 'f32le', '-']
+    raw = subprocess.run(cmd, capture_output=True, check=True).stdout
+    x = np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).astype(np.float64)
+    if dur:
+        x = x[:int(float(dur) * SR)].copy(); fo = min(len(x), int(0.05 * SR))
+        if fo: x[-fo:] *= np.linspace(1, 0, fo)[:, None]
+    pk = np.max(np.abs(x)) if len(x) else 0
+    if pk > 0: x = x / pk
+    if pan: x = st(x.mean(axis=1), float(pan)); x = x / (np.max(np.abs(x)) + 1e-12)
+    if anchor == 'start': a = 0.0
+    elif anchor == 'end': a = len(x) / SR
+    elif anchor == 'peak': a = float(np.argmax(np.abs(x).max(axis=1))) / SR
+    else: a = float(anchor)
+    return x, a
 
 
 # ───────────────────────── bed (beat-synced background) ─────────────────────────
@@ -499,11 +530,11 @@ def main():
     ap.add_argument('--audition', action='store_true')
     a = ap.parse_args()
     P = os.path.abspath(a.proj); proj = json.load(open(os.path.join(P, 'project.json'), encoding='utf-8'))
-    if a.lufs is None:   # صوت الشخص الحقيقي: ‎-20 (رفع خفيف، الليمتر شبه ما يشتغل) · الصوت المولّد: ‎-14 (بلاغ 8 أكتوبر 2026)
+    if a.lufs is None:   # ‎-14 للكل (قرار بو ناصر 8 نوفمبر 2026، بعد إيرشوت: ريل ‎-20 طلع أوطى من الفيد بـ6 دسيبل). صوته الحقيقي: الليمتر خفيف، وقارن قبل/بعد
         try: _src = json.load(open(os.path.join(P, 'vo', 'words.json'), encoding='utf-8')).get('source', '')
         except Exception: _src = ''
-        a.lufs = -20.0 if str(_src).startswith('own') else -14.0
-        print(f'🔊 المعايرة: {a.lufs:.0f} LUFS' + (' (صوتك الحقيقي — أعلى من كذا يحتاج ليمتر يغيّر صوتك)' if a.lufs == -20.0 else ''))
+        a.lufs = -14.0
+        print(f'🔊 المعايرة: {a.lufs:.0f} LUFS' + (' (صوتك الحقيقي: وطِّ ضربة الخاتمة والضربات أول عشان الليمتر يشتغل بخفة، وقارن قبل/بعد بإيرشوت)' if str(_src).startswith('own') else ''))
     tl = json.load(open(os.path.join(P, 'timeline.json'), encoding='utf-8')); dur = float(tl['duration']); N = int(math.ceil(dur * SR))
     music = proj.get('music', {}) or {}
     A = os.path.join(P, 'renders', 'audio'); os.makedirs(A, exist_ok=True)
@@ -524,7 +555,11 @@ def main():
     cues = json.load(open(sj, encoding='utf-8')) if os.path.exists(sj) else [{'type': 'swoosh-pass', 'at': f'scene:{s["id"]}', 'gain': 0.7} for s in tl['scenes'][1:] if s.get('transition')]
     sfx = np.zeros((N + SR * 3, 2))
     for c in cues:
-        s, anc = sfxgen.make(c['type'], dur=c.get('dur'), pitch=c.get('pitch'), pan=c.get('pan'), cps=c.get('cps'))
+        if c.get('file'):
+            s, anc = load_sfx_file(sfx_path(c['file'], P), c.get('anchor', 'peak'), c.get('pitch'), c.get('pan'), c.get('dur'))
+            c.setdefault('type', os.path.basename(c['file'])[:14])
+        else:
+            s, anc = sfxgen.make(c['type'], dur=c.get('dur'), pitch=c.get('pitch'), pan=c.get('pan'), cps=c.get('cps'))
         t = resolve_at(c['at'], tl) - anc; i = int(round(t * SR)); g = float(c.get('gain', 1.0))
         if i < 0: s = s[-i:]; i = 0
         j = min(len(sfx), i + len(s)); sfx[i:j] += s[:j - i] * g * db(vo_ref + 4)   # SFX peak sits ~4 dB above speech RMS at gain 1
