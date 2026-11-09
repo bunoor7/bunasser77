@@ -9,6 +9,7 @@ These folders are copied unchanged from their upstream repositories (snapshot of
 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `reverse-any-video`, `style-sampling`, `slideshow`, `figma`, `remotion-to-hyperframes` | https://github.com/heygen-com/hyperframes (`skills/`) | cfa0d0c | Apache License 2.0 |
 | `real-sfx` (with its bundled `vendor/node_modules/uisfx`; `config.json` points at Bu Nasser's local library) | https://github.com/Clipwing/skills (`skills/real-sfx`) | edbefcb | Scripts MIT, uisfx code MIT and sounds CC0 (per its README; the repo ships no root license file) |
 | `earshot`, `real-sound` | https://github.com/Leonxlnx/earshot (`skills/`) | 4ac3d2a | MIT (`licenses/earshot-LICENSE.txt`). The earshot Python package and MCP server are installed on the machine, not bundled |
+| `motion-bilarabi` (skill files + `engine/` without `tests/`; SKILL.md has Bu Nasser's description and rules added, engine unchanged) | https://github.com/joe7182/motion-bilarabi-skill | b2833af | MIT, Copyright (c) 2026 Yousif Aljbouri (`licenses/motion-bilarabi-LICENSE.txt`). GSAP is installed from npm, not bundled |
 | `remotion-*` (13 folders) | https://github.com/remotion-dev/skills | a2824c6 | Upstream ships no license file; Remotion itself is under the Remotion License (free for individuals and companies of up to 3 people). See `remotion-license`. |
 
 Notes:
