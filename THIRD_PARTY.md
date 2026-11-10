@@ -4,7 +4,7 @@ These folders are copied unchanged from their upstream repositories (snapshot of
 
 | Folders | Upstream | Commit | License |
 | --- | --- | --- | --- |
-| `ffmpeg-skill` (without `site`, `demos`, `evals`, `assets`, `CHANGELOG.md`) | https://github.com/kajisho5/ffmpeg-skill | 9bdb444 | MIT (`ffmpeg-skill/LICENSE`) |
+| `ffmpeg-skill` (without `site`, `demos`, `docs/demos`, `evals`, `assets`, `tests`, `CHANGELOG.md`) | https://github.com/kajisho5/ffmpeg-skill | 6e42a79 (3.2.3) | MIT (`ffmpeg-skill/LICENSE`) |
 | `watch` | https://github.com/bradautomates/claude-video | 03ceb42 | MIT, Copyright (c) 2026 Bradley Bonanno |
 | `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `reverse-any-video`, `style-sampling`, `slideshow`, `figma`, `remotion-to-hyperframes` | https://github.com/heygen-com/hyperframes (`skills/`) | cfa0d0c | Apache License 2.0 |
 | `real-sfx` (with its bundled `vendor/node_modules/uisfx`; `config.json` points at Bu Nasser's local library) | https://github.com/Clipwing/skills (`skills/real-sfx`) | edbefcb | Scripts MIT, uisfx code MIT and sounds CC0 (per its README; the repo ships no root license file) |

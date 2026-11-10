@@ -52,6 +52,8 @@ Every row names the constant or flag it comes from, and a test holds the table t
 | `--content` silence: a silent run shorter than this is not counted | 0.5 s | `_common.probe.CONTENT_SILENCE_MIN` | `check.py --content` |
 | `--content` dropout: a gap of sound at or below | -80 dBFS | `_common.probe.CONTENT_DROPOUT_DB` | `check.py --content` |
 | ... between (s) and 1 s long, with sound on both sides | 0.02 s | `_common.probe.CONTENT_DROPOUT_MIN` | `check.py --content` |
+| `--levels`: FAIL when one frame has more than this share of its luma (or of its chroma) samples out of the legal range | 1.0 % | `check.py --levels-tolerance` | `check.py --levels` |
+| `--legalize`: the written file may keep this share of one frame's luma (or chroma) samples out of range (step `legal_levels`) | 1.0 % | `color.LEGALIZE_TOLERANCE_PCT` | `color.py --legalize` |
 | a beat grid below this confidence is not snapped to | 0.5 | `_common.decision.BEAT_MIN_CONFIDENCE` | `cut.py --snap beats`, `scenes.py --beats` |
 <!-- thresholds:end -->
 
@@ -117,8 +119,11 @@ holds the written length to the maximum with no tolerance, as `check.py` does.
 
 ### probe.py — inspect
 ```
-probe.py INPUT... [--compact] [--field duration|video.fps|...]
+probe.py INPUT... [--compact] [--field duration|video.fps|...] [--keyframes-near T[,T...] [--keyframe-window 5]]
 ```
+`--keyframes-near` adds `keyframes`: for each time, the video keyframes within `--keyframe-window`
+seconds, and the nearest of those at or before it (`before`) and at or after it (`after`; either is
+`null` when none is within the window), in seconds from the file's start. These are where a stream copy can start, and where `cut.py --smart` stops re-encoding.
 JSON with `duration`, `video{codec,width,height,fps,pix_fmt,color_space,rotation,variable_frame_rate_suspected,hdr,hdr_signal,bt2020_or_hdr,hdr_format,start_time}`
 (`hdr`, and `hdr_signal` equal to it, is true only for a PQ / HLG transfer or Dolby Vision -- since 2.0;
 `bt2020_or_hdr` also counts BT.2020 primaries on an SDR transfer, which `hdr_format` names "BT.2020 SDR"),
@@ -127,7 +132,7 @@ own clock, `null` when unknown). `--compact` gives one line per file.
 
 ### cut.py — cut / join segments
 ```
-cut.py INPUT [--start T] [--end T | --duration T] [--segments A-B,C-D,... | --remove A-B,C-D,...] [--accurate] [--declick-ms 20 | --no-declick] [--edit-list | --no-edit-list] [--keep-hevc | --no-keep-hevc] [--vfr-guard sampled|average|off] [-o OUT]
+cut.py INPUT [--start T] [--end T | --duration T] [--segments A-B,C-D,... | --remove A-B,C-D,...] [--accurate | --smart] [--declick-ms 20 | --no-declick] [--edit-list | --no-edit-list] [--keep-hevc | --no-keep-hevc] [--vfr-guard sampled|average|off] [-o OUT]
 cut.py INPUT --start T --end T --snap beats [--snap-tolerance 0.12] [--snap-source FILE] [--min-confidence 0.5]
 ```
 Times accept `12.5`, `1:30`, `00:01:30.250`. Default is `-c copy` (snaps to
@@ -168,8 +173,39 @@ in the length. Since 3.0.0 `keyframe_snapped` equals `start_snapped` (2.x: true
 for every stream copy, `precision` `packet`); `start_snapped` is measured: true when a copied picture starts more
 than a frame from `--start`, or when its start could not be measured (an unknown start is
 never claimed exact); `null` under `--dry-run`.
+`--smart` is the keyframe-aware cut for H.264. A cut point between keyframes is re-encoded only
+from that point to the next keyframe (and, at the end, from the last keyframe to the end point);
+the whole GOPs between are stream-copied. The re-encoded parts are encoded with libx264 matched to
+the source stream: profile, level, pixel format, reorder depth (B-frames), frame size, SAR and
+colour tags. Every part is written as MPEG-TS, so each keyframe carries its own SPS/PPS and the
+decoder switches parameter sets at every join. The parts are joined with the concat demuxer, each
+with its exact length stated, and the output keeps the source's time base. The sound is cut from
+the source on the same frame grid and encoded once (AAC).
+
+Before it is moved into place, the result is checked:
+- the frame count, and one frame per frame duration (no gap, no repeat);
+- every copied packet against the source's (MD5 with the parameter-set and delimiter NAL units
+  removed);
+- framemd5 of every re-encoded part against the same frames decoded from the output, and of the
+  first 300 frames of each copied part against the source's;
+- the output's stream parameters and time base against the source's.
+
+These are reported in `smart.checks` and as `smart_*` verification steps, and `mode` is `smart`.
+When the source cannot be matched, the result is `mode: accurate`, `reencode_reason` holds
+`smart_fallback` and `smart: {applied: false, reason, reason_code}`. This happens for:
+- a source that is not H.264 8-bit 4:2:0 in Baseline/Main/High;
+- an interlaced, variable-rate or HDR source;
+- an open GOP at a copy boundary;
+- a picture that starts after its sound at a segment's start, or more than 32 segments with sound;
+- an ffmpeg write that fails (x264 cannot make the matched High profile at `--quality 0`);
+- an output other than `.mp4`/`.mov`/`.m4v`/`.mkv`;
+- any check failing.
+
+`--smart` with `--accurate` is refused. `probe.py --keyframes-near T` lists the keyframes around a
+time.
 `reencode_reason` lists every cause of a re-encode (`requested`, `codec`, `vfr`,
-`vfr_inconclusive`, `pcm_container`, `copy_failed`, `stream_lost`, `tolerance`, `concat_fallback`);
+`vfr_inconclusive`, `pcm_container`, `copy_failed`, `stream_lost`, `tolerance`, `concat_fallback`,
+`smart`, `smart_fallback`);
 `--segments` adds `segment_precision`; `precision` and `least_exact_precision` are the least exact one
 (since 3.0.0; 2.x's `precision` was the whole run's, `packet` only when nothing re-encoded).
 A `--segments` video copy join adds `join_check` (`packets`, `expected_packets`,
@@ -422,10 +458,18 @@ zoomed — it needs `--zoom` (panning uses the extra image area a zoom exposes).
 ```
 background.py -o OUT --duration T --width W --height H
               [--color C | --gradient C1:C2 [--angle DEG]]
+background.py -o OUT.mov --duration T --width W --height H --transparent
+              [--alpha-codec prores4444|qtrle|png|vp9] [--alpha-mode straight|premultiplied]
 ```
 No input file: ffmpeg's own `color`/`gradients` source filters generate the
 clip directly. For a title-card background, a placeholder layer, or a base
 for `overlay.py` to composite onto. `--width`/`--height` must be even.
+`--transparent` writes a canvas with alpha 0 in every pixel in an alpha line:
+ProRes 4444 with 16-bit alpha (default; `.mov`/`.mkv`), `qtrle` (`.mov`), `png`
+(`.mov`/`.mkv`) or `vp9` (`.webm`/`.mkv`). It is the base layer
+`graphics.py --keep-alpha` and `overlay.py --keep-alpha` draw one element on, for
+a per-element layer with transparency. Every written frame's alpha is read back
+(`alpha` step, expected 0); `--color`/`--gradient` do not apply.
 
 ### reverse.py — reverse playback
 ```
@@ -1072,7 +1116,7 @@ already has a picture.
 ### scenes.py — scene changes and highlight candidates
 ```
 scenes.py INPUT [--threshold 10] [--min-scene 1] [--highlights N [--target SECONDS] [--max-scene 15]] [--edl picks.txt] [--sheet scenes.png] [--json]
-scenes.py INPUT --beats [--beat-step 0.01] [--beat-range 60-200] [--min-confidence 0.5] [--json]
+scenes.py INPUT --beats [--beat-step 0.01] [--beat-range 60-200] [--min-confidence 0.5] [--json]   # INPUT may be audio-only
 scenes.py INPUT [--shots] [--audio-peaks] [--speech] [--json]
 ```
 Lists scenes with audio energy, the loudest moments, and (with
@@ -1105,6 +1149,23 @@ other lags (in standard deviations) and half the fraction of onsets that land
 on the grid. With `--beats` the file is decoded once, at 22050 Hz, and the
 `supported + unsupported == len(beats)` always, and `supported_beats` is that
 supported subset — the list `cut.py --snap beats` moves onto.
+
+**Audio-only input and timing (after 3.2.0).** INPUT may be a WAV, FLAC, MP3 or any
+file with no video stream: no scene detection runs, the file is one scene from 0 to
+its duration, and the document carries `"audio_only": true`. `--beats`,
+`--audio-peaks`, `--speech` and `--highlights` measure the sound; `--sheet` and
+`--shots` need a picture and are refused (`kind: input`). Three things set how close
+the grid is to the music, each of which was off by tens of ms before:
+`beat_grid.step_s` is the envelope's real step (220 samples at 22050 Hz = 9.977 ms
+for `--beat-step 0.01`; timing it as 10 ms stretched every time by 0.23 %, 68 ms over
+30 s); the tempo and phase are refitted by weighted least squares to the strongest
+onset at each grid point, so a tempo between two envelope steps (90 BPM = 0.6667 s)
+is not rounded to one (0.67 s, 3.3 ms a beat); and each onset is placed on the
+decoded samples (`onset_refinement: "pcm-window-ratio"`) instead of at the start of
+its 10 ms block. A grid point within 10 ms before 0 s is the beat at `0.0`; one further before is not reported (it would make `0.0` a snap target the grid does not mark). Measured on
+synthetic click tracks at 90 and 120 BPM (first click at 0, 0.137 and 0.25 s): every
+beat within 1 ms on WAV/FLAC, 9 ms on MP3 (the encoder's pre-echo), 6 ms through AAC;
+the test holds every click to 20 ms.
 
 With `--beats` the file is decoded once, at 22050 Hz, and the 0.5 s scene
 envelope is derived from that same pass rather than from a second 8 kHz decode.
@@ -1149,7 +1210,7 @@ measurements that combine with each other and with `--beats`/`--highlights`:
 
 ### check.py — pre-delivery compliance
 ```
-check.py INPUT --platform youtube|shorts|reels|tiktok|x|linkedin|facebook|broadcast|podcast|custom [--no-loudness] [--content] [--compare REF] [--expect-identity SIZE:MTIME_NS] [--json]
+check.py INPUT --platform youtube|shorts|reels|tiktok|x|linkedin|facebook|broadcast|podcast|custom [--no-loudness] [--content] [--compare REF] [--levels bt709|ebu-r103 [--levels-window S] [--levels-tolerance PCT]] [--expect-identity SIZE:MTIME_NS] [--json]
          [--max-duration S] [--aspect 9:16] [--lufs -14] [--tp -1] [--max-mb N]
 ```
 PASS/WARN/FAIL per check with the script that fixes it. Run it as the final
@@ -1191,6 +1252,19 @@ never FAIL, because a camera flash or a strobe is real) and a one-frame decode a
 (WARN when it is one flat colour, luma spread < 4/255: the frame a feed's autoplay shows first).
 A render project enables it with `"check": {"platform":
 "reels", "content": true}`.
+`--levels bt709|ebu-r103` (opt-in, one more decode of every frame) adds a `legal levels` row: the
+share of luma samples and of chroma (Cb and Cr) samples outside the standard's legal range, counted
+exactly in every frame (each plane through `lutyuv` as an out-of-range mask, its mean read by
+`signalstats`; chroma at its own subsampled resolution), the worst frame and its time, and min/max
+Y/U/V (a decode that fails part-way is `could not measure`, never a share of the frames read). `bt709` is the nominal range, 16-235 luma and 16-240 chroma at 8 bits (64-940 / 64-960 at
+10); `ebu-r103` is EBU R 103's tolerance, luma -1 %..103 % (8-bit 14-241) and chroma as far as RGB
+-5 %..105 % reaches (8-bit 5-251). Limits scale with the depth of the planes (nv12 is 8-bit) and round inward. The row
+FAILs when one frame has more than `--levels-tolerance` (1 %) of its luma or chroma samples out; it
+WARNs, unmeasured, on an RGB or grey picture, and a full-range file is counted against the
+limited-range limits with a note. The JSON `levels` document holds the same per clip and per
+`--levels-window` seconds (10; 0 for the clip only), plus `brng_pct` (signalstats' BRNG: pixels
+with any component outside the fixed nominal range). It counts Y'CbCr codes; it does not convert
+to RGB, so an RGB gamut error inside legal Y'CbCr codes is not counted.
 
 ### batch.py — same recipe over a folder, cached
 ```
@@ -1315,7 +1389,17 @@ graphics.py INPUT --template lower-third|title|chapter|progress|countdown|bug|st
             [--brand brand.json] [--primary RRGGBB] [--scale 1.0] [--lang XX]
             [--wrap phrase|measured] [--text-render auto|ass|drawtext] [--write-ass OUT.ass]
             [--emoji auto|color|png|mono|none] [--emoji-assets DIR] [--emoji-scale 1.0] [--emoji-max 60] [-o OUT]
+            [--keep-alpha [--alpha-codec prores4444|qtrle|png|vp9] [--alpha-mode straight|premultiplied] | --drop-alpha]
 ```
+`--keep-alpha` draws the template on the input's alpha (a canvas from `background.py --transparent`,
+or any alpha clip) and writes it in an alpha line (see `background.py`; ProRes 4444 by default) with
+the source's colour tags kept: boxes and bars are composited as layers with their alpha, drawtext and
+libass (`alpha=1`) draw into the alpha, all at 4:4:4. The `alpha` step checks that the written
+stream stores an alpha plane, that no frame's alpha fell below the source's, and that the output
+did not go opaque in every frame the source was transparent in. Without `--keep-alpha` on a source
+whose alpha is used, the output is opaque and the `alpha` step fails (`alpha_dropped`);
+`--drop-alpha` says an opaque output is wanted. `--codec` with `--keep-alpha` is refused.
+
 Since 1.16 a label too wide for the frame is broken into lines by the same phrase-aware wrap
 caption.py uses (`--wrap phrase|measured`; see caption.py above) instead of running off the edge —
 the hook card, the meme lines and the sticker chip. A label that already fits is untouched.
@@ -1708,7 +1792,16 @@ overlay.py INPUT --image PNG [--scale W | --scale-percent P] | --text "..." [--f
                   | --video CLIP [--chromakey COLOR [--chromakey-similarity 0-1] [--chromakey-blend 0-1]]
                     [--place SRC_START-SRC_END@AT ...]
            [--position top-right|bottom-left|center|X,Y] [--margin N] [--platform NAME] [--start T] [--end T] [--fade S] [--opacity 0-1] [-o OUT]
+           [--keep-alpha [--alpha-codec prores4444|qtrle|png|vp9] [--alpha-mode straight|premultiplied] | --drop-alpha]
 ```
+`--keep-alpha` composites onto the input's alpha (a `background.py --transparent` canvas or an alpha
+clip) and writes the result in an alpha line with the source's tags kept, checked as
+`graphics.py --keep-alpha` is. A `--video` layer with alpha keeps it: VP9 with alpha (`export.py
+--preset vp9-alpha`) is decoded with libvpx-vp9 (FFmpeg's own VP9 decoder drops the alpha), and an
+RGB layer (qtrle, PNG in .mov, e.g. a `graphics.py --keep-alpha` element) is converted to BT.709 with
+its alpha plane. Before, both covered the picture as an opaque rectangle. Without
+`--keep-alpha` on an input whose alpha is used, the `alpha` step fails (`alpha_dropped`) unless
+`--drop-alpha` is given.
 `--platform NAME` (1.14) takes each edge's margin from that destination's safe zone
 (`scripts/_platforms.py`), so a template's top-left logo clears TikTok's status bar instead of
 sitting 24 px into it; an explicit `--margin` (or a brand `safe_margin`) wins.
@@ -1800,11 +1893,26 @@ color.py INPUT --to-sdr [--tonemap hable|mobius|reinhard|clip|linear|gamma] [--p
 color.py INPUT --lut grade.cube [--lut-strength 0..1] [-o OUT]
 color.py INPUT --retag bt709|bt2020-pq|bt2020-hlg|bt601 [-o OUT]      # metadata only, stream copy (checked with ffprobe)
 color.py INPUT --strip-dovi [-o OUT]                                 # drop the Dolby Vision RPU, keep the HLG/HDR10 base layer (stream copy)
+color.py INPUT --to-sdr|--lut F|--correct ... --legalize bt709|ebu-r103                 # legal-range clamp after the 4:2:0 conversion, measured
 color.py INPUT --correct [--exposure -3..3] [--contrast 0..2] [--saturation 0..2] [--gamma 0.1..10]
          [--temperature 2000..12000] [--tint -1..1] [--lift -1..1] [--gain -1..1]
          [--levels-in-black 0..255] [--levels-in-white 0..255] [--levels-out-black 0..255] [--levels-out-white 0..255]
          [--curves color_negative|cross_process|darker|increase_contrast|lighter|linear_contrast|medium_contrast|negative|strong_contrast|vintage] [-o OUT]
+color.py INPUT --correct ... | --lut grade.cube ... -o OUT.mov [--keep-alpha [--alpha-codec prores4444|qtrle|png|vp9] [--alpha-mode straight|premultiplied] | --drop-alpha]
 ```
+`--keep-alpha` (with `--correct` or `--lut`) grades an alpha clip and keeps its alpha: the alpha is
+split off before the grade, never touched, and merged back in front of the alpha line (ProRes 4444
+by default, `--alpha-codec qtrle|png|vp9`); the grade runs at 4:4:4 and the source's colour tags are
+kept (no BT.709 conversion, as `--codec prores`). The `alpha` step compares the written alpha with
+the source's frame by frame on 64x36 copies, each within 2 of 255. A source without an alpha plane is
+refused. Without `--keep-alpha`, a grade of a source whose alpha is used writes opaque H.264 and the
+`alpha` step fails (`reason: alpha_dropped`, `verified: false`); `--drop-alpha` makes it a note
+instead. `--retag`/`--strip-dovi` are stream copies and keep the alpha as they keep every pixel;
+when `--retag`'s copy cannot carry the tags it falls back to an H.264 re-encode, which holds no
+alpha, and on a source whose alpha is used that run's `alpha` step fails (`alpha_dropped`).
+A source that stores an alpha plane whose alpha cannot be read fails the step too
+(`source_alpha_unmeasured`), and a VP9 source with alpha needs the libvpx-vp9 decoder
+(`error.reason: decoder_missing` without it).
 `--correct` is typed primary colour correction, no filter string ever accepted:
 `--exposure`/`--contrast`/`--saturation`/`--gamma` (`exposure`/`eq` filters),
 `--temperature`/`--tint`/`--lift`/`--gain` (`colortemperature`/`colorbalance`
@@ -1816,6 +1924,18 @@ presets, only added when given). Every flag is range-checked against this
 script's own safe subset of what `ffmpeg -h filter=<name>` documents before
 ffmpeg runs. `--json`'s `measurements` reports `analyze_levels()` (signalstats
 luma/saturation) for input and output side by side.
+
+`--legalize bt709|ebu-r103` (with `--to-sdr`, `--lut` or `--correct`; `--correct` with no
+correction values clamps only) is the last filter before the encoder: the picture is made 8-bit
+4:2:0 (a full-range source is scaled to limited range first) and every luma and chroma sample is clamped (`lutyuv` `clip()`) into the limits `check.py
+--levels` counts against. Clamping after the subsampling matters: a clamp ahead of it lets the
+chroma filter's overshoot put samples back out. The written file is then measured the same way
+(`legalize.output`), and the `legal_levels` verification step fails when one frame keeps more than
+1 % of its luma or chroma samples out: the encoder's error around a hard-clamped area can move a
+few decoded samples a code or more past the limit (a `legalize_residual` warning gives the
+shares; a lower `--quality` value shrinks them). Refused with `--retag`/`--strip-dovi` (stream
+copies) and with `--codec` other than h264 or `--keep-alpha` (its alpha line), which would convert the
+clamped picture again; `--drop-alpha` combines with it.
 
 iPhone "HDR" video is Dolby Vision profile 8.4 on an HLG base layer:
 `probe.py` reports `hdr_format: Dolby Vision profile 8` and `--to-sdr`
@@ -1851,6 +1971,11 @@ audio.py INPUT [--voice [light|medium|strong] | --denoise [--denoise-strength 25
          [--effects FILE [--effects-volume -14]] [--stereo-widen 0..1]
          [--fade-in S] [--fade-out S] [--stereo | --mono | --downmix] [--replace FILE] [-o OUT]
 ```
+`--denoise` is `afftdn=nf=-N:tn=1`, where N is `--denoise-strength`, the noise
+floor in dB below full scale (20..60, default 25). It is the starting floor that
+`tn=1` then tracks, not an amount removed; ffmpeg's `nf` accepts -80..-20 only, so
+values under 20 are refused before ffmpeg runs.
+
 `--voice` takes a strength; a bare `--voice` is `medium`, the chain it has always
 produced. The exact filter chains:
 
