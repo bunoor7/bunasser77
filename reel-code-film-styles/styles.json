@@ -1,0 +1,601 @@
+{
+ "title": "لوحة أفلام الكود (Lemo-Opuscar): اختر بالرقم",
+ "sub": "لقطة من فيلم كل ستايل",
+ "made": {},
+ "styles": [
+  {
+   "id": "satellite-briefing",
+   "en": "Satellite Briefing",
+   "ar": "إحاطة بالأقمار الصناعية",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "أخبار مكانها مهم: خليج، بحر، مدينة، مناخ",
+   "img": "styles/satellite-briefing/poster.webp",
+   "src": 55
+  },
+  {
+   "id": "briefing-board",
+   "en": "Engineering Briefing Board",
+   "ar": "لوحة إحاطة هندسية",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "مقارنة خيارات أو مشروع حكومي",
+   "img": "styles/briefing-board/poster.webp",
+   "src": 56
+  },
+  {
+   "id": "lidar-survey",
+   "en": "LiDAR Survey",
+   "ar": "مسح ليدار",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "موقع أثري أو تضاريس من بيانات مسح",
+   "img": "styles/lidar-survey/poster.webp",
+   "src": 57
+  },
+  {
+   "id": "white-model",
+   "en": "Projection on White Model",
+   "ar": "إسقاط على مجسّم أبيض",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "تخطيط مدن وبيانات مدينة",
+   "img": "styles/white-model/poster.webp",
+   "src": 58
+  },
+  {
+   "id": "data-physical",
+   "en": "Data Physicalization",
+   "ar": "بيانات مجسّمة",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "ميزانيات وأرقام طاقة وتقارير سنوية",
+   "img": "styles/data-physical/poster.webp",
+   "src": 59
+  },
+  {
+   "id": "teardown",
+   "en": "Exploded Teardown",
+   "ar": "تفكيك منتج",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "شلون يشتغل جهاز من داخله",
+   "img": "styles/teardown/poster.webp",
+   "src": 60
+  },
+  {
+   "id": "microscope",
+   "en": "Microscope Story",
+   "ar": "قصة تحت المجهر",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "علوم وطب ومواد",
+   "img": "styles/microscope/poster.webp",
+   "src": 61
+  },
+  {
+   "id": "archive-lighttable",
+   "en": "Archive Light Table",
+   "ar": "طاولة الأرشيف المضيئة",
+   "group": "أفلام الدليل (مادة حقيقية)",
+   "fit": "تاريخ جهة أو وثائق وصور قديمة",
+   "img": "styles/archive-lighttable/poster.webp",
+   "src": 62
+  },
+  {
+   "id": "caption-news",
+   "en": "Caption News",
+   "ar": "أخبار بالكابشن",
+   "group": "مونتاج ووثائقي",
+   "fit": "خبر سريع للسوشال، الكلام هو البطل",
+   "img": "styles/caption-news/poster.webp",
+   "src": 63
+  },
+  {
+   "id": "newsreel",
+   "en": "1920s Newsreel",
+   "ar": "جريدة سينمائية ١٩٢٠",
+   "group": "مونتاج ووثائقي",
+   "fit": "قصص تاريخية وذكرى سنوية",
+   "img": "styles/newsreel/poster.webp",
+   "src": 64
+  },
+  {
+   "id": "countdown",
+   "en": "Live Countdown Split-screen",
+   "ar": "عدّ تنازلي بشاشة مقسومة",
+   "group": "مونتاج ووثائقي",
+   "fit": "حدث مباشر أو إطلاق",
+   "img": "styles/countdown/poster.webp",
+   "src": 65
+  },
+  {
+   "id": "city-symphony",
+   "en": "Time-lapse Symphony",
+   "ar": "سيمفونية التايم لابس",
+   "group": "مونتاج ووثائقي",
+   "fit": "فيلم مدينة أو افتتاحية",
+   "img": "styles/city-symphony/poster.webp",
+   "src": 66
+  },
+  {
+   "id": "visual-investigation",
+   "en": "Visual Investigation",
+   "ar": "تحقيق بصري",
+   "group": "مونتاج ووثائقي",
+   "fit": "إعادة بناء حادثة وتدقيق الحقائق",
+   "img": "styles/visual-investigation/poster.webp",
+   "src": 67
+  },
+  {
+   "id": "kino-montage",
+   "en": "Constructivist Montage",
+   "ar": "مونتاج بنائي",
+   "group": "مونتاج ووثائقي",
+   "fit": "تاريخ صناعة أو إنجاز جماعي",
+   "img": "styles/kino-montage/poster.webp",
+   "src": 68
+  },
+  {
+   "id": "telestrator",
+   "en": "Sports Telestrator",
+   "ar": "تحليل رياضي بالرسم",
+   "group": "مونتاج ووثائقي",
+   "fit": "تحليل مباراة أو خطة",
+   "img": "styles/telestrator/poster.webp",
+   "src": 69
+  },
+  {
+   "id": "news-package",
+   "en": "Broadcast News Package",
+   "ar": "حزمة نشرة أخبار",
+   "group": "مونتاج ووثائقي",
+   "fit": "ملخص أخبار الأسبوع وأسواق",
+   "img": "styles/news-package/poster.webp",
+   "src": 70
+  },
+  {
+   "id": "dataviz",
+   "en": "Data Storytelling",
+   "ar": "قصة بالبيانات",
+   "group": "معلومات وعرض",
+   "fit": "صحافة بيانات وتقارير",
+   "img": "styles/dataviz/poster.webp",
+   "src": 23
+  },
+  {
+   "id": "iso-infographic",
+   "en": "Isometric Infographic",
+   "ar": "إنفوجرافيك أيزومتري",
+   "group": "معلومات وعرض",
+   "fit": "مراحل عملية وسلاسل إمداد",
+   "img": "styles/iso-infographic/poster.webp",
+   "src": 24
+  },
+  {
+   "id": "dark-keynote",
+   "en": "Dark Tech Keynote",
+   "ar": "عرض تقني داكن",
+   "group": "معلومات وعرض",
+   "fit": "إطلاق منتج أو تقنية",
+   "img": "styles/dark-keynote/poster.webp",
+   "src": 25
+  },
+  {
+   "id": "living-screencast",
+   "en": "Living Screencast",
+   "ar": "شاشة حيّة",
+   "group": "معلومات وعرض",
+   "fit": "شرح تطبيق أو موقع",
+   "img": "styles/living-screencast/poster.webp",
+   "src": 46
+  },
+  {
+   "id": "hologram-hud",
+   "en": "Sci-fi Hologram HUD",
+   "ar": "واجهة هولوغرام",
+   "group": "معلومات وعرض",
+   "fit": "مواصفات جهاز بطابع خيال علمي",
+   "img": "styles/hologram-hud/poster.webp",
+   "src": 52
+  },
+  {
+   "id": "transit-map",
+   "en": "Transit Map",
+   "ar": "خريطة مترو",
+   "group": "معلومات وعرض",
+   "fit": "شبكات ونمو مع الزمن",
+   "img": "styles/transit-map/poster.webp",
+   "src": 72
+  },
+  {
+   "id": "isometric-picture-book",
+   "en": "Isometric Picture Book",
+   "ar": "كتاب صور أيزومتري",
+   "group": "معلومات وعرض",
+   "fit": "أنظمة يومية وطوابير ومقارنات",
+   "img": "styles/isometric-picture-book/poster.webp",
+   "src": 74
+  },
+  {
+   "id": "circuit-board",
+   "en": "Circuit Board",
+   "ar": "لوحة دوائر",
+   "group": "معلومات وعرض",
+   "fit": "طاقة وأجهزة وسلاسل إمداد",
+   "img": "styles/circuit-board/poster.webp",
+   "src": 76
+  },
+  {
+   "id": "swiss-motion",
+   "en": "Swiss Motion Graphics",
+   "ar": "موشن سويسري",
+   "group": "جرافيك وخط",
+   "fit": "هوية ومناسبات",
+   "img": "styles/swiss-motion/poster.webp",
+   "src": 16
+  },
+  {
+   "id": "spy-titles",
+   "en": "60s Spy Title Sequence",
+   "ar": "تترات أفلام الجاسوسية ٦٠",
+   "group": "جرافيك وخط",
+   "fit": "افتتاحية وتشويق",
+   "img": "styles/spy-titles/poster.webp",
+   "src": 17
+  },
+  {
+   "id": "art-deco",
+   "en": "Art Deco",
+   "ar": "آرت ديكو",
+   "group": "جرافيك وخط",
+   "fit": "فخامة وحفلات",
+   "img": "styles/art-deco/poster.webp",
+   "src": 18
+  },
+  {
+   "id": "blueprint",
+   "en": "Blueprint",
+   "ar": "مخطط أزرق",
+   "group": "جرافيك وخط",
+   "fit": "هندسة وشرح تقني",
+   "img": "styles/blueprint/poster.webp",
+   "src": 19
+  },
+  {
+   "id": "stained-glass",
+   "en": "Stained Glass",
+   "ar": "زجاج معشّق",
+   "group": "جرافيك وخط",
+   "fit": "أساطير وتراث",
+   "img": "styles/stained-glass/poster.webp",
+   "src": 20
+  },
+  {
+   "id": "pictogram-motion",
+   "en": "Pictogram Motion",
+   "ar": "رموز متحركة",
+   "group": "جرافيك وخط",
+   "fit": "خدمات عامة وقصص مدن",
+   "img": "styles/pictogram-motion/poster.webp",
+   "src": 21
+  },
+  {
+   "id": "ascii-crt",
+   "en": "ASCII / CRT Terminal",
+   "ar": "شاشة طرفية قديمة",
+   "group": "جرافيك وخط",
+   "fit": "تقنية وبرمجة",
+   "img": "styles/ascii-crt/poster.webp",
+   "src": 22
+  },
+  {
+   "id": "risograph",
+   "en": "Risograph Print",
+   "ar": "طباعة ريزوغراف",
+   "group": "طباعة",
+   "fit": "علامات مستقلة ونمط حياة",
+   "img": "styles/risograph/poster.webp",
+   "src": 12
+  },
+  {
+   "id": "halftone-dossier",
+   "en": "Halftone Dossier",
+   "ar": "ملف هاف تون",
+   "group": "طباعة",
+   "fit": "فكاهة وسوشال",
+   "img": "styles/halftone-dossier/poster.webp",
+   "src": 13
+  },
+  {
+   "id": "woodcut",
+   "en": "Woodcut Print",
+   "ar": "حفر على الخشب",
+   "group": "طباعة",
+   "fit": "حكايات شعبية وكتب",
+   "img": "styles/woodcut/poster.webp",
+   "src": 15
+  },
+  {
+   "id": "engraving",
+   "en": "Copperplate Engraving",
+   "ar": "حفر نحاسي",
+   "group": "طباعة",
+   "fit": "علوم وتراث جهة",
+   "img": "styles/engraving/poster.webp",
+   "src": 53
+  },
+  {
+   "id": "silkscreen-poster",
+   "en": "Silkscreen Travel Poster",
+   "ar": "بوستر سفر سلك سكرين",
+   "group": "طباعة",
+   "fit": "وجهات سياحية",
+   "img": "styles/silkscreen-poster/poster.webp",
+   "src": 54
+  },
+  {
+   "id": "printed-long-take",
+   "en": "Printed Long Take",
+   "ar": "لقطة طويلة مطبوعة",
+   "group": "طباعة",
+   "fit": "رحلات ومناظر",
+   "img": "styles/printed-long-take/poster.webp",
+   "src": 75
+  },
+  {
+   "id": "crayon-book",
+   "en": "Crayon Picture Book",
+   "ar": "كتاب تلوين",
+   "group": "رسم يدوي وألوان",
+   "fit": "حكايات أطفال",
+   "img": "styles/crayon-book/poster.webp",
+   "src": 1
+  },
+  {
+   "id": "watercolor",
+   "en": "Watercolor Brush",
+   "ar": "ألوان مائية",
+   "group": "رسم يدوي وألوان",
+   "fit": "طبيعة وسفر وعلوم",
+   "img": "styles/watercolor/poster.webp",
+   "src": 2
+  },
+  {
+   "id": "ink-wash",
+   "en": "Chinese Ink Wash",
+   "ar": "حبر صيني",
+   "group": "رسم يدوي وألوان",
+   "fit": "شعر وثقافة",
+   "img": "styles/ink-wash/poster.webp",
+   "src": 3
+  },
+  {
+   "id": "impasto",
+   "en": "Impasto Oil Painting",
+   "ar": "زيت سميك",
+   "group": "رسم يدوي وألوان",
+   "fit": "فن وإعلان عاطفي",
+   "img": "styles/impasto/poster.webp",
+   "src": 4
+  },
+  {
+   "id": "one-line",
+   "en": "One-line Drawing",
+   "ar": "رسم بخط واحد",
+   "group": "رسم يدوي وألوان",
+   "fit": "قصة علامة ومحطات حياة",
+   "img": "styles/one-line/poster.webp",
+   "src": 5
+  },
+  {
+   "id": "whiteboard",
+   "en": "Whiteboard Explainer",
+   "ar": "سبورة بيضاء",
+   "group": "رسم يدوي وألوان",
+   "fit": "شرح خطوة بخطوة",
+   "img": "styles/whiteboard/poster.webp",
+   "src": 6
+  },
+  {
+   "id": "urban-sketch",
+   "en": "Urban Sketch · Pen & Wash",
+   "ar": "سكتش مدن بالحبر",
+   "group": "رسم يدوي وألوان",
+   "fit": "مدن وعمارة",
+   "img": "styles/urban-sketch/poster.webp",
+   "src": 45
+  },
+  {
+   "id": "chalkboard",
+   "en": "Chalkboard",
+   "ar": "سبورة طباشير",
+   "group": "رسم يدوي وألوان",
+   "fit": "أصل كلمة وتصحيح خرافة",
+   "img": "styles/chalkboard/poster.webp",
+   "src": 73
+  },
+  {
+   "id": "silent-film",
+   "en": "1920s Silent Film",
+   "ar": "فيلم صامت ١٩٢٠",
+   "group": "سينما وحِقب",
+   "fit": "كوميديا وقصص بلا كلام",
+   "img": "styles/silent-film/poster.webp",
+   "src": 34
+  },
+  {
+   "id": "backrooms",
+   "en": "Liminal Found Footage",
+   "ar": "لقطات مكان مهجور",
+   "group": "سينما وحِقب",
+   "fit": "غموض ورعب",
+   "img": "styles/backrooms/poster.webp",
+   "src": 36
+  },
+  {
+   "id": "rubber-hose",
+   "en": "1930s Rubber Hose Cartoon",
+   "ar": "كرتون الثلاثينات",
+   "group": "كرتون وأنمي",
+   "fit": "إعلانات قديمة وأطفال",
+   "img": "styles/rubber-hose/poster.webp",
+   "src": 26
+  },
+  {
+   "id": "cel-anime-80s",
+   "en": "80s Cel Anime",
+   "ar": "أنمي الثمانينات",
+   "group": "كرتون وأنمي",
+   "fit": "موسيقى وحنين",
+   "img": "styles/cel-anime-80s/poster.webp",
+   "src": 27
+  },
+  {
+   "id": "scifi-toon",
+   "en": "Sci-Fi Sitcom Toon",
+   "ar": "كرتون خيال علمي",
+   "group": "كرتون وأنمي",
+   "fit": "كوميديا وتقنية",
+   "img": "styles/scifi-toon/poster.webp",
+   "src": 28
+  },
+  {
+   "id": "midcentury-toon",
+   "en": "Mid-century Cartoon",
+   "ar": "كرتون منتصف القرن",
+   "group": "كرتون وأنمي",
+   "fit": "شرح خطوات الاستخدام",
+   "img": "styles/midcentury-toon/poster.webp",
+   "src": 48
+  },
+  {
+   "id": "brick-toy",
+   "en": "Brick Toy",
+   "ar": "مكعبات",
+   "group": "خامات و3D",
+   "fit": "أطفال وبناء",
+   "img": "styles/brick-toy/poster.webp",
+   "src": 37
+  },
+  {
+   "id": "paper-popup",
+   "en": "Paper Pop-up Book",
+   "ar": "كتاب منبثق",
+   "group": "خامات و3D",
+   "fit": "قصص وكتب أطفال",
+   "img": "styles/paper-popup/poster.webp",
+   "src": 41
+  },
+  {
+   "id": "tilt-shift",
+   "en": "Tilt-Shift Miniature",
+   "ar": "مجسّم مصغّر",
+   "group": "خامات و3D",
+   "fit": "مدن وعقار ونقل",
+   "img": "styles/tilt-shift/poster.webp",
+   "src": 42
+  },
+  {
+   "id": "lowpoly-island",
+   "en": "Low-poly Isometric Island",
+   "ar": "جزيرة لو بولي",
+   "group": "خامات و3D",
+   "fit": "بناء عالم وهدوء",
+   "img": "styles/lowpoly-island/poster.webp",
+   "src": 43
+  },
+  {
+   "id": "glass-product",
+   "en": "Glass Product Render",
+   "ar": "منتج زجاجي",
+   "group": "خامات و3D",
+   "fit": "إطلاق منتج",
+   "img": "styles/glass-product/poster.webp",
+   "src": 44
+  },
+  {
+   "id": "memphis-diorama",
+   "en": "Memphis Diorama",
+   "ar": "ديوراما ممفيس",
+   "group": "خامات و3D",
+   "fit": "لوب وواجهات",
+   "img": "styles/memphis-diorama/poster.webp",
+   "src": 71
+  },
+  {
+   "id": "desktop-flythrough",
+   "en": "Desktop Flythrough",
+   "ar": "طيران فوق المكتب",
+   "group": "خامات و3D",
+   "fit": "شرح سير عمل",
+   "img": "styles/desktop-flythrough/poster.webp",
+   "src": 77
+  },
+  {
+   "id": "pixel-rpg",
+   "en": "16-bit Pixel RPG",
+   "ar": "لعبة بكسل ١٦ بت",
+   "group": "ألعاب",
+   "fit": "ألعاب وحنين",
+   "img": "styles/pixel-rpg/poster.webp",
+   "src": 29
+  },
+  {
+   "id": "hd-2d",
+   "en": "HD-2D",
+   "ar": "HD-2D",
+   "group": "ألعاب",
+   "fit": "قصص وخيال",
+   "img": "styles/hd-2d/poster.webp",
+   "src": 31
+  },
+  {
+   "id": "microgame",
+   "en": "Microgame Frenzy",
+   "ar": "ألعاب سريعة",
+   "group": "ألعاب",
+   "fit": "سوشال وتعريف",
+   "img": "styles/microgame/poster.webp",
+   "src": 32
+  },
+  {
+   "id": "game-show",
+   "en": "Game Show Flat",
+   "ar": "برنامج مسابقات",
+   "group": "ألعاب",
+   "fit": "حصاد السنة وخط زمني",
+   "img": "styles/game-show/poster.webp",
+   "src": 33
+  },
+  {
+   "id": "shadow-puppet",
+   "en": "Shadow Puppetry",
+   "ar": "خيال الظل",
+   "group": "تراث شرق آسيوي",
+   "fit": "أساطير وتراث",
+   "img": "styles/shadow-puppet/poster.webp",
+   "src": 7
+  },
+  {
+   "id": "ukiyoe",
+   "en": "Ukiyo-e",
+   "ar": "أوكييو-إي",
+   "group": "تراث شرق آسيوي",
+   "fit": "ثقافة يابانية",
+   "img": "styles/ukiyoe/poster.webp",
+   "src": 8
+  },
+  {
+   "id": "papercut-red",
+   "en": "Red Paper-cut",
+   "ar": "قص ورق أحمر",
+   "group": "تراث شرق آسيوي",
+   "fit": "مناسبات شعبية",
+   "img": "styles/papercut-red/poster.webp",
+   "src": 9
+  },
+  {
+   "id": "paper-lantern",
+   "en": "Paper-cut Lightbox",
+   "ar": "فانوس ورق مضيء",
+   "group": "تراث شرق آسيوي",
+   "fit": "رحلات وذكريات وأماكن",
+   "img": "styles/paper-lantern/poster.webp",
+   "src": 10
+  }
+ ]
+}

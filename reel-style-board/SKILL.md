@@ -23,6 +23,7 @@ description: لوحة ستايلات مرقّمة بالصور (57 ستايل ح
    ```
    node reel-style-board/scripts/style_board.js --out <work>/style_board.png --suggest 31,36,40 --theme <work>/theme.json
    ```
+   ولوحة أفلام الكود (٦٦ ستايل بوصفاتها): نفس السكربت مع `--lib reel-code-film-styles`.
    (`--only` يطلع المقترحة بس). ومعها `style_board.txt` بالأرقام والأسماء.
 3. أرسل له الصورة (SendUserFile)، واكتب كل مقترح بسطر: الرقم، الاسم، وليش يناسب هالموضوع. واسأل:
    «أي رقم؟ تقدر تختار أكثر من واحد، أو توصف الشكل بكلامك، أو تقول اختار أنت».

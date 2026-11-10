@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // لوحة ستايلات مرقّمة: كل ستايل بصورة لنفس المشهد، عشان بو ناصر يختار بالرقم (مثل لوحة الخطوط).
 //
-//   node style_board.js --out board.png [--suggest 31,32,40] [--only] [--theme theme.json]
+//   node style_board.js --out board.png [--suggest 31,32,40] [--only] [--theme theme.json] [--lib ../reel-code-film-styles]
 //
 // --suggest  أرقام مقترحة لهالعمل: تنعلّم بإطار أحمر وكلمة «مقترح»، والأرقام ما تتغيّر.
 // --only     اللوحة فيها المقترحة بس (بنفس أرقامها).
@@ -20,7 +20,8 @@ let theme = { bg: '#0B0B0F', ink: '#F5F7FA', acc: '#C0262D', mut: '#98A2B3' };
 const tp = opt('--theme');
 if (tp && fs.existsSync(tp)) theme = { ...theme, ...JSON.parse(fs.readFileSync(tp, 'utf8')) };
 
-const ROOT = path.resolve(__dirname, '..');
+// --lib مجلد مكتبة ثانية فيها styles.json (مثل ../reel-code-film-styles)؛ لكل ستايل حقل img اختياري.
+const ROOT = path.resolve(opt('--lib', path.join(__dirname, '..')));
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'styles.json'), 'utf8'));
 const fileUrl = p => 'file:///' + encodeURI(p.replace(/\\/g, '/').replace(/^\/+/, ''));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -33,12 +34,12 @@ const COLS = 3, W = 1400;
 let cards = '', lastGroup = '';
 for (const s of shown) {
   if (s.group !== lastGroup) { cards += `<div class="g">${esc(s.group)}</div>`; lastGroup = s.group; }
-  const img = path.join(ROOT, 'assets', 'styles', s.id + '.webp');
+  const img = path.join(ROOT, s.img || path.join('assets', 'styles', s.id + '.webp'));
   cards += `<div class="c${suggest.has(s.n) ? ' sug' : ''}">
   <div class="im" style="background-image:url('${fileUrl(img)}')"><b>${s.n}</b>${suggest.has(s.n) ? '<i>مقترح</i>' : ''}</div>
   <div class="tx"><div class="ar">${esc(s.ar)} <span>${esc(s.en)}</span></div>
   <div class="ft">${esc(s.fit)}</div>
-  <div class="md">${esc(data.made[s.made])}${s.people ? ' · فيه شخصيات' : ''}</div></div></div>`;
+  <div class="md">${esc((data.made || {})[s.made] || '')}${s.people ? ' · فيه شخصيات' : ''}</div></div></div>`;
 }
 const perGroup = {};
 for (const s of shown) perGroup[s.group] = (perGroup[s.group] || 0) + 1;
@@ -59,8 +60,8 @@ h1{font-size:38px;margin-bottom:6px}.sub{color:${theme.mut};font-size:20px;margi
 .tx{padding:12px 16px 14px}.ar{font-size:24px;font-weight:700}.ar span{font-size:16px;color:${theme.mut};font-weight:400;direction:ltr;unicode-bidi:isolate}
 .ft{font-size:18px;margin-top:4px}.md{font-size:15px;color:${theme.mut};margin-top:4px}
 </style></head><body>
-<h1>لوحة الستايلات: اختر بالرقم</h1>
-<div class="sub">نفس المشهد بكل ستايل · ${shown.length} ستايل${suggest.size ? ' · المقترح لهالعمل بإطار أحمر' : ''}</div>
+<h1>${esc(data.title || 'لوحة الستايلات: اختر بالرقم')}</h1>
+<div class="sub">${esc(data.sub || 'نفس المشهد بكل ستايل')} · ${shown.length} ستايل${suggest.size ? ' · المقترح لهالعمل بإطار أحمر' : ''}</div>
 <div class="grid">${cards}</div></body></html>`;
 
 const tmp = path.join(os.tmpdir(), `style_board_${process.pid}.html`);
