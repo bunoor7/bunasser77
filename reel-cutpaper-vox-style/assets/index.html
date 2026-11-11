@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<meta charset="utf-8">
+<title>تجربة الورق المقصوص</title>
+<style>
+@font-face{font-family:"Cairo";font-weight:900;src:url("fonts/cairo-arabic-900-normal.woff2") format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F;}
+@font-face{font-family:"Cairo";font-weight:900;src:url("fonts/cairo-latin-900-normal.woff2") format("woff2");}
+html,body{margin:0;background:#111}
+canvas{display:block;width:1080px;height:1920px}
+</style>
+<canvas id="c" width="1080" height="1920"></canvas>
+<script>
+// الألوان المعتمدة لبو ناصر: أحمر، كريمي، كحلي، والمنجاوي للتمييز
+const RED='#B8312A', CREAM='#F1E6D0', NAVY='#14213D', YELLOW='#F2C230';
+const W=1080, H=1920, DUR=10, SHOT=2.5, POSES=12;
+const cv=document.getElementById('c'), ctx=cv.getContext('2d');
+ctx.direction='rtl';
+
+function rng(seed){let s=seed>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const ease=p=>1-Math.pow(1-clamp(p),3);
+const prog=(t,start,dur)=>clamp((t-start)/dur);
+const deg=d=>d*Math.PI/180;
+
+// ورقة بحواف ممزقة حول المركز
+function tornPath(w,h,seed,jag=9){
+  const r=rng(seed), pts=[], step=22;
+  const edge=(x0,y0,x1,y1,nx,ny)=>{const n=Math.max(2,Math.round(Math.hypot(x1-x0,y1-y0)/step));
+    for(let i=0;i<n;i++){const k=i/n,o=(r()-.5)*2*jag;pts.push([x0+(x1-x0)*k+nx*o,y0+(y1-y0)*k+ny*o]);}};
+  edge(-w/2,-h/2,w/2,-h/2,0,1);edge(w/2,-h/2,w/2,h/2,1,0);edge(w/2,h/2,-w/2,h/2,0,1);edge(-w/2,h/2,-w/2,-h/2,1,0);
+  const p=new Path2D();pts.forEach(([x,y],i)=>i?p.lineTo(x,y):p.moveTo(x,y));p.closePath();return p;
+}
+function paper(x,y,w,h,rot,color,seed,jag,inner){
+  ctx.save();ctx.translate(x,y);ctx.rotate(deg(rot));
+  const p=tornPath(w,h,seed,jag);
+  ctx.save();ctx.translate(10,14);ctx.fillStyle='rgba(0,0,0,.28)';ctx.fill(p);ctx.restore();
+  ctx.fillStyle=color;ctx.fill(p);
+  if(inner){ctx.save();ctx.clip(p);inner();ctx.restore();}
+  ctx.restore();
+}
+function tape(x,y,w,rot){ctx.save();ctx.translate(x,y);ctx.rotate(deg(rot));
+  ctx.fillStyle='rgba(242,194,48,.82)';ctx.fillRect(-w/2,-24,w,48);
+  ctx.fillStyle='rgba(255,255,255,.18)';ctx.fillRect(-w/2,-24,w,10);ctx.restore();}
+function text(s,x,y,size,color){ctx.font=`900 ${size}px Cairo`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.fillText(s,x,y);}
+function halftone(x0,y0,w,h,color,alpha,dir){
+  ctx.save();ctx.globalAlpha=alpha;ctx.fillStyle=color;const g=26;
+  for(let y=0;y<h;y+=g)for(let x=(Math.round(y/g)%2)*g/2;x<w;x+=g){
+    const k=dir==='x'?1-x/w:1-Math.hypot(x/w,y/h)/1.2;const r=clamp(k)*g*.5;
+    if(r>1){ctx.beginPath();ctx.arc(x0+x,y0+y,r,0,7);ctx.fill();}}
+  ctx.restore();
+}
+
+// حبيبات ورق: ثلاث بلاطات تتبدّل مع الوضعيات
+const grains=[1,2,3].map(s=>{const c=document.createElement('canvas');c.width=270;c.height=480;const g=c.getContext('2d');
+  const im=g.createImageData(270,480),r=rng(s*977);for(let i=0;i<im.data.length;i+=4){const v=r()*255|0;im.data[i]=im.data[i+1]=im.data[i+2]=v;im.data[i+3]=255;}
+  g.putImageData(im,0,0);return c;});
+function finish(pose){
+  ctx.save();ctx.globalAlpha=.11;ctx.globalCompositeOperation='multiply';ctx.imageSmoothingEnabled=false;
+  ctx.drawImage(grains[Math.floor(pose/2)%3],0,0,W,H);ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H/2,H*.38,W/2,H/2,H*.72);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.34)');
+  ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+}
+
+// 1) السؤال: عبارة حركية على شرائط ممزقة
+function shot1(t){
+  ctx.fillStyle=RED;ctx.fillRect(0,0,W,H);
+  halftone(0,0,620,620,'#7E1F1A',.55);halftone(560,1400,520,520,'#7E1F1A',.4,'x');
+  const rows=[['ليش',520,CREAM,-2.5,1],['الورق',700,CREAM,1.8,-1],['المقصوص؟',900,YELLOW,-1.4,1]];
+  rows.forEach(([s,w,col,rot,side],i)=>{
+    const p=ease(prog(t,.05+i*.25,.42)); if(p<=0)return;
+    const x=W/2+side*(1-p)*1000, r=rot+side*(1-p)*10;
+    paper(x,640+i*250,w,215,r,col,11+i,10,()=>text(s,0,4,150,NAVY));
+  });
+}
+// 2) بطاقات ورقية
+function shot2(t){
+  ctx.fillStyle=NAVY;ctx.fillRect(0,0,W,H);
+  halftone(480,0,600,560,'#2A3A63',.6);
+  const cards=[['حواف ممزقة',-2,18],['نقاط هاف تون',1.5,8],['شريط لاصق',-1,8]];
+  cards.forEach(([s,rot,jag],i)=>{
+    const p=ease(prog(t,.1+i*.34,.42)); if(p<=0)return;
+    const y=500+i*390-(1-p)*1500, r=rot+(1-p)*14*(i%2?1:-1);
+    paper(W/2,y,780,330,r,CREAM,31+i,jag,()=>{
+      if(i===1)halftone(-390,-165,420,330,RED,.9,'x');
+      text(s,i===1?60:0,4,i===1?86:96,NAVY);
+    });
+    if(i===2&&t>.1+i*.34+.5){ctx.save();ctx.translate(W/2,y);ctx.rotate(deg(r));tape(-300,-160,190,-14);tape(300,-160,190,12);ctx.restore();}
+  });
+}
+// 3) العدّاد
+function shot3(t){
+  ctx.fillStyle=CREAM;ctx.fillRect(0,0,W,H);
+  halftone(0,1300,640,620,'#D9C9A8',.7);
+  const p0=ease(prog(t,.05,.34));
+  if(p0>0)paper(W/2+(1-p0)*900,470,640,150,-2+(1-p0)*8,NAVY,51,9,()=>text('الحركة على اثنين',0,2,66,CREAM));
+  const n=Math.round(clamp((t-.35)/1)*12);
+  if(t>.25)text(String(n),W/2,900,520,RED);
+  if(t>1.45)text('وضعية في الثانية',W/2,1300,96,NAVY);
+  const c=prog(t,1.6,.42);
+  if(c>0){ctx.save();ctx.translate(W/2,890);ctx.rotate(deg(-6));ctx.strokeStyle=NAVY;ctx.lineWidth=14;ctx.lineCap='round';
+    ctx.beginPath();const r=rng(77);for(let a=0;a<=c*6.6;a+=.12){const w=1+(r()-.5)*.03;const x=Math.cos(a-1.2)*430*w,y=Math.sin(a-1.2)*275*w;a?ctx.lineTo(x,y):ctx.moveTo(x,y);}
+    ctx.stroke();ctx.restore();}
+}
+// 4) الخلاصة
+function shot4(t){
+  ctx.fillStyle=RED;ctx.fillRect(0,0,W,H);
+  halftone(460,0,620,600,'#7E1F1A',.55);
+  const p=ease(prog(t,.08,.42));
+  if(p>0){const y=840-(1-p)*1500,r=-3+(1-p)*12;
+    paper(W/2,y,900,520,r,CREAM,71,12,()=>text('كله كود.',0,6,180,NAVY));
+    if(t>.6){ctx.save();ctx.translate(W/2,y);ctx.rotate(deg(r));tape(0,-258,260,4);ctx.restore();}}
+  const q=ease(prog(t,.75,.34));
+  if(q>0)paper(W/2-(1-q)*900,1250,470,150,2.5-(1-q)*8,YELLOW,81,8,()=>text('حبر أبيض',0,2,84,NAVY));
+  if(t>1.2)text('بلا كاميرا · بلا توليد فيديو',W/2,1430,56,CREAM);
+}
+const shots=[shot1,shot2,shot3,shot4];
+
+// كل فريم يُحسب من الزمن وحده، والحركة مثبّتة على 12 وضعية في الثانية
+window.seek=function(sec){
+  const pose=Math.floor(clamp(sec,0,DUR-1e-6)*POSES+1e-6), t=pose/POSES;
+  const i=Math.min(shots.length-1,Math.floor(t/SHOT)), lt=t-i*SHOT;
+  ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,W,H);
+  const tr=prog(lt,0,.25);
+  if(i>0&&tr<1){ // ورقة المشهد الجديد تصعد من الأسفل بحافة ممزقة
+    shots[i-1](SHOT);
+    ctx.save();const top=H*(1-ease(tr));const r=rng(900+i);const cp=new Path2D();cp.moveTo(0,H);cp.lineTo(0,top);
+    for(let x=0;x<=W;x+=30)cp.lineTo(x,top+(r()-.5)*44);cp.lineTo(W,H);cp.closePath();
+    ctx.save();ctx.translate(0,-16);ctx.fillStyle='rgba(0,0,0,.3)';ctx.fill(cp);ctx.restore();
+    ctx.clip(cp);shots[i](lt);ctx.restore();
+  } else shots[i](lt);
+  finish(pose);
+};
+document.fonts.load('900 100px Cairo','كله كود 12').then(()=>{window.seek(0);window.ready=true;});
+</script>
+</html>
