@@ -1,5 +1,9 @@
 # سجل bunasser77
 
+## 1.34.0 (11 نوفمبر 2026)
+- reel-animation-templates جديد: ست قوالب من claude-animation-skills (MIT)، كل واحد بأمر من ملف JSON: graph وmap-route وbreakdown وminimalistic-graphics وstick-figure وzach-d-films، مع الأداة المشتركة kit. التكييف: خط عربي وRTL، وألوان theme.json، وصوته بدل Kokoro، وتوقيت الكلمات العربي من أدواتنا، والتجهيز على ويندوز من Git Bash. ما انجرّبت على ويندوز للحين
+- bunasser77/SKILL.md: سطر توجيه
+
 ## 1.33.0 (11 نوفمبر 2026)
 - reel-cutpaper-vox-style: قسم «الإيقاع وقوس السرد» من vox-director (MIT)، وreferences/beat-layer.md كما هو. السكربتات والتوليد المدفوع ما انضافت، والألوان المعتمدة والحركة «على اثنين» ما تغيّرت
 
