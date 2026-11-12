@@ -1,5 +1,9 @@
 # سجل bunasser77
 
+## 1.35.0 (12 نوفمبر 2026)
+- agents/ جديد (طلب بو ناصر): أربعة مساعدين بنماذج أرخص. studio-helper (Haiku) للشغل الروتيني على الملفات وffmpeg. browser-media-maker (Sonnet) يفتح كروم ويطلب صورة أو فيديو من Gemini أو ChatGPT أو غيرها ببرومت جاهز، بلا دخول ولا دفع ولا تنزيل بدون إذن. session-reviewer (Haiku) يدوّر في المحادثات السابقة والذاكرة. web-researcher (Sonnet) يجمع الحقائق بمصادرها
+- bunasser77/SKILL.md: قسم «المساعدين» (متى يوزّع الأساسي، والتوزيع مع بعض، والطلب الكامل، والتحقق من التقرير)
+
 ## 1.34.0 (11 نوفمبر 2026)
 - reel-animation-templates جديد: ست قوالب من claude-animation-skills (MIT)، كل واحد بأمر من ملف JSON: graph وmap-route وbreakdown وminimalistic-graphics وstick-figure وzach-d-films، مع الأداة المشتركة kit. التكييف: خط عربي وRTL، وألوان theme.json، وصوته بدل Kokoro، وتوقيت الكلمات العربي من أدواتنا، والتجهيز على ويندوز من Git Bash. ما انجرّبت على ويندوز للحين
 - bunasser77/SKILL.md: سطر توجيه

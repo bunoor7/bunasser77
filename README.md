@@ -12,6 +12,7 @@
 | reel-style-board | لوحة ٥٧ ستايل حركة بالصور، يختار منها بالرقم وقت الإنتاج (من video-director) |
 | reel-code-film-styles | ٦٦ ستايل فيلم بالكود مع وصفة بناء لكل ستايل ولوحة بالأرقام، منها نشرة أخبار وتحقيق بصري وأقمار صناعية (من Lemo-Opuscar) |
 | reel-animation-templates | ست قوالب أنيميشن بالكود بأمر واحد: رسم بياني بعدّاد، مسار خريطة 3D، تفكيك جهاز، خطوط بسيطة، شخصيات عيدان، كرتون 3D «ماذا لو» (من claude-animation-skills) |
+| agents/ (مساعدين) | `studio-helper` و`session-reviewer` بنموذج Haiku، و`browser-media-maker` و`web-researcher` بنموذج Sonnet: مهام روتينية بنموذج أرخص عشان يتوفّر الرصيد |
 | reel-text-humanizer | يشيل علامات كتابة الذكاء الاصطناعي من الكابشن والسكربت ونص الشاشة (مكيّفة من Humanizer) |
 | podcast-video | البودكاست والمقابلات بأكثر من كاميرا |
 | montage-video | مقاطع بلا كلام على الإيقاع |
