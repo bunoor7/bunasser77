@@ -1,8 +1,8 @@
-# Claude animations: 44 وصف أنيميشن بالكود (canvas 2D)
+# Claude animations: الأوصاف الأصلية (44 + 3)
 
-ملف أعطاه بو ناصر. وصف كل أنيميشن أدناه كما وصل بنصه الإنقليزي، والأقسام المشتركة بين الكل مكتوبة مرة وحدة تحت. المصدر والترخيص غير مذكورين في الملف، فيُستعمل بنية وإلهامًا ولا يُنشر حرفيًا خارج هذا المستودع الخاص.
+ملف أعطاه بو ناصر. وصف كل أنيميشن أدناه كما وصل بنصه الإنقليزي (الأوصاف الـ44 الأولى ثم ثلاثة أضافها لاحقًا). صارت كلها مبنية، والكود وجدول الاستعمال في `../animations/INDEX.md`، والأقسام المشتركة بين الكل مكتوبة مرة وحدة تحت. المصدر والترخيص غير مذكورين في الملف، فيُستعمل بنية وإلهامًا ولا يُنشر حرفيًا خارج هذا المستودع الخاص.
 
-الأوصاف ما انبنى منها أي ملف ولا انجرّب. هي برومتات، وكل واحد يصير ملف HTML واحدًا لو طُلب بناؤه.
+هذا المرجع للأوصاف الأصلية فقط. للبناء والتعديل ارجع إلى `../animations/_build/src`.
 
 ## كيف تُستعمل مع ريلات بو ناصر
 
@@ -190,3 +190,15 @@ A UI card in isometric view on ink separates into four stacked layers, rising ap
 
 ### 44. Radar Morph
 A radar chart on ink with six axes labelled TYPE, UI, DATA, ART, 3D and SOUND in small caps, and four hexagon grid rings that grow out from the centre with ease out. An orange shape (3.5 px outline, 28% fill, a white-centred dot on each corner) starts on one set of values and morphs to a second set between t 0.24 and 0.74 with glide. [Swap in your six labels and two sets of values]
+
+## أوصاف أضافها بو ناصر لاحقًا
+
+### 45. Seal Spin
+A round stamp on bone graph paper. From the outside in: a white disc with a scalloped edge (40 small bumps) and a soft shadow, a ring of small caps mono text reading "MADE IN CLAUDE · 50 ANIMATIONS ·" on repeat, and an orange disc with a thin white inner ring. The seal scales in from 50% with a slight overshoot while it spins fast, slows down until only the text ring keeps turning gently, and then a logo mark lands in the centre. [Use your logo and your words on the ring]
+
+### 46. Particle Sphere
+About 1,100 small dots on ink start as a flat grid (44 × 25) that fills the frame, then glide into a rotating sphere of radius 205 (t 0.06 to 0.68). Spread the dots evenly over the sphere with a golden-angle spiral. Dots on the near side are larger and brighter, and dots on the far side are smaller and fainter; draw the far side first. About one dot in nine is orange and the rest are bone. Do the 3D by hand: rotate each point, project it with simple perspective, sort back to front, then draw.
+
+### 47. Extrude Type
+A giant "50" (400 px, bone) on an orange background with a deep 3D extrusion, built from 46 stacked copies of the type in dark tones, each offset a step further in one direction. The extrusion grows from nothing to its full depth (about 92 px) at the start, and its direction swings round through about 110° with glide, like a light moving across the type. Small caps label at the bottom: EXTRUDE · 46 LAYERS. [Swap in your number or word]
+
