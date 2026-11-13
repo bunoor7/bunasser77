@@ -1,0 +1,18 @@
+Build this animation as a single self-contained HTML file (inline CSS and vanilla JS, canvas 2D only, no libraries).
+
+The animation:
+3D Bars. A 5 × 4 block of 3D bars stands on a pale floor plate with faint grid lines, white background. The bars grow from the floor in a diagonal wave with ease out, to varied heights. Most are white, some are ink, and the tallest is orange. The camera orbits about 30° during the animation. Use flat shading with a lighter top and darker sides. When the bars finish (t 0.66), a black pill reading "+62%" lands above the tallest bar. [Swap in your number] Do the 3D by hand: rotate each point, project it with simple perspective, sort back to front, then draw.
+
+Setup:
+- One canvas with a 912 × 600 drawing space, centred on the page, scaled to fit the window and sharp on retina screens.
+- Write the whole animation as one function draw(ctx, t), where t runs from 0 to 1 and every frame depends only on t.
+- Play t from 0 to 1 over 2 seconds, hold the last frame for 1 second, then loop.
+- Easing words I use above: "ease out" is cubic-bezier(0.16, 1, 0.3, 1), "glide" is cubic-bezier(0.65, 0, 0.35, 1), and "lands" means a small overshoot, cubic-bezier(0.34, 1.56, 0.64, 1).
+
+Brand:
+- Colours: ink #0B0B0C, bone #F6F4F1, white #FFFFFF, accent orange #FF5A1F. [Swap in your colours]
+- Fonts from Google Fonts: Google Sans for text, Google Sans Code for small caps labels, Instrument Serif Italic for accent words. [Swap in your fonts] Wait for the fonts to load before the first frame.
+
+Check before you finish:
+- Nothing clips at the canvas edges and the text is sharp.
+- The last frame works as a still image.
