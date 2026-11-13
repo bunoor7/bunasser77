@@ -1,0 +1,18 @@
+Build this animation as a single self-contained HTML file (inline CSS and vanilla JS, canvas 2D only, no libraries).
+
+The animation:
+Carousel Ring. Nine portrait cards stand in a ring in 3D on ink, like a carousel seen from slightly above. The ring turns by exactly one card with glide, so the next card arrives at the front. Cards facing the viewer are white with a coloured thumbnail, a title bar, a grey line and an orange dot; the first card has an orange thumbnail with a play button. Cards get narrower as they turn side-on and darker with distance, and show a dark outlined back when they face away. A row of nine small dots at the bottom marks the active card in orange. Do the 3D by hand: rotate each point, project it with simple perspective, sort back to front, then draw.
+
+Setup:
+- One canvas with a 912 × 600 drawing space, centred on the page, scaled to fit the window and sharp on retina screens.
+- Write the whole animation as one function draw(ctx, t), where t runs from 0 to 1 and every frame depends only on t.
+- Play t from 0 to 1 over 2 seconds, hold the last frame for 1 second, then loop.
+- Easing words I use above: "ease out" is cubic-bezier(0.16, 1, 0.3, 1), "glide" is cubic-bezier(0.65, 0, 0.35, 1), and "lands" means a small overshoot, cubic-bezier(0.34, 1.56, 0.64, 1).
+
+Brand:
+- Colours: ink #0B0B0C, bone #F6F4F1, white #FFFFFF, accent orange #FF5A1F. [Swap in your colours]
+- Fonts from Google Fonts: Google Sans for text, Google Sans Code for small caps labels, Instrument Serif Italic for accent words. [Swap in your fonts] Wait for the fonts to load before the first frame.
+
+Check before you finish:
+- Nothing clips at the canvas edges and the text is sharp.
+- The last frame works as a still image.
