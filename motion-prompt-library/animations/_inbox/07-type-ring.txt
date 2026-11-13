@@ -1,0 +1,18 @@
+Build this animation as a single self-contained HTML file (inline CSS and vanilla JS, canvas 2D only, no libraries).
+
+The animation:
+Type Ring. The line "CLAUDE ANIMATIONS • NOW IN 3D •" repeats around a turning ring of large type (about 124 px) on bone with a dot grid. The ring is a circle of radius about 296 seen at a low angle, so it reads as a wide ellipse. Each letter sits on the ring and is squeezed sideways by how far it is turned away. Letters on the front are solid, ink with "NOW IN 3D" in orange; letters on the back are mirrored and faint (16% opacity), so you see them through the ring. A thin ellipse line marks the ring. It scales from 88% to 100% with ease out and keeps rotating at a steady speed. [Swap in your line]
+
+Setup:
+- One canvas with a 912 × 600 drawing space, centred on the page, scaled to fit the window and sharp on retina screens.
+- Write the whole animation as one function draw(ctx, t), where t runs from 0 to 1 and every frame depends only on t.
+- Play t from 0 to 1 over 2 seconds, hold the last frame for 1 second, then loop.
+- Easing words I use above: "ease out" is cubic-bezier(0.16, 1, 0.3, 1), "glide" is cubic-bezier(0.65, 0, 0.35, 1), and "lands" means a small overshoot, cubic-bezier(0.34, 1.56, 0.64, 1).
+
+Brand:
+- Colours: ink #0B0B0C, bone #F6F4F1, white #FFFFFF, accent orange #FF5A1F. [Swap in your colours]
+- Fonts from Google Fonts: Google Sans for text, Google Sans Code for small caps labels, Instrument Serif Italic for accent words. [Swap in your fonts] Wait for the fonts to load before the first frame.
+
+Check before you finish:
+- Nothing clips at the canvas edges and the text is sharp.
+- The last frame works as a still image.

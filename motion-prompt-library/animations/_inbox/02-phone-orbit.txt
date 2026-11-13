@@ -1,0 +1,18 @@
+Build this animation as a single self-contained HTML file (inline CSS and vanilla JS, canvas 2D only, no libraries).
+
+The animation:
+Phone Orbit. A realistic phone turns in 3D on a soft peach background: a rounded slab with a brushed metal edge and side buttons, a thin black bezel, a pill-shaped camera cutout and a status bar showing 9:41. It starts turned about 56° away, showing its metal side, and glides round to face the viewer with a slight tilt and a gentle bob. The screen shows an app: the headline "Ideas that compound." (second word in orange italic serif), an orange video card with a play button, two small stat tiles and a dark tab bar. A thin orange orbit ring circles the phone at a tilt, drawn faint behind it and bright in front, with a glowing orange dot travelling along it. A soft blurred floor shadow widens as the phone turns. Draw the screen to an off-screen canvas first, then map it onto the phone's face in perspective by splitting it into a grid of small triangles, each drawn with an affine transform and a clip.
+
+Setup:
+- One canvas with a 912 × 600 drawing space, centred on the page, scaled to fit the window and sharp on retina screens.
+- Write the whole animation as one function draw(ctx, t), where t runs from 0 to 1 and every frame depends only on t.
+- Play t from 0 to 1 over 2 seconds, hold the last frame for 1 second, then loop.
+- Easing words I use above: "ease out" is cubic-bezier(0.16, 1, 0.3, 1), "glide" is cubic-bezier(0.65, 0, 0.35, 1), and "lands" means a small overshoot, cubic-bezier(0.34, 1.56, 0.64, 1).
+
+Brand:
+- Colours: ink #0B0B0C, bone #F6F4F1, white #FFFFFF, accent orange #FF5A1F. [Swap in your colours]
+- Fonts from Google Fonts: Google Sans for text, Google Sans Code for small caps labels, Instrument Serif Italic for accent words. [Swap in your fonts] Wait for the fonts to load before the first frame.
+
+Check before you finish:
+- Nothing clips at the canvas edges and the text is sharp.
+- The last frame works as a still image.

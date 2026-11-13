@@ -1,0 +1,18 @@
+Build this animation as a single self-contained HTML file (inline CSS and vanilla JS, canvas 2D only, no libraries).
+
+The animation:
+Globe Arcs. A wireframe globe on ink with a soft orange halo behind it: latitude and longitude lines every 20°, faint on the far side and brighter on the near side, with a small dot at each visible crossing. The globe grows from 88% to 100% and turns slowly the whole time. Ten city dots land one after another, each with a pulsing orange ring; the home city is larger and orange. From t 0.05, nine orange routes draw out from the home city along great-circle arcs lifted off the surface (30% higher in the middle), staggered 0.055 apart, each led by a glowing white head. A small satellite circles on its own tilted orbit, passing behind and in front of the globe. Do the 3D by hand: rotate each point, project it with simple perspective, sort back to front, then draw.
+
+Setup:
+- One canvas with a 912 × 600 drawing space, centred on the page, scaled to fit the window and sharp on retina screens.
+- Write the whole animation as one function draw(ctx, t), where t runs from 0 to 1 and every frame depends only on t.
+- Play t from 0 to 1 over 2 seconds, hold the last frame for 1 second, then loop.
+- Easing words I use above: "ease out" is cubic-bezier(0.16, 1, 0.3, 1), "glide" is cubic-bezier(0.65, 0, 0.35, 1), and "lands" means a small overshoot, cubic-bezier(0.34, 1.56, 0.64, 1).
+
+Brand:
+- Colours: ink #0B0B0C, bone #F6F4F1, white #FFFFFF, accent orange #FF5A1F. [Swap in your colours]
+- Fonts from Google Fonts: Google Sans for text, Google Sans Code for small caps labels, Instrument Serif Italic for accent words. [Swap in your fonts] Wait for the fonts to load before the first frame.
+
+Check before you finish:
+- Nothing clips at the canvas edges and the text is sharp.
+- The last frame works as a still image.
