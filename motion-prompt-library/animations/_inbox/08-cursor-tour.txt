@@ -1,0 +1,18 @@
+Build this animation as a single self-contained HTML file (inline CSS and vanilla JS, canvas 2D only, no libraries).
+
+The animation:
+Cursor Tour. Three rounded tiles in a row on white with a faint dot grid. Tile one is a white card reading "01. Glide" with a small curve icon, tile two reads "02. Press" with a target icon, and tile three is an empty dashed outline. A cursor arrow with an orange name pill glides in from the bottom right along a curved path to the third tile (t 0.06 to 0.6) and presses, shrinking to 86% and back. The empty tile then turns into a solid orange tile that lands, with a white tick drawing itself and the word "Done", while an orange ring ripples out from it. Small caps label under the tiles: CURSOR TOUR · GLIDE, PRESS, DONE. [Put your name on the cursor pill]
+
+Setup:
+- One canvas with a 912 × 600 drawing space, centred on the page, scaled to fit the window and sharp on retina screens.
+- Write the whole animation as one function draw(ctx, t), where t runs from 0 to 1 and every frame depends only on t.
+- Play t from 0 to 1 over 2 seconds, hold the last frame for 1 second, then loop.
+- Easing words I use above: "ease out" is cubic-bezier(0.16, 1, 0.3, 1), "glide" is cubic-bezier(0.65, 0, 0.35, 1), and "lands" means a small overshoot, cubic-bezier(0.34, 1.56, 0.64, 1).
+
+Brand:
+- Colours: ink #0B0B0C, bone #F6F4F1, white #FFFFFF, accent orange #FF5A1F. [Swap in your colours]
+- Fonts from Google Fonts: Google Sans for text, Google Sans Code for small caps labels, Instrument Serif Italic for accent words. [Swap in your fonts] Wait for the fonts to load before the first frame.
+
+Check before you finish:
+- Nothing clips at the canvas edges and the text is sharp.
+- The last frame works as a still image.
