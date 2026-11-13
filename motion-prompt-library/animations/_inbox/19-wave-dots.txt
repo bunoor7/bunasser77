@@ -1,0 +1,18 @@
+Build this animation as a single self-contained HTML file (inline CSS and vanilla JS, canvas 2D only, no libraries).
+
+The animation:
+Wave Dots. A field of dots seen in perspective on ink, like a floor running to the horizon (about 46 × 26 dots). Two travelling sine waves move through the field so it rolls like water. Dots get bigger as they rise and as they come nearer the camera, fade with distance, and turn orange on the highest crests. The wave height eases in from flat over the first half. Draw the far rows first.
+
+Setup:
+- One canvas with a 912 × 600 drawing space, centred on the page, scaled to fit the window and sharp on retina screens.
+- Write the whole animation as one function draw(ctx, t), where t runs from 0 to 1 and every frame depends only on t.
+- Play t from 0 to 1 over 2 seconds, hold the last frame for 1 second, then loop.
+- Easing words I use above: "ease out" is cubic-bezier(0.16, 1, 0.3, 1), "glide" is cubic-bezier(0.65, 0, 0.35, 1), and "lands" means a small overshoot, cubic-bezier(0.34, 1.56, 0.64, 1).
+
+Brand:
+- Colours: ink #0B0B0C, bone #F6F4F1, white #FFFFFF, accent orange #FF5A1F. [Swap in your colours]
+- Fonts from Google Fonts: Google Sans for text, Google Sans Code for small caps labels, Instrument Serif Italic for accent words. [Swap in your fonts] Wait for the fonts to load before the first frame.
+
+Check before you finish:
+- Nothing clips at the canvas edges and the text is sharp.
+- The last frame works as a still image.
