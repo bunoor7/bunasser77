@@ -64,10 +64,13 @@ description: المدخل الرئيسي لبلقن بو ناصر للفيديو
 `reel-style-broll-rules` للستايل واللقطات، `reel-hook-families-free-sfx` للهوك، `reel-caption-bidi-guard` لأي كابشن عربي فيه اسم إنجليزي، `reel-sound-layer` للمؤثرات، `reel-review-loop` ثم `reel-delivery-checks` قبل التسليم.
 
 **موشن (فوق الأساسية)**
-`motion-script-discipline` وmotion-video-pre-build قبل البناء، `motion-effects-bank` وmotion-easing-springs للحركة، `mutqin-motion-prompts` للافتتاحيات العربية، `continuous-camera-motion-reel` لفيلم بلقطة كاميرا وحدة متصلة بلا قطع، `reel-code-film-checks` وmotion-timing-qa قبل التسليم.
+`motion-script-discipline` وmotion-video-pre-build قبل البناء، `motion-effects-bank` وmotion-easing-springs للحركة، `mutqin-motion-prompts` للافتتاحيات العربية، `continuous-camera-motion-reel` لفيلم بلقطة كاميرا وحدة متصلة بلا قطع، `motion-recipes` لـ16 تأثيرًا آخر ورقم من نقاط ورسم بياني متحرك وافتتاحية 3D وتصدير ريل آمن الألوان، `reel-code-film-checks` وmotion-timing-qa قبل التسليم.
 
 **حسب المادة أو الطلب**
 - شرح موقع أو تطبيق أو جهاز: `motion-video` مع مراجعه، ولقطة مميزة `shotcraft-motion-cards`
+- ريل يُحكى بصوت (خاطرة، قصة قصيرة، درس، قصة محل): `reel-telling-kit` لهيكل الحكاية ومعيار الإيقاع وصوت الأفلام وقواعد الأشخاص المرسومين
+- ريل بستايل بكسل أو ألعاب، أو ضربة مرحة (POW، عدّ تنازلي)، أو انتقال بكسلي: `pixelfx`
+- مؤثرات ما بعد المعالجة في مشهد Three.js (حبيبات، هاف تون، تيلت شفت، LUT، انتقال بين مشهدين): `video-ad-editor/motion/THREE-ADDONS.md`
 - تيزر: `reel-teaser-structure`
 - ريل تعليمي بسبورة: `reel-word-synced-board`
 - ستايل ورق مقصوص أو شرح تاريخي: `reel-cutpaper-vox-style` أو `reel-explainer-styles-archive`
