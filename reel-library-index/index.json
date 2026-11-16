@@ -1,0 +1,729 @@
+{
+ "catalog": [
+  {
+   "key": "text-motion",
+   "label": "حركة النص والكلمات",
+   "question": "كيف تدخل هذه الكلمة أو الجملة وتتحرك؟",
+   "entries": [
+    {
+     "name": "حركات الخط العربي",
+     "gives": "كشيدة تتمدّد (stretch)، تجميع الحروف (join)، كلمة ثقيلة (heavy)، قطع حاد (cut)، شعار (brand)",
+     "when": "كلمة واحدة تحمل معنى الحركة. الطريقة الوحيدة المضمونة لتحريك العربي بلا كسر الحروف",
+     "where": "`motion-bilarabi` (مشهد `arabic-move`، كلمة واحدة في `show.word`)"
+    },
+    {
+     "name": "نص مطاطي، نص مقنّع، نص يتحول لتخطيط",
+     "gives": "وصفات بناء كاملة",
+     "when": "عنوان افتتاح، كشف اسم، عنوان يصير غلافًا",
+     "where": "`motion-recipes` ← `references/effects-recipes.md` (09، 10، 11)"
+    },
+    {
+     "name": "مكونات نص HyperFrames",
+     "gives": "blur-in، bottom-up-letters، وعشرات غيرها",
+     "when": "دخول جملة أو عنوان بسرعة",
+     "where": "`hyperframes-registry` ← `npx hyperframes catalog --query \"<الحركة>\"`"
+    },
+    {
+     "name": "كابشن متحرك",
+     "gives": "caption-clip-wipe، caption-editorial-emphasis، تمييز الكلمة",
+     "when": "كابشن بتوقيت الكلمة",
+     "where": "`hyperframes-registry` و`remotion-captions` و`video-ad-editor`"
+    },
+    {
+     "name": "نص يُكتب أو يُفكّ",
+     "gives": "آلة كاتبة، فك تشفير، لوحة مطار",
+     "when": "كشف معلومة أو كود",
+     "where": "`motion-prompt-library` (18-typewriter، 33-scramble-decode، 10-split-flap)، و`motion-effects-bank` (Typewriter)"
+    },
+    {
+     "name": "نص ثلاثي الأبعاد",
+     "gives": "حروف بارزة تدور",
+     "when": "عنوان قوي أو خاتمة",
+     "where": "`motion-prompt-library` (46-extrude-type)، و`video-ad-editor/motion` (TextGeometry)"
+    },
+    {
+     "name": "افتتاحيات عربية",
+     "gives": "هوك يوقف التمرير، مد عربي، مورف",
+     "when": "أول ثانيتين",
+     "where": "`mutqin-motion-prompts`"
+    },
+    {
+     "name": "كاينتك تايبوغرافي مولّد",
+     "gives": "فيديو نص حركي من هيغزفيلد كاتانا",
+     "when": "حين يُطلب توليد لا بناء",
+     "where": "`katana-higgsfield-tips`"
+    }
+   ]
+  },
+  {
+   "key": "visual-fx",
+   "label": "مؤثرات بصرية للحظة",
+   "question": "اللحظة تحتاج صدمة، كشف، أرقام، خاتمة؟",
+   "entries": [
+    {
+     "name": "بنك 11 تأثيرًا",
+     "gives": "Orbit، Vertigo، Zoom-through، Headlines، Paper Cut، Charts، Phone Screens، Frame Break، Pullback، Glitch، Typewriter",
+     "when": "اختيار التأثير بوظيفة اللحظة",
+     "where": "`motion-effects-bank`"
+    },
+    {
+     "name": "16 تأثيرًا بوصفات",
+     "gives": "تحوّل رسم بياني، تكبير لوحة أرقام، تكديس نابضي، كشف صورة، تحوّل منظور، مسارات متدفقة، شعار من جزيئات، تأثيرات واجهات",
+     "when": "حين لا يكفي البنك",
+     "where": "`motion-recipes`"
+    },
+    {
+     "name": "47 أنيميشن بالكود",
+     "gives": "عدّاد، أعمدة 3D، دائرة نسبة، كرة أرضية، انفجار طبقات، تحوّل أشكال، نفق، كرة جزيئات، قبل وبعد...",
+     "when": "طبقة واحدة للقطة واحدة",
+     "where": "`motion-prompt-library` ← `animations/INDEX.md`"
+    },
+    {
+     "name": "رقم يتجمع من نقاط، ورسم بياني متحرك",
+     "gives": "الرقم كما هو من المصدر",
+     "when": "رقم صادم أو مقارنة",
+     "where": "`motion-recipes` (milestone-reveal، animated-chart)"
+    },
+    {
+     "name": "مؤثرات بكسل",
+     "gives": "انفجار POW، عدّ تنازلي، رقم يقفز، طقس، 244 مؤثرًا",
+     "when": "ريل خفيف أو بطابع ألعاب",
+     "where": "`pixelfx` ← `docs/CATALOG.md`"
+    },
+    {
+     "name": "مؤثرات على شخصه المصوَّر",
+     "gives": "قص الشخص، تركيز خلفي، نسخ، مدار، غوص في الحروف، تطاير، شاشة كود",
+     "when": "ريل كلام فيه شخصه",
+     "where": "`motion-bilarabi` (مشهد `cutout`)"
+    },
+    {
+     "name": "ملمس الصورة في Three.js",
+     "gives": "حبيبات فيلم، هاف تون، عمق ميدان، تيلت شفت، بكسلة، قلتش، LUT",
+     "when": "فيلم ثلاثي الأبعاد",
+     "where": "`video-ad-editor/motion/THREE-ADDONS.md`"
+    },
+    {
+     "name": "لقطة مميزة جاهزة",
+     "gives": "عنوان، انتقال، كاميرا 3D، ظهور واجهة",
+     "when": "لقطة بطل في الريل",
+     "where": "`shotcraft-motion-cards`"
+    },
+    {
+     "name": "بلوكات HyperFrames جاهزة",
+     "gives": "قرابة 450: عناوين، شارتات، خرائط، مؤثرات، خلفيات 3D",
+     "when": "قبل بناء أي شيء باليد",
+     "where": "`hyperframes-registry` و`hyperframes-blocks`"
+    }
+   ]
+  },
+  {
+   "key": "transitions",
+   "label": "انتقالات",
+   "question": "كيف ننتقل من مشهد أو فكرة إلى التالية؟",
+   "entries": [
+    {
+     "name": "انتقالات HyperFrames",
+     "gives": "beat-freeze-cut، chromatic-radial-split، cinematic-zoom، والمزيد",
+     "when": "بين مشهدين في فيلم HyperFrames",
+     "where": "`hyperframes-registry` (`--tag transition`)"
+    },
+    {
+     "name": "Zoom-through، Pullback، Frame Break، Glitch",
+     "gives": "من البنك",
+     "when": "من فكرة إلى فكرة بلا قطع عادي",
+     "where": "`motion-effects-bank`"
+    },
+    {
+     "name": "10 انتقالات بكسل",
+     "gives": "ستائر، احتراق، انطفاء CRT، معيّنات، قلتش، قزحية، تحلل، تكسّر زجاج، ضربة سيف، نجمة",
+     "when": "فاصل بطابع ألعاب أو تقني",
+     "where": "`pixelfx` (`src/fx/transitions/`)"
+    },
+    {
+     "name": "انتقال بين مشهدين ثلاثيي الأبعاد",
+     "gives": "مسح أو ذوبان بقناع",
+     "when": "داخل فيلم Three.js",
+     "where": "`video-ad-editor/motion/THREE-ADDONS.md` (RenderTransitionPass)"
+    },
+    {
+     "name": "لقطة كاميرا واحدة بلا قطع",
+     "gives": "كل مشهد على سطره",
+     "when": "فيلم متصل",
+     "where": "`continuous-camera-motion-reel`"
+    },
+    {
+     "name": "انتقال شبكة البروفايل",
+     "gives": "المشهد يصغر لمربع في شبكته ثم يدخل التالي",
+     "when": "ريل لحسابه",
+     "where": "`motion-bilarabi` (`profile-grid`)"
+    },
+    {
+     "name": "ورقة تصعد بحافة ممزقة",
+     "gives": "على اثنين",
+     "when": "ستايل الورق المقصوص",
+     "where": "`reel-cutpaper-vox-style`"
+    },
+    {
+     "name": "موجة هاف تون، مسح نقطي",
+     "gives": "انتقال مطبوع",
+     "when": "بين فصول",
+     "where": "`motion-prompt-library` (32-halftone-wave، 36-dot-wipe)"
+    }
+   ]
+  },
+  {
+   "key": "camera",
+   "label": "حركة الكاميرا والإحساس",
+   "question": "كيف تتحرك الكاميرا وبأي إحساس؟",
+   "entries": [
+    {
+     "name": "مكونات الكاميرا",
+     "gives": "camera-shake، camera-scan-gate، ودفع وسحب",
+     "when": "ضربة أو مسح",
+     "where": "`hyperframes-registry`"
+    },
+    {
+     "name": "إحساس الحركة",
+     "gives": "ارتداد نابضي، انزلاق، تتابع، عدّاد",
+     "when": "ضبط التسهيل لكل ستايل",
+     "where": "`motion-easing-springs`"
+    },
+    {
+     "name": "أرقام الحركة والإيقاع",
+     "gives": "حركة ظاهرة كل مشهد، دفع 2.5 إلى 4%/ث، مكان جديد كل جملة أو جملتين",
+     "when": "قبل البناء وعند المراجعة",
+     "where": "`reel-telling-kit` §2"
+    },
+    {
+     "name": "مفردات كاميرا للتوليد",
+     "gives": "عدسة، فتحة، حركة",
+     "when": "برومبت B-roll مولّد",
+     "where": "`cinematic-camera-prompt-vocab`"
+    }
+   ]
+  },
+  {
+   "key": "fonts",
+   "label": "خطوط",
+   "question": "أي خط؟",
+   "entries": [
+    {
+     "name": "قائمة خطوطه المرقّمة",
+     "gives": "51 خطًا، مع لوحة صور",
+     "when": "اختيار الخط قبل كل عمل",
+     "where": "`bunasser77/references/font-list.md`"
+    },
+    {
+     "name": "خطوط المحرّك وقواعدها",
+     "gives": "الأوزان، الآيات بـAmiri Quran، عيوب معروفة، مرشّحة",
+     "when": "عند البناء",
+     "where": "`video-ad-editor/references/fonts.md`"
+    },
+    {
+     "name": "العربي مع الإنجليزي",
+     "gives": "منع انكسار الاتجاه",
+     "when": "أي كابشن فيه اسم إنجليزي",
+     "where": "`reel-caption-bidi-guard`"
+    }
+   ]
+  },
+  {
+   "key": "styles",
+   "label": "ستايلات الريل كله",
+   "question": "أي شكل للريل؟",
+   "entries": [
+    {
+     "name": "لوحة 57 ستايل حركة",
+     "gives": "ورق مقصوص، أيزومتري، كولاج، طين، مائي...",
+     "when": "اختيار الشكل بالصور",
+     "where": "`reel-style-board`"
+    },
+    {
+     "name": "99 ستايل فيلم بالكود",
+     "gives": "66 بوصفات + 33 بفهرس",
+     "when": "فيلم كامل بشكل مسمّى",
+     "where": "`reel-code-film-styles` (و`styles-extra.md`)"
+    },
+    {
+     "name": "الورق المقصوص (Vox)",
+     "gives": "بألوانه المعتمدة",
+     "when": "العناوين وريل الشرح",
+     "where": "`reel-cutpaper-vox-style`"
+    },
+    {
+     "name": "شرح وأرشيف تاريخي",
+     "gives": "ستايلات الشرح ولقطات الأرشيف",
+     "when": "ريل تحليلي أو تاريخي",
+     "where": "`reel-explainer-styles-archive`"
+    },
+    {
+     "name": "حلقة بستايل مجرّب",
+     "gives": "Collage، Finance، Science، 3D Brand، True Crime",
+     "when": "حلقة على نسق معروف",
+     "where": "`style-sampling`"
+    },
+    {
+     "name": "أسلوب ريل أعجبه",
+     "gives": "بصمة الإيقاع والحركة",
+     "when": "عنده مرجع",
+     "where": "`reel-style-fingerprint` و`reverse-any-video`"
+    },
+    {
+     "name": "كسر الخيار المتوقع",
+     "gives": "يسمّي الافتراضي ثم يبتعد عنه",
+     "when": "أي قرار شكلي «عادي»",
+     "where": "`antialgorithm`"
+    }
+   ]
+  },
+  {
+   "key": "templates",
+   "label": "قوالب جاهزة",
+   "question": "هل يوجد قالب يغني عن البناء؟",
+   "entries": [
+    {
+     "name": "قوالب موشن بالعربي",
+     "gives": "قائمة، مشكلة وحل، خطوات، سألتوني، أداة، دليل حلقي، شرح نظام، تشويقة",
+     "when": "ريل عربي سريع",
+     "where": "`motion-bilarabi`"
+    },
+    {
+     "name": "6 قوالب أنيميشن",
+     "gives": "graph، map-route، breakdown، minimalistic-graphics، stick-figure، zach-d-films",
+     "when": "ريل بلا تصوير من JSON",
+     "where": "`reel-animation-templates`"
+    },
+    {
+     "name": "سبورة على الكلمة",
+     "gives": "رسم يتزامن مع الكلام",
+     "when": "ريل تعليمي",
+     "where": "`reel-word-synced-board`"
+    },
+    {
+     "name": "الشاشة فوق الراس",
+     "gives": "زوم آوت وشاشة تطفو",
+     "when": "ريل تعليمي بشاشة",
+     "where": "`overhead-screen-zoomout`"
+    }
+   ]
+  },
+  {
+   "key": "story",
+   "label": "السرد والهوك",
+   "question": "كيف نبني الحكاية والبداية؟",
+   "entries": [
+    {
+     "name": "هياكل الحكاية",
+     "gives": "حكاية قصيرة، ورقة وفكرة، سلّم، سلسلة",
+     "when": "ريل يُحكى بصوت",
+     "where": "`reel-telling-kit`"
+    },
+    {
+     "name": "عائلات الهوك",
+     "gives": "مع مؤثرات مجانية",
+     "when": "أي ريل",
+     "where": "`reel-hook-families-free-sfx`"
+    },
+    {
+     "name": "تقطيع السكربت لمشاهد",
+     "gives": "مشهد لكل جملة",
+     "when": "قبل أي فيلم موشن",
+     "where": "`motion-script-discipline` و`motion-video-pre-build`"
+    },
+    {
+     "name": "تيزر",
+     "gives": "هيكل التشويق",
+     "when": "إعلان قصير بموسيقى",
+     "where": "`reel-teaser-structure`"
+    }
+   ]
+  },
+  {
+   "key": "sound",
+   "label": "الصوت",
+   "question": "أي صوت ومن أين؟",
+   "entries": [
+    {
+     "name": "طبقة المؤثرات",
+     "gives": "من مكتبته الحقيقية، على الفريم",
+     "when": "بعد اكتمال الصورة والفويس",
+     "where": "`reel-sound-layer` و`real-sfx`"
+    },
+    {
+     "name": "مسار صوت كامل للفيلم",
+     "gives": "مكس وماستر",
+     "when": "فيلم بالكود",
+     "where": "`real-sound`"
+    },
+    {
+     "name": "القياس والاستماع",
+     "gives": "Claude لا يسمع، earshot يقيس",
+     "when": "قبل أي حكم على صوت",
+     "where": "`earshot`"
+    },
+    {
+     "name": "قاعدة صوت الريل المحكي",
+     "gives": "3 إلى 5 مؤثرات حقيقية، الخلفية حقيقية أو لا شيء",
+     "when": "ريل بصوته",
+     "where": "`reel-telling-kit` §3"
+    }
+   ]
+  },
+  {
+   "key": "qa",
+   "label": "الفحص والتسليم",
+   "question": "هل الريل جاهز؟",
+   "entries": [
+    {
+     "name": "توقيت المشاهد على الصوت",
+     "gives": "",
+     "when": "قبل الترتيب والتسليم",
+     "where": "`motion-timing-qa`"
+    },
+    {
+     "name": "اختبار الخمس ثوان والعربي",
+     "gives": "",
+     "when": "فيلم بالكود",
+     "where": "`reel-code-film-checks`"
+    },
+    {
+     "name": "حلقة المراجعة",
+     "gives": "نسخ مرقمة وبوابات اعتماد",
+     "when": "كل ريل",
+     "where": "`reel-review-loop` و`reel-review-tools`"
+    },
+    {
+     "name": "فحص التسليم",
+     "gives": "الكابشن، مناطق الأمان، الصوت، الترميز",
+     "when": "آخر خطوة",
+     "where": "`reel-delivery-checks` و`motion-recipes` (reel-export)"
+    }
+   ]
+  }
+ ],
+ "motion_vocabulary": [
+  {
+   "family": "الطول والامتداد",
+   "cues": "طويل، يمتد، بعيد، سنين، ممتد، يتمدد، مسافة",
+   "idea": "النص يتمدد مع الكلمة حتى يواكب معناها",
+   "options": [
+    {
+     "source": "`motion-bilarabi` arabic-move `stretch`",
+     "how": "كشيدة تتمدد في كلمة فيها موضع كشيدة. إن لم يكن فيها موضع (ورد، دار) فاختر غيرها"
+    },
+    {
+     "source": "`motion-recipes` 10 نص مطاطي",
+     "how": "تمدد أفقي مرن"
+    },
+    {
+     "source": "خط يرتسم تحت الكلمة",
+     "how": "`motion-prompt-library` 13-line-draw أو 15-marker-draw"
+    }
+   ]
+  },
+  {
+   "family": "القِصر والانكماش",
+   "cues": "قصير، صغير، يتقلص، ينكمش، قليل",
+   "idea": "الكلمة تنكمش أو تصغر",
+   "options": [
+    {
+     "source": "تصغير بنابض",
+     "how": "`motion-easing-springs`"
+    },
+    {
+     "source": "تكبير لوحة ثم ابتعاد",
+     "how": "`motion-effects-bank` Pullback"
+    }
+   ]
+  },
+  {
+   "family": "الثقل والأهمية",
+   "cues": "ثقيل، أهم، خطير، كبير، ضخم، حاسم",
+   "idea": "الكلمة تهبط بثقل وتستقر",
+   "options": [
+    {
+     "source": "`motion-bilarabi` arabic-move `heavy`",
+     "how": "الكلمة الثقيلة"
+    },
+    {
+     "source": "هبوط مع اهتزاز كاميرا خفيف",
+     "how": "`hyperframes-registry` camera-shake"
+    }
+   ]
+  },
+  {
+   "family": "السقوط والانهيار",
+   "cues": "سقط، انهار، طاح، هبوط، خسارة، تراجع",
+   "idea": "الشيء أو الرقم يسقط",
+   "options": [
+    {
+     "source": "أعمدة تنهار",
+     "how": "`motion-recipes` 05 تحوّل رسم بياني"
+    },
+    {
+     "source": "Frame Break",
+     "how": "`motion-effects-bank`"
+    },
+    {
+     "source": "انفجار طبقات",
+     "how": "`motion-prompt-library` 44-layer-explode"
+    }
+   ]
+  },
+  {
+   "family": "الصعود والنمو",
+   "cues": "ارتفع، صعد، نما، زاد، قفز، ربح",
+   "idea": "صعود أو نمو",
+   "options": [
+    {
+     "source": "عدّاد يصعد",
+     "how": "`motion-prompt-library` 40-count-up"
+    },
+    {
+     "source": "أعمدة 3D",
+     "how": "28-3d-bars"
+    },
+    {
+     "source": "رقم من نقاط",
+     "how": "`motion-recipes` milestone-reveal"
+    }
+   ]
+  },
+  {
+   "family": "الاجتماع والوحدة",
+   "cues": "اجتمع، اتحد، تجمّع، كلنا، معًا، يكمّل",
+   "idea": "أجزاء تجتمع في شكل واحد",
+   "options": [
+    {
+     "source": "`motion-bilarabi` arabic-move `join`",
+     "how": "تجميع الحروف"
+    },
+    {
+     "source": "شعار من جزيئات",
+     "how": "`motion-recipes` 16"
+    },
+    {
+     "source": "كرة جزيئات",
+     "how": "`motion-prompt-library` 41-particle-sphere"
+    }
+   ]
+  },
+  {
+   "family": "الانقسام والتفرق",
+   "cues": "انقسم، تفرّق، تشتّت، خلاف، تفكك",
+   "idea": "شيء ينشق أو يتطاير",
+   "options": [
+    {
+     "source": "انشقاق لوني",
+     "how": "`hyperframes-registry` chromatic-radial-split"
+    },
+    {
+     "source": "تطاير الشخص",
+     "how": "`motion-bilarabi` cutout `dust`"
+    },
+    {
+     "source": "تكسّر زجاج",
+     "how": "`pixelfx` transitions/shatter-wipe"
+    }
+   ]
+  },
+  {
+   "family": "الانفجار والصدمة",
+   "cues": "انفجر، صدمة، فجأة، ضربة، مفاجأة",
+   "idea": "صدمة على الكلمة",
+   "options": [
+    {
+     "source": "Vertigo أو Glitch",
+     "how": "`motion-effects-bank`"
+    },
+    {
+     "source": "POW",
+     "how": "`pixelfx` explosions/cartoon-pow (لريل خفيف فقط)"
+    },
+    {
+     "source": "قطع مجمّد على الإيقاع",
+     "how": "`hyperframes-registry` beat-freeze-cut"
+    }
+   ]
+  },
+  {
+   "family": "السرعة",
+   "cues": "سريع، فورًا، بلحظة، يركض",
+   "idea": "قطع حاد أو حركة خاطفة",
+   "options": [
+    {
+     "source": "`motion-bilarabi` arabic-move `cut`",
+     "how": "الكلمة حتى قطع حاد"
+    },
+    {
+     "source": "Zoom-through",
+     "how": "`motion-effects-bank`"
+    }
+   ]
+  },
+  {
+   "family": "البطء والانتظار",
+   "cues": "ببطء، انتظر، صبر، سنين، هدوء",
+   "idea": "دفع كاميرا بطيء وثبات",
+   "options": [
+    {
+     "source": "دفع بطيء 1%/ث",
+     "how": "`reel-telling-kit` §2"
+    },
+    {
+     "source": "Bokeh يركز ببطء",
+     "how": "`THREE-ADDONS.md` BokehPass"
+    }
+   ]
+  },
+  {
+   "family": "الكشف والسر",
+   "cues": "كشف، الحقيقة، سر، خلف، مخفي",
+   "idea": "شيء مخفي يظهر",
+   "options": [
+    {
+     "source": "نص مقنّع",
+     "how": "`motion-recipes` 09"
+    },
+    {
+     "source": "كشف صورة",
+     "how": "`motion-recipes` 12"
+    },
+    {
+     "source": "فك تشفير",
+     "how": "`motion-prompt-library` 33-scramble-decode (للإنجليزي والأرقام فقط)"
+    }
+   ]
+  },
+  {
+   "family": "المقارنة والتحول",
+   "cues": "قبل، بعد، كان، صار، بدل، الفرق",
+   "idea": "حالتان",
+   "options": [
+    {
+     "source": "قبل وبعد",
+     "how": "`motion-prompt-library` 20-before-after"
+    },
+    {
+     "source": "تحوّل أشكال",
+     "how": "21-shape-morph"
+    },
+    {
+     "source": "لقطة قبل وبعد",
+     "how": "`reel-cutpaper-vox-style`"
+    }
+   ]
+  },
+  {
+   "family": "الكثرة والانتشار",
+   "cues": "كثير، الكل، العالم، انتشر، آلاف",
+   "idea": "تكاثر أو انتشار",
+   "options": [
+    {
+     "source": "Headlines جدار عناوين",
+     "how": "`motion-effects-bank`"
+    },
+    {
+     "source": "كرة أرضية ومسارات",
+     "how": "`motion-prompt-library` 03-globe-arcs"
+    },
+    {
+     "source": "محاكاة انتشار",
+     "how": "`reel-code-film-styles` pip-simulation"
+    }
+   ]
+  },
+  {
+   "family": "الطريق والتدفق والخطوات",
+   "cues": "طريق، مسار، خطوة، ثم، يمر، سلسلة",
+   "idea": "خط يتقدم أو مسار",
+   "options": [
+    {
+     "source": "خط متدفق",
+     "how": "`motion-prompt-library` 42-flow-line"
+    },
+    {
+     "source": "مسارات متدفقة",
+     "how": "`motion-recipes` 15"
+    },
+    {
+     "source": "مسار على خريطة",
+     "how": "`reel-animation-templates` map-route"
+    }
+   ]
+  },
+  {
+   "family": "العمق والطبقات والنظام",
+   "cues": "داخل، طبقات، نظام، تحت السطح، يتكون من",
+   "idea": "تحوّل منظور يكشف الطبقات",
+   "options": [
+    {
+     "source": "تحوّل منظور",
+     "how": "`motion-recipes` 13"
+    },
+    {
+     "source": "انفجار طبقات",
+     "how": "`motion-prompt-library` 44-layer-explode"
+    }
+   ]
+  },
+  {
+   "family": "الزمن والتاريخ",
+   "cues": "قديم، تاريخ، سنة، زمان، أرشيف",
+   "idea": "ملمس أرشيفي أو خط زمني",
+   "options": [
+    {
+     "source": "حبيبات فيلم وسيبيا",
+     "how": "`THREE-ADDONS.md` FilmPass وSepiaShader"
+    },
+    {
+     "source": "ستايل أرشيف",
+     "how": "`reel-explainer-styles-archive`"
+    }
+   ]
+  },
+  {
+   "family": "التوقف والنهاية",
+   "cues": "توقف، انتهى، خلاص، آخر",
+   "idea": "تجميد أو انطفاء",
+   "options": [
+    {
+     "source": "قطع مجمّد",
+     "how": "`hyperframes-registry` beat-freeze-cut"
+    },
+    {
+     "source": "انطفاء شاشة",
+     "how": "`pixelfx` transitions/crt-off (طابع تقني)"
+    }
+   ]
+  },
+  {
+   "family": "العدّ والرقم",
+   "cues": "رقم، مليون، نسبة، %، ريال، دولار",
+   "idea": "الرقم هو البطل",
+   "options": [
+    {
+     "source": "عدّاد",
+     "how": "40-count-up"
+    },
+    {
+     "source": "دائرة نسبة",
+     "how": "23-donut-ring"
+    },
+    {
+     "source": "تكبير لوحة أرقام",
+     "how": "`motion-recipes` 06"
+    }
+   ]
+  }
+ ],
+ "rules": [
+  "الآية والحديث والنص المنقول: ثابت كامل على بطاقة، بلا حركة ولا مؤثر (`reel-telling-kit` §4).",
+  "لا تُفصل حروف العربي المتصلة أبدًا. تحريك الحرف الواحد بالعربي فقط عبر `motion-bilarabi`. أنيميشن 01 و07 و10 و33 تحرّك حروفًا مفردة فتحتاج تعديلًا للعربي.",
+  "لا حركة على كل كلمة: كلمة حركة واحدة تقريبًا كل جملتين، والباقي حركة كاميرا هادئة.",
+  "لا مؤثرات مرحة (pixelfx، POW، قصاصات) في موضوع جاد أو مأساوي أو ديني.",
+  "لا تتكرر عائلة الحركة نفسها في لحظتين متتاليتين، ولا أكثر من مرتين في الريل إلا إذا كانت لغة ستايل مقصودة.",
+  "حركة بطل واحدة في الريل تُحفظ لأقوى لحظة.",
+  "الستايل يحكم الإحساس: الورق المقصوص على اثنين (12 وضعية/ث)، وغيره بتسهيل `motion-easing-springs`."
+ ]
+}
