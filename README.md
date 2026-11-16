@@ -26,7 +26,7 @@
 | المجموعة | المهارات |
 | --- | --- |
 | أساس كل ريل | reel-style-broll-rules، reel-hook-families-free-sfx، reel-caption-bidi-guard، reel-sound-layer، reel-review-loop، reel-delivery-checks |
-| الموشن | motion-script-discipline، motion-video-pre-build، motion-effects-bank، motion-easing-springs، motion-prompt-library، motion-timing-qa، mutqin-motion-prompts، continuous-camera-motion-reel، reel-code-film-checks، shotcraft-motion-cards، hyperframes-blocks، katana-higgsfield-tips |
+| الموشن | motion-script-discipline، motion-video-pre-build، motion-effects-bank، motion-easing-springs، motion-prompt-library، motion-timing-qa، mutqin-motion-prompts، continuous-camera-motion-reel، antialgorithm، reel-code-film-checks، shotcraft-motion-cards، hyperframes-blocks، katana-higgsfield-tips |
 | ستايلات وبنى | reel-teaser-structure، reel-word-synced-board، reel-cutpaper-vox-style، reel-explainer-styles-archive، reel-style-fingerprint، overhead-screen-zoomout، reel-pause-policy، cinematic-camera-prompt-vocab |
 | الصوت والأصول | reel-sound-tools-install، voicestudio-local-voice، reel-free-assets-sources |
 | المراجعة والجهاز | reel-review-tools، reel-windows-mcp-tools |
