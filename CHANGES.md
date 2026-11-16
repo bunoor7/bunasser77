@@ -1,7 +1,7 @@
 # سجل bunasser77
 
-## 1.42.1 (16 نوفمبر 2026)
-- إعادة كتابة بطريقة الغرفة النظيفة (طلب بو ناصر): reel-telling-kit/SKILL.md وreel-code-film-styles/styles-extra.md وقسم الخطوط في video-ad-editor/references/fonts.md. كُتبت مواصفات بالأفكار والأرقام فقط، ثم كتب النص كاتب لم يرَ المصادر. القواعد والأرقام كما هي
+## 1.42.2 (16 نوفمبر 2026)
+- إرجاع نصوص 1.42.0 كما كانت (طلب بو ناصر): reel-telling-kit/SKILL.md وreel-code-film-styles/styles-extra.md وقسم الخطوط في video-ad-editor/references/fonts.md وسطر THIRD_PARTY.md، بدل نسخة الغرفة النظيفة في 1.42.1
 
 ## 1.42.0 (16 نوفمبر 2026)
 من روابط وملفات شاركها بو ناصر، بعد فحصها وتصنيفها في رف التجهيز المحلي (`C:\Edit with AI\Staging\INDEX.md`):
