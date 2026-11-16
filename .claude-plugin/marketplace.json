@@ -6,6 +6,11 @@
       "name": "bunasser77",
       "source": "./",
       "description": "بلقن بو ناصر للفيديو والريلز والعرض الحي"
+    },
+    {
+      "name": "reel-control-room",
+      "source": "./mods/reel-control-room",
+      "description": "لوحة جانبية لمراحل الريل الحالي من status.json، مع تنبيه داخلي ووضع هدوء"
     }
   ]
 }
