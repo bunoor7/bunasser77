@@ -7,9 +7,9 @@
 
 | الفكرة | وين صارت بالبلقن |
 |---|---|
-| مقياس الصوت (`visualizeAudio`) | حركة 101 `audioBars` |
-| انتقال بوجهين (presentation + timing) | حركة 102 `cubeTurn` |
-| شكل النجمة (`@remotion/shapes`) | حركة 103 `starBadge` |
+| مقياس الصوت (`visualizeAudio`) | حركة 109 `audioBars` |
+| انتقال بوجهين (presentation + timing) | حركة 110 `cubeTurn` |
+| شكل النجمة (`@remotion/shapes`) | حركة 111 `starBadge` |
 | الأشباح (`@remotion/motion-blur` Trail) | حركة 100 `motionEcho` (موجودة من قبل) |
 | تصدير شفاف، ستيل للكفر، دفعة من JSON، نوابض جاهزة | هذا الملف |
 
@@ -65,7 +65,7 @@ npx remotion render <entry> Ad out/reel1.mp4 --props=reel1.json
 | heavy | `damping 15 · stiffness 80 · mass 2` | بطيء وثقيل مع ارتداد بسيط |
 
 مثال: `E.spring({ damping: 200 })(t - o.s)` لدخول ناعم، و`E.spring({ damping: 8 })(t - o.s)` لدخول مرتد.
-`FX.starBadge` (103) يستخدم نابض مرتد: `stiffness 170 · damping 11`.
+`FX.starBadge` (111) يستخدم نابض مرتد: `stiffness 170 · damping 11`.
 
 ## 5) حساب طول الانتقالات
 
@@ -76,7 +76,7 @@ npx remotion render <entry> Ad out/reel1.mp4 --props=reel1.json
 - التوقيت نوعين: خطي (سرعة ثابتة) ونابض (طبيعي، ومدته تنحسب من لحظة الاستقرار).
 - عندنا: `FX.cubeTurn` · `FX.flip` · `FX.clockWipe` وغيرها كلها تاخذ `o.s` و`o.dur`. اطرح `dur` من الطول الكلي لو تشابكت مع مشهد.
 
-## 6) مقياس الصوت (يدعم حركة 101)
+## 6) مقياس الصوت (يدعم حركة 109)
 
 خرج `visualizeAudio` مصفوفة قيمها من 0 لـ1 بطول `numberOfSamples`، **الباص باليسار والحدّة باليمين، واليسار أكبر بكثير**.
 
@@ -87,7 +87,7 @@ npx remotion render <entry> Ad out/reel1.mp4 --props=reel1.json
 
 ## 7) الترخيص
 
-ريموشن مجانية للأفراد، والشركات بأربعة موظفين فأكثر تدفع. الحركات 101 إلى 103 **مكتوبة من جديد بالكانفس** بالمحرّك، ما فيها كود ريموشن، فهي حرّة داخل البلقن.
+ريموشن مجانية للأفراد، والشركات بأربعة موظفين فأكثر تدفع. الحركات 109 إلى 111 **مكتوبة من جديد بالكانفس** بالمحرّك، ما فيها كود ريموشن، فهي حرّة داخل البلقن.
 استخدام ريموشن نفسها (الأوامر فوق) داخل جهة رسمية؟ راجع [License FAQ](https://www.remotion.dev/docs/license/faq) أول.
 
 ## 8) مرشّحات ما راجعناها بعد (لا تدّعي عنها شي قبل ما تقرأ توثيقها)

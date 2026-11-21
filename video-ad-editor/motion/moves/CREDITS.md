@@ -92,6 +92,13 @@
 | 98 | مؤشر ينقر | [Magic UI — components (Smooth Cursor, Pointer, Ripple)](https://magicui.design/docs/components) | MIT |
 | 99 | ذوبان الضوء | [gl-transitions — luma / luminance_melt](https://github.com/gl-transitions/gl-transitions/tree/master/transitions) | MIT |
 | 100 | صدى الحركة | [CapCut — Editing trends 2026](https://www.capcut.com/help/latest-capcut-editing-trends) (velocity edits) | — (ترند) |
-| 101 | أعمدة الصوت | [Remotion — visualizeAudio()](https://www.remotion.dev/docs/visualize-audio) (شكل الخرج: باص يسار وحدّة يمين، الفكرة بس، مكتوبة من جديد بالكانفس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
-| 102 | مكعّب يلف | [Remotion — transitions presentations](https://www.remotion.dev/docs/transitions/presentations) (مفهوم presentation + timing، والمكعب من عندنا بشرائح كانفس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
-| 103 | ختم نجمة | [Remotion — Star shape](https://remotion.dev/docs/shapes/star) (نجمة بعدد رؤوس ونصفين قطر، الفكرة بس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
+| 102 | تفكيك الطبقات | طلب ماجد (10 نوفمبر 2026) — من شريحة «تفكيك 3D قطعة قطعة» بكاروسيل السكلات (`video_cover/demo-scenes.js` بمشروع المكينة) | MIT (البلقن) |
+| 103 | تحوّل النقاط | ريل «قبل هالاختبار» (17 نوفمبر 2026) — أسلوب particle morphing المعروف، والكود مكتوب من الصفر بكانفس | MIT (البلقن) |
+| 104 | تيار الخطوط | [Creative Bloq — Make interactive 3D typography effects](https://www.creativebloq.com/how-to/make-interactive-3d-typography-effects) (حروف قناع لخطوط تمشي مع حقل ضجيج — الفكرة بس؛ هني المسار يتحسب مرة ويتخزن فكل فريم ثابت) | — (مقال) |
+| 105 | قطرات تندمج | [Jamie Wong — Metaballs and Marching Squares](https://jamie-wong.com/2014/08/19/metaballs-and-marching-squares/) (الحقل يتقاس على شبكة والحافة بتقريب خطي — الطريقة بس، والكود مكتوب من الصفر) | — (مقال) |
+| 106 | مكعبات تنبني | [Shaun Lebron — Drawing isometric boxes in the correct order](https://shaunlebron.github.io/IsometricBlocks) (ترتيب رسم الصناديق عشان تغطي بعض صح — المبدأ بس؛ هني الوجه الأمامي مواجه والرسم صف صف) | — (مقال) |
+| 107 | صوتك يرسم | البلقن نفسه: `scripts/37_env.py` (قوة الصوت لكل فريم، من ريل بوبيان 6.0) — والأشكال الثلاثة مكتوبة من الصفر | MIT (البلقن) |
+| 108 | حروف ترسم الصورة | [marmelab — Convert An Image Into An ASCII Art Masterpiece](https://marmelab.com/blog/2018/02/20/convert-image-to-ascii-art-masterpiece) (إضاءة كل خانة ← حرف من سلّم ثقل — الطريقة بس؛ هني السلّم يتقاس من الخط نفسه والحروف تتبدل وتنكشف بموجة) | — (مقال) |
+| 109 | أعمدة الصوت | [Remotion — visualizeAudio()](https://www.remotion.dev/docs/visualize-audio) (شكل الخرج: باص يسار وحدّة يمين، الفكرة بس، مكتوبة من جديد بالكانفس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
+| 110 | مكعّب يلف | [Remotion — transitions presentations](https://www.remotion.dev/docs/transitions/presentations) (مفهوم presentation + timing، والمكعب من عندنا بشرائح كانفس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
+| 111 | ختم نجمة | [Remotion — Star shape](https://remotion.dev/docs/shapes/star) (نجمة بعدد رؤوس ونصفين قطر، الفكرة بس) | Remotion License (خاصة) — الفكرة بس، الكود من عندنا |
