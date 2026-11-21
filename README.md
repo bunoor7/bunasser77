@@ -16,6 +16,7 @@
 | reel-text-humanizer | يشيل علامات كتابة الذكاء الاصطناعي من الكابشن والسكربت ونص الشاشة (مكيّفة من Humanizer) |
 | podcast-video | البودكاست والمقابلات بأكثر من كاميرا |
 | montage-video | مقاطع بلا كلام على الإيقاع |
+| review-video | ريل مراجعة منتج بتعليق صوتي |
 | thumbnail-video | كفر الريل وثمبنيل يوتيوب |
 | davinci-video | تايملاين قابل للتعديل في دافنشي ريزولف ستوديو |
 | davinci-learn-from-edits | يتعلّم ذوق بو ناصر من تعديلاته في دافنشي |
@@ -29,7 +30,7 @@
 | الموشن | motion-script-discipline، motion-video-pre-build، motion-effects-bank، motion-easing-springs، motion-prompt-library، motion-timing-qa، mutqin-motion-prompts، continuous-camera-motion-reel، reel-library-index، antialgorithm، openfilm-studio، motion-recipes، pixelfx، reel-telling-kit، reel-code-film-checks، shotcraft-motion-cards، hyperframes-blocks، katana-higgsfield-tips |
 | ستايلات وبنى | reel-teaser-structure، reel-word-synced-board، reel-cutpaper-vox-style، reel-explainer-styles-archive، reel-style-fingerprint، overhead-screen-zoomout، reel-pause-policy، cinematic-camera-prompt-vocab |
 | الصوت والأصول | reel-sound-tools-install، voicestudio-local-voice، reel-free-assets-sources |
-| المراجعة والجهاز | reel-review-tools، reel-windows-mcp-tools |
+| المراجعة والجهاز | reel-review-tools، reel-windows-mcp-tools، video-tool-verdict |
 | بعد النشر | reel-performance-review، social-hook-performance-lab |
 
 ### أدوات الاستوديو المفتوحة المصدر (داخل البلقن من 1.15.0)
