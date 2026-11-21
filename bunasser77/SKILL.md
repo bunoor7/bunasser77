@@ -38,6 +38,7 @@ description: المدخل الرئيسي لبلقن بو ناصر للفيديو
 | شيل أسلوب الذكاء الاصطناعي من الكابشن أو نص الشاشة أو السكربت قبل التسليم | `bunasser77:reel-text-humanizer` |
 | بودكاست أو مقابلة بكاميرتين، أو حلقة كاملة 16:9 | `bunasser77:podcast-video` |
 | مقاطع بلا كلام على الإيقاع | `bunasser77:montage-video` |
+| ريل مراجعة منتج بتعليق صوتي وخطوط تتبع القطعة | `bunasser77:review-video` |
 | كفر ريل أو ثمبنيل يوتيوب | `bunasser77:thumbnail-video` |
 | ريل حبر أبيض من الصفر (رصد القضية، السكربت، ثم المونتاج) | `bunasser77:instagram-reels-agent` |
 | عرض تقديمي يمشي بالصوت (شاشة العرض الحي) | `bunasser77:live-stage-deck` |
