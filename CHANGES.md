@@ -1,5 +1,8 @@
 # سجل bunasser77
 
+## 1.48.2 (22 نوفمبر 2026)
+- real-sfx/config.json: انحذف `index_path` المطلق لأنه كان يشير لفهرس قديم مساراته من الموقع السابق. صار الفهرس يُبنى داخل مجلد المهارة في أول استخدام بأمر `setup.py add-library studio "C:\Edit with AI\Sound\library" --index`
+
 ## 1.48.1 (22 نوفمبر 2026)
 - real-sfx/config.json: مسار مكتبة الأصوات والفهرس صار `C:/Edit with AI/Sound/library` بدل المسار القديم `Videos/Reels/studio/sound` الذي نُقلت منه المكتبة في 16 نوفمبر. الفهرس نفسه لازم يُعاد بناؤه على الجهاز بأمر `setup.py add-library studio "C:\Edit with AI\Sound\library" --index` لأن مساراته القديمة ما زالت داخله
 
