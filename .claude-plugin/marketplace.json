@@ -1,6 +1,9 @@
 {
   "name": "bunasser77",
-  "owner": { "name": "Bu Nasser" },
+  "owner": {
+    "name": "Bu Nasser"
+  },
+  "description": "بلقنات بو ناصر للفيديو والريلز",
   "plugins": [
     {
       "name": "bunasser77",
@@ -10,7 +13,13 @@
     {
       "name": "reel-control-room",
       "source": "./mods/reel-control-room",
-      "description": "لوحة جانبية لمراحل الريل الحالي من status.json، مع تنبيه داخلي ووضع هدوء"
+      "description": "لوحة جانبية لمراحل الريل الحالي (السكربت، المونتاج، الصوت، الكفر، التسليم) من status.json، مع تنبيه داخلي ووضع هدوء. محلي بالكامل.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Bu Nasser"
+      },
+      "license": "MIT",
+      "strict": false
     }
   ]
 }
