@@ -1,8 +1,0 @@
-{
-  "name": "reel-control-room",
-  "version": "0.1.0",
-  "description": "لوحة جانبية لمراحل الريل الحالي (السكربت، المونتاج، الصوت، الكفر، التسليم) من status.json، مع تنبيه داخلي ووضع هدوء. محلي بالكامل.",
-  "author": { "name": "Bu Nasser" },
-  "license": "MIT",
-  "types": "./types/index.d.ts"
-}
