@@ -1,5 +1,8 @@
 # سجل bunasser77
 
+## 1.48.1 (22 نوفمبر 2026)
+- real-sfx/config.json: مسار مكتبة الأصوات والفهرس صار `C:/Edit with AI/Sound/library` بدل المسار القديم `Videos/Reels/studio/sound` الذي نُقلت منه المكتبة في 16 نوفمبر. الفهرس نفسه لازم يُعاد بناؤه على الجهاز بأمر `setup.py add-library studio "C:\Edit with AI\Sound\library" --index` لأن مساراته القديمة ما زالت داخله
+
 ## 1.48.0 (22 نوفمبر 2026)
 - فحص `--package` جديد في `validate_plugin.py`: يقارن الحزمة المبنية بملفات المستودع ويأكد إن كل ملف تشحنه موجود داخلها (عدا `.github/`). يلتقط الاستثناءات الواسعة — مثل `*/node_modules/*` اللي شال أصوات الواجهة الـ936 من `real-sfx` — قبل ما ينشر
 - سطر الـ`zip` في `.github/workflows/release-plugin.yml` ما عاد يستثني `node_modules`، وفحص `--package` صار خطوة في الـworkflow بعد الضغط مباشرة، فأصوات الواجهة الـ936 من `real-sfx` تدخل الحزمة

@@ -1,11 +1,11 @@
 {
   "libraries": [
-    {"name": "bunasser", "path": "C:/Users/bunoo/Videos/Reels/studio/sound", "tier": "main"}
+    {"name": "bunasser", "path": "C:/Edit with AI/Sound/library", "tier": "main"}
   ],
   "uisfx": {
     "path": "vendor/node_modules/uisfx",
     "default_pack": "studio"
   },
   "skip_dir_names": ["_mister horse previews"],
-  "index_path": "C:/Users/bunoo/Videos/Reels/studio/sound/real-sfx-index.json"
+  "index_path": "C:/Edit with AI/Sound/library/real-sfx-index.json"
 }
