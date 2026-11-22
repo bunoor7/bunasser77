@@ -6,5 +6,5 @@
     "path": "vendor/node_modules/uisfx",
     "default_pack": "studio"
   },
-  "skip_dir_names": ["_mister horse previews", "صوتي"]
+  "skip_dir_names": ["_mister horse previews", "صوتي", "Atlantic Major_Minor"]
 }
