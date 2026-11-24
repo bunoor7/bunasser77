@@ -1,0 +1,2 @@
+# render.mjs matches player.html text with LF line ends
+* text eol=lf
